@@ -6,7 +6,7 @@
 <form role="form" name="form" class="form-horizontal" >
 
   <script cam-script type="text/form-script">
-	
+
 	var dataProductoMN = $scope.dataProductoMN={
 		proveedoresMN : []
 	};
@@ -36,7 +36,16 @@
 			}
 		});
 
+		//traer variable de proceso pagoInicial(seña) del start-form
+		camForm.variableManager.fetchVariable('pagoInicial');
 
+	});
+
+	camForm.on('variables-fetched', function() {
+
+		//trabajar con la variable (atarla al objeto $scope de AngularJS)
+		$scope.pagoInicial= camForm.variableManager.variable('pagoInicial').value;
+		
 	});
 
 	//para que funcione el agregar proveedores dinamicamente
@@ -44,10 +53,16 @@
 		angular.forEach(dataProductoMN.proveedoresMN, function(prvdr) {
 			delete prvdr.$$hashKey;
 		});
-	});	
+	});
+
 
   </script>
-
+  		
+  		<div class="control-group">
+  			<label class="control-label">Seña recibida:{{pagoInicial}}</label>
+  			<h3 ng-bind="pagoInicial"></h3>
+		</div>
+		
 	  	<div class="control-group">
       		<button ng-click="agregarProveedor()"> Nuevo Proveedor</button>
       	</div>

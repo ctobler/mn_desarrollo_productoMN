@@ -1,24 +1,45 @@
-<strong>Here you would put the actual form to start the process</strong>
+<center>
+	<h1><strong>Desarrollo ProductoMN</strong></h1>
+	<h2><p>Ingresar Seña</p></h2>
+</center>
 
-<p>
-  You can use this form through Camunda Tasklist
-  by setting the formKey of a BPMN Start Event to:
-  <code>embedded:app:forms/start-form.html</code>
-</p>
-
-<form class="form-horizontal">
-  <div class="control-group">
-    <label class="control-label">Your Name</label>
-    <div class="controls">
-      <input type="text" 
-             cam-variable-name="name"
-             cam-variable-type="String"
-             required
-             class="form-control" />
-    </div>
-  </div>
+<form role="form" name="form" class="form-horizontal" >
 
   <script cam-script type="text/form-script">
-  // custom JavaScript goes here
+  
+  	var pagoInicial= $scope.pagoInicial= {};
+	
+	camForm.on('form-loaded', function(){
+	
+		camForm.variableManager.createVariable({
+			name: 'pagoInicial',
+			type: 'json',
+			value: pagoInicial
+		});
+	});
+
+	$scope.monedas=["USD","$U"]
+	  
   </script>
+  
+  <div class="control-group">
+    <div class="controls">
+     <div class="row">
+      	<div class="col-xs-2">
+          <select ng-init="prov.moneda = monedas[0]"
+    	          ng-model="prov.moneda" 
+    		      ng-options="x for x in monedas">
+	      </select>
+	    </div>
+    	<div class="col-xs-10">
+          <input id="idPagoInicial"
+   			     class="form-control"
+   			     type="number" 
+   			     required
+   			     ng-model="pagoInicial"
+    	   	     name="PAGO_INI">
+    	 </div>
+      </div>
+     </div>
+    </div>
 </form>
