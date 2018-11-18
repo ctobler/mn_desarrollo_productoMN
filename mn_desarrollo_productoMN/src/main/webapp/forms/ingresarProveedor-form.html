@@ -1,0 +1,138 @@
+<center>
+	<h1><strong>Desarrollo ProductoMN</strong></h1>
+	<h2><p>Ingresar proveedores</p></h2>
+</center>
+
+<form role="form" name="form" class="form-horizontal" >
+
+  <script cam-script type="text/form-script">
+	
+	var dataProductoMN = $scope.dataProductoMN={
+		proveedoresMN : []
+	};
+
+	// funcion scope que agrega proveedores
+	$scope.agregarProveedor= function() {
+		dataProductoMN.proveedoresMN.push({});
+	};
+	
+	$scope.monedas=["USD","$U"]
+	
+	$scope.impuestos=["IVA INC.", "SIN IVA"]
+	
+	//enganchar con el ciclo de vida del formulario camunda SDK 
+	camForm.on('form-loaded',function() {
+		
+		//declarar variable 'dataProductoMN' incluyendo metadata para serializacion
+		camForm.variableManager.createVariable({
+			name: 'dataProductoMN',
+			type: 'Object',
+			value: dataProductoMN,
+			valueInfo: {
+			  //indicar que el objeto es serializado como json
+			  serializationDataFormat: 'application/json',
+			  //proveer nombre de la clase java a mapear
+			  objectTypeName: 'org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProductoMN'
+			}
+		});
+
+
+	});
+
+	//para que funcione el agregar proveedores dinamicamente
+	camForm.on('submit', function(){
+		angular.forEach(dataProductoMN.proveedoresMN, function(prvdr) {
+			delete prvdr.$$hashKey;
+		});
+	});	
+
+  </script>
+
+	  	<div class="control-group">
+      		<button ng-click="agregarProveedor()"> Nuevo Proveedor</button>
+      	</div>
+	  
+	  <div ng-repeat="prov in dataProductoMN.proveedoresMN">
+	 	<hr>
+	 		
+	   			<div class="control-group">
+       				<label for="PROVEEDOR" class="control-label">Tipo de Proveedor *</label>
+      				<div class="controls">
+      					<input  id="idTipoProveedor"
+      		 				    class="form-control" 
+      		 		       		type="text"
+      		 		   	   		required      		 
+      		 		   	  		ng-model="prov.tipoProveedor"
+      		 		   	   		name="PROVEEDOR" 
+             		   	   		maxlength=100>
+             		   	   		
+             			<!--validar ingreso de proveedor-->
+      					<p>
+      					<span style="color:red" ng-show="form.PROVEEDOR.$dirty && form.PROVEEDOR.$invalid">
+  							<span ng-show="form.PROVEEDOR.$error.required">tipo proveedor es obligatorio</span>
+  						</span>
+      					</p>   	   		
+             		</div>
+            	  </div>
+            
+			<label  class="control-label">Precio *</label> 
+       		<div class="row">
+            	<div class="col-xs-2">
+ 					<div class="control-group">
+ 						<div class="controls">
+            				<select ng-init="prov.moneda = monedas[0]"
+            						ng-model="prov.moneda" 
+            						ng-options="x for x in monedas">
+							</select>
+						</div>
+					</div>
+				</div>
+			
+            	<div class="col-xs-8">
+        			<div class="control-group">
+<!--       					<label  for="PRECIO" class="control-label">Precio *</label> -->
+   						<div class="controls">
+   							<input 	id="idPrecio"
+   									class="form-control"
+   									type="number" 
+   									required
+   									ng-model="prov.precio"
+    	   							name="PRECIO">
+    	   				
+    	   					<!--validar ingreso de precio-->
+      						<p>
+      							<span style="color:red" ng-show="form.PRECIO.$dirty && form.PRECIO.$invalid">
+  									<span ng-show="form.PRECIO.$error.required">precio proveedor es obligatorio</span>
+  								</span>
+      						</p>
+      					</div>
+      				</div>
+      			</div>
+      			
+      			<div class="col-xs-2">
+      				<div class="control-group">
+      					<div class="controls">
+            				<select ng-init="prov.ivaProveedor = impuestos[0]"
+            						ng-model="prov.ivaProveedor" 
+            						ng-options="x for x in impuestos">
+							</select>
+						</div>
+					</div>
+      			</div>
+      		</div>
+     		
+      		      		
+				<div class="control-group">
+      				<label for="DETALLES" class="control-label">Detalles</label>
+      				<div class="controls">
+   						<input 	id="idDetalles"
+   								class="form-control"
+   								type="text" 
+   								ng-model="prov.detalles"
+    	   						name="DETALLES">
+    	   			</div>
+      			</div>
+      		
+      </div>
+   
+</form>

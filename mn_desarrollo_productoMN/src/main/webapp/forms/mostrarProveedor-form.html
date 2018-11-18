@@ -1,0 +1,47 @@
+<center>
+	<h1><strong>Desarrollo ProductoMN</strong></h1>
+	<h2><p>Mostrar proveedores</p></h2>
+</center>
+
+<form role="form" name="form" class="form-horizontal" >
+
+ <script cam-script type="text/form-script">
+
+ 	camForm.on('form-loaded', function() {
+
+		//traer la variable de java llamada 'dataProductoMN'
+		camForm.variableManager.fetchVariable('dataProductoMN');
+		
+	});
+
+	camForm.on('variables-fetched', function() {
+
+		//trabajar con la variable (atarla al objeto $scope de AngularJS)
+		$scope.dataProductoMN= camForm.variableManager.variable('dataProductoMN').value;
+		
+	});
+
+ 	//para que funcione el agregar proveedores dinamicamente
+	camForm.on('submit', function(){
+		angular.forEach(dataProductoMN.proveedoresMN, function(prvdr) {
+			delete prvdr.$$hashKey;
+		});
+	});
+
+ </script>
+ 
+<div class="control-group">
+    <div class="controls">
+      
+      <div ng-repeat="prov in dataProductoMN.proveedoresMN">
+		
+		<h1>Nombre Proveedor:{{ prov.tipoProveedor }}</h1>
+   		<h1>Precio Proveedor:{{ prov.precio }}</h1>
+   		<h1>Detalles Proveedor: {{prov.detalles}}</h1>
+      
+      </div>
+             
+    </div>
+</div>
+
+</form>
