@@ -7,39 +7,42 @@
 
   <script cam-script type="text/form-script">
   
-  	var pagoInicial= $scope.pagoInicial= {};
-	
-	camForm.on('form-loaded', function(){
-	
-		camForm.variableManager.createVariable({
-			name: 'pagoInicial',
-			type: 'json',
-			value: pagoInicial
-		});
-	});
-
 	$scope.monedas=["USD","$U"]
-	  
+
+	var pago = $scope.pago = {};
+
+    camForm.on('form-loaded', function() {
+
+    // declaro una variable 'json' nombrada 'pago' 
+    camForm.variableManager.createVariable({
+        name: 'pago',
+        type: 'json',
+        value: pago
+      });
+    });
+
   </script>
   
-  <div class="control-group">
-    <div class="controls">
      <div class="row">
       	<div class="col-xs-2">
-          <select ng-init="prov.moneda = monedas[0]"
-    	          ng-model="prov.moneda" 
-    		      ng-options="x for x in monedas">
-	      </select>
-	    </div>
-    	<div class="col-xs-10">
-          <input id="idPagoInicial"
-   			     class="form-control"
-   			     type="number" 
-   			     required
-   			     ng-model="pagoInicial"
-    	   	     name="PAGO_INI">
-    	 </div>
-      </div>
-     </div>
-    </div>
+ 			<div class="control-group">
+ 				<div class="controls">
+            		<select ng-init="pago.moneda = monedas[0]"
+            				ng-model="pago.moneda" 
+            				ng-options="x for x in monedas">
+					</select>
+				</div>
+			</div>
+		</div>
+		
+	    <div class="col-xs-10">
+	    	<div class="control-group">
+	    		<div class="controls">
+          			<input id="senia" class="form-control" type="number" ng-model="pago.senia" required />
+    			</div>
+    		</div>
+    	</div>
+    	 
+	  </div>
+
 </form>
