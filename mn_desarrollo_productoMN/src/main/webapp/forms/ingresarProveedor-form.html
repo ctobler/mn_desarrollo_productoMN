@@ -16,6 +16,11 @@
 		dataProductoMN.proveedoresMN.push({});
 	};
 	
+	//funcion para quitar proveedores
+	$scope.quitarProveedor = function (x) {
+        dataProductoMN.proveedoresMN.splice(x, 1);
+    } 
+
 	$scope.monedas=["USD","$U"]
 	
 	$scope.impuestos=["IVA INC.", "SIN IVA"]
@@ -58,13 +63,24 @@
 
   </script>
   		
-  		<div class="control-group">
-  			<label class="control-label">Seña recibida: {{pago.moneda +' '+ pago.senia}}</label>
-		</div>
+  	  <div class="control-group">
+  		<label class="control-label">Seña recibida: {{pago.moneda +' '+ pago.senia}}</label>
+	  </div>
 		
-	  	<div class="control-group">
-      		<button ng-click="agregarProveedor()"> Nuevo Proveedor</button>
-      	</div>
+	  <label for="categoria" class="control-label">Categoria *</label>
+      <select 
+      	    cam-variable-name="presupuesto"
+            cam-variable-type="String"
+            cam-choices="PRESUPUESTOS_APROBADOS"
+            required
+            class="form-control">
+	  </select>
+	  
+	  <br>
+		
+	  <div class="control-group">
+      	<button ng-click="agregarProveedor()"> Nuevo Proveedor</button>
+      </div>
 	  
 	  <div ng-repeat="prov in dataProductoMN.proveedoresMN">
 	 	<hr>
@@ -96,7 +112,8 @@
  						<div class="controls">
             				<select ng-init="prov.moneda = monedas[0]"
             						ng-model="prov.moneda" 
-            						ng-options="x for x in monedas">
+            						ng-options="x for x in monedas"
+            						required>
 							</select>
 						</div>
 					</div>
@@ -128,7 +145,8 @@
       					<div class="controls">
             				<select ng-init="prov.ivaProveedor = impuestos[0]"
             						ng-model="prov.ivaProveedor" 
-            						ng-options="x for x in impuestos">
+            						ng-options="x for x in impuestos"
+            						required>
 							</select>
 						</div>
 					</div>
@@ -146,7 +164,7 @@
     	   						name="DETALLES">
     	   			</div>
       			</div>
-      		
+      	<span ng-click="quitarProveedor($index)" style="color:black;font-weight:bold" style="float:right;">&times;quitar proveedor</span>	
       </div>
    
 </form>

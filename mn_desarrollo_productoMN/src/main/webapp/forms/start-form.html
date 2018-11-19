@@ -29,7 +29,8 @@
  				<div class="controls">
             		<select ng-init="pago.moneda = monedas[0]"
             				ng-model="pago.moneda" 
-            				ng-options="x for x in monedas">
+            				ng-options="x for x in monedas"
+            				required>
 					</select>
 				</div>
 			</div>
@@ -38,7 +39,19 @@
 	    <div class="col-xs-10">
 	    	<div class="control-group">
 	    		<div class="controls">
-          			<input id="senia" class="form-control" type="number" ng-model="pago.senia" required />
+          			<input id="senia" 
+          				   class="form-control"
+          				   type="number"
+          				   ng-model="pago.senia"
+          				   required
+          				   name="SENIA" />
+          			
+          			<p>
+      					<span style="color:red" ng-show="form.SENIA.$dirty && form.SENIA.$invalid">
+  							<span ng-show="form.SENIA.$error.required">ingreso de seña es obligatorio</span>
+  						</span>
+      				</p>
+          			
     			</div>
     		</div>
     	</div>
