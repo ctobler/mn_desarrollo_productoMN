@@ -21,7 +21,13 @@
 	$scope.quitarProveedor = function (x) {
         dataProductoMN.proveedoresMN.splice(x, 1);
     } 
-
+	
+	//funcion para quitar mensaje de error en cantidad
+	$scope.limpiarMensaje= function(){
+		if(dataProductoMN.cantidad > 0)
+			$scope.errorCantidadVaciaONula= false;
+	};
+	
 	$scope.monedas=["USD","$U"]
 	
 	$scope.impuestos=["IVA INC.", "SIN IVA"]
@@ -66,6 +72,8 @@
 	camForm.on('submit', function(evt) {
       // manejar submit
       // evitar envio de formulario si hay errores:
+	  
+	  //verificar que exista al menos un proveedor
 	  if(dataProductoMN.proveedoresMN.length == 0)
 	  {
       	evt.submitPrevented = true;
@@ -75,6 +83,18 @@
 	  {
 		evt.submitPrevented = false;
 		$scope.errorProveedoresVacio= false;
+	  }
+
+	  //verificar que la cantidad de productos sea mayor a cero
+	  if(dataProductoMN.cantidad < 1)
+	  {
+	  	evt.submitPrevented = true;	
+		$scope.errorCantidadVaciaONula= true;
+	  }
+	  else 
+	  {
+		evt.submitPrevented = false;
+		$scope.errorCantidadVaciaONula= false;
 	  }
     });
 
@@ -93,6 +113,71 @@
             class="form-control">
 	  </select>
 	  
+	  <label for="TRABAJO_REALIZADO" class="control-label">Trabajo Realizado *</label>
+	  <div class="control-group">
+      	<div class="controls">
+   	  		<input 	id="idTrabajoRealizado"
+   					class="form-control"
+   					type="text"
+   					required 
+   					ng-model="dataProductoMN.trabajoRealizado"
+    				name="TRABAJO_REALIZADO">
+    		<!--validar ingreso de trabajo realizado-->
+      		<p>
+      			<span style="color:red" ng-show="form.TRABAJO_REALIZADO.$dirty && form.TRABAJO_REALIZADO.$invalid">
+  					<span ng-show="form.TRABAJO_REALIZADO.$error.required">trabajo realizado es obligatorio</span>
+  				</span>
+      		</p>   	
+    	</div>
+      </div>
+	  
+	  <div class="row">
+	  	
+	  	<div class="col-xs-2">
+ 			<div class="control-group">
+ 				<div class="controls">
+ 					<label for="CANTIDAD" class="control-label">Unidades *</label>
+ 					<input 	id="idCantidad"
+   							class="form-control"
+   							type="number" 
+   							required
+   							ng-model="dataProductoMN.cantidad"
+    	   					name="CANTIDAD"
+    	   					ng-click="limpiarMensaje()">
+    	   				
+    	   			<!--validar ingreso de cantidad-->
+      				<p>
+      					<span style="color:red" ng-show="form.CANTIDAD.$dirty && form.CANTIDAD.$invalid">
+  							<span ng-show="form.CANTIDAD.$error.required">cantidad es obligatoria</span>
+  						</span>
+      				</p>
+ 				</div>
+ 			</div>
+ 		</div>
+ 		
+      	<div class="col-xs-10">
+ 			<div class="control-group">
+ 				<div class="controls">
+	  				<label for="NOMBRE_PRODUCTO" class="control-label">Nombre del Producto *</label>
+	  				<input 	id="idNombre"
+   							class="form-control"
+   							type="text" 
+   							required
+   							ng-model="dataProductoMN.nombre"
+    						name="NOMBRE_PRODUCTO">
+    				
+    				<!--validar ingreso de nombre de producto-->
+      				<p>
+      					<span style="color:red" ng-show="form.NOMBRE_PRODUCTO.$dirty && form.NOMBRE_PRODUCTO.$invalid">
+  							<span ng-show="form.NOMBRE_PRODUCTO.$error.required">nombre de producto es obligatorio</span>
+  						</span>
+      				</p>	
+    			</div>
+      		</div>
+       	</div>
+       	
+      </div>
+            
 	  <br>
 		
 	  <div class="control-group">
@@ -181,12 +266,22 @@
     	   						name="DETALLES">
     	   			</div>
       			</div>
-      	<span ng-click="quitarProveedor($index)" style="color:black;font-weight:bold" style="float:right;">&times;quitar proveedor</span>	
+<!--       	<span ng-click="quitarProveedor($index)" style="color:black;font-weight:bold" style="float:right;">&times;quitar proveedor</span>	 -->
+      	
+      	<br>
+      	
+      	<div class="control-group" style="float:left;">
+      		<button ng-click="quitarProveedor($index)">&times; Quitar Proveedor</button>
+      	</div>
+      
       </div>
       
       <div ng-if="errorProveedoresVacio">
 		<p style="color:red;font-weight:bold">debe ingresar al menos un proveedor</p>
 	  </div>
       
-   
+      <div ng-if="errorCantidadVaciaONula">
+		<p style="color:red;font-weight:bold">las unidades deben ser mayor a 0</p>
+	  </div>
+         
 </form>
