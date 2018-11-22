@@ -101,12 +101,11 @@
   </script>
   		
   	  <div class="control-group">
-  		<label class="control-label">Seña recibida: {{pago.moneda +' '+ pago.senia}}</label>
+  		<label class="control-label">Seña recibida: {{presupuestosAprobados.moneda + presupuestosAprobados}}</label>
 	  </div>
 		
 	  <label for="categoria" class="control-label">Cotización *</label>
-      <select 
-      	    cam-variable-name="presupuesto"
+      <select cam-variable-name="cotizacion"
             cam-variable-type="String"
             cam-choices="PRESUPUESTOS_APROBADOS"
             required

@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.Cliente;
+import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ClientePresupuesto;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.Presupuesto;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProductoMN;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProductoMNProveedorMN;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProveedorMN;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.persistencia.DAOCliente;
+import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.persistencia.DAOClientePresupuesto;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.persistencia.DAOPresupuesto;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.persistencia.DAOProductoMN;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.persistencia.DAOProductoMNProveedorMN;
@@ -132,4 +134,25 @@ public class Fachada implements IFachada {
     	return presupuestosAprobados;
     }
     
+    @Override
+    public Presupuesto selectPresupuesto(String cotizacion)
+    {
+    	Presupuesto presupuesto= new Presupuesto();
+    	DAOPresupuesto daoPresupuesto = new DAOPresupuesto();
+    	
+    	presupuesto= daoPresupuesto.selectPresupuesto(cotizacion);
+    	
+    	return presupuesto;
+    }
+    
+    @Override
+    public ClientePresupuesto selectClientePresupuesto(int idPresupuesto)
+    {
+    	ClientePresupuesto clientePresupuesto= new ClientePresupuesto();
+    	DAOClientePresupuesto daoClientePresupuesto= new DAOClientePresupuesto();
+    	
+    	clientePresupuesto= daoClientePresupuesto.selectClientePresupuesto(idPresupuesto);
+    	
+    	return clientePresupuesto;
+    }
 }

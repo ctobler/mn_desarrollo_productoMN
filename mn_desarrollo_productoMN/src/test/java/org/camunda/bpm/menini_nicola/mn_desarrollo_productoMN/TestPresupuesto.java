@@ -44,5 +44,23 @@ public class TestPresupuesto {
 		//mostrar tamanio del hashMap por pantalla
 		System.out.println();
 		System.out.println("tamaño del hashMap: "+ presupuestosAprobadosMap.size());
+		
+		//prueba para traer un objeto presupuesto dado una cotizacion
+		Presupuesto presupuesto= new Presupuesto();
+		String cotizacion= "180918-01";
+		
+		presupuesto= daoPresupuesto.selectPresupuesto(cotizacion);
+		
+		System.lineSeparator();
+		System.out.println();
+		System.out.println("Traer los datos del presupuesto correspondiente a la cotizacion: "+presupuesto.getCotizacion());
+		System.out.println("idPresupuesto: "+presupuesto.getIdPresupuesto());
+		System.out.println("cotizacion: "+presupuesto.getCotizacion());
+		System.out.println("fecha: "+presupuesto.getFecha());
+		System.out.println("moneda: "+presupuesto.getMoneda());
+		System.out.println("costo: "+presupuesto.getCosto());
+		System.out.println("condiciones venta: "+presupuesto.getCondicionesVenta());
+		System.out.println("descripcion: "+presupuesto.getDescripcion());
+		
 	}
 }

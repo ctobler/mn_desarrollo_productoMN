@@ -6,6 +6,7 @@ import java.util.List;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.logica.Fachada;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.logica.IFachada;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.Cliente;
+import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ClientePresupuesto;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.Presupuesto;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProveedorMN;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.persistencia.DAOCliente;
@@ -135,7 +136,37 @@ public class TestFachada {
 			System.out.println("condiciones venta: "+presupuestoAprobado.getCondicionesVenta());
 			System.out.println("descripcion: "+presupuestoAprobado.getDescripcion());
 		}
-	
+		
+		//PRUEBO selectPresupuesto
+		Presupuesto presupuesto = new Presupuesto();
+		String cotizacion= "180918-01";
+		
+		presupuesto= fachada.selectPresupuesto(cotizacion);
+		
+		System.lineSeparator();
+		System.out.println();
+		System.out.println("Traer los datos del presupuesto correspondiente a la cotizacion: "+presupuesto.getCotizacion());
+		System.out.println("idPresupuesto: "+presupuesto.getIdPresupuesto());
+		System.out.println("cotizacion: "+presupuesto.getCotizacion());
+		System.out.println("fecha: "+presupuesto.getFecha());
+		System.out.println("moneda: "+presupuesto.getMoneda());
+		System.out.println("costo: "+presupuesto.getCosto());
+		System.out.println("condiciones venta: "+presupuesto.getCondicionesVenta());
+		System.out.println("descripcion: "+presupuesto.getDescripcion());
+		
+		//PRUEBO: selectClientePresupuesto
+		ClientePresupuesto clientePresupuesto= new ClientePresupuesto();
+		idPresupuesto= 1;
+		
+		clientePresupuesto= fachada.selectClientePresupuesto(idPresupuesto);		
+		
+		System.out.println();
+		System.out.println("Traer los datos del ClientePresupuesto con idPresupuesto: "+idPresupuesto);
+		System.out.println("idClientePresupuesto: "+ clientePresupuesto.getIdClientePresupuesto());
+		System.out.println("estado: "+ clientePresupuesto.getEstado());
+		System.out.println("idCliente: "+ clientePresupuesto.getIdCliente());
+		System.out.println("idPresupuesto: "+ clientePresupuesto.getIdPresupuesto());
+		
 	}	
 		
 }

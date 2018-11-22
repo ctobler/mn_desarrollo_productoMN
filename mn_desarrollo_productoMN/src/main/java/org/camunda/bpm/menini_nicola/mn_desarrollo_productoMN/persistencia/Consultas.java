@@ -42,6 +42,13 @@ public class Consultas {
 		return select;
 	}
 	
+	public String selectPresupuesto()
+	{
+		String select="\n" + 
+				"select * from mn_presupuesto where cotizacion=?";
+		return select;
+	}
+	
 	//obtiene los datos de los presupestos que fueron aprobados
 	//que se corresponden solamente con los productos del tipo "ProductoMN"
 //	public String selectPresupuestosAprobados()
@@ -62,8 +69,7 @@ public class Consultas {
 //				"ORDER BY presupuesto.fecha DESC;";					
 //		return select;
 //	}
-
-		
+	
 	//CONSULTAS TABLA: mn_cliente
 	
 	//obtiene los datos de un cliente que aprobo un presupuesto determinado 
@@ -79,4 +85,10 @@ public class Consultas {
 		return select;
 	}
 	
+	//CONSULTAS TABLA: mn_cliente_presupuesto
+	public String selectClientePresupuesto()
+	{
+		String select="select * from mn_cliente_presupuesto where idPresupuesto=?;";
+		return select;
+	}
 }

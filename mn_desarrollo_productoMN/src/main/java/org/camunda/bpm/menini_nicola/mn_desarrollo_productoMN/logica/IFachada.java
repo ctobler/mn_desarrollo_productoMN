@@ -3,6 +3,7 @@ package org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.logica;
 import java.util.List;
 
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.Cliente;
+import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ClientePresupuesto;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.Presupuesto;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.valueObject.VOPresupuesto;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.valueObject.VOProductoMN;
@@ -20,5 +21,9 @@ public interface IFachada {
 	public Cliente selectClientePresupuestoAprobado(VOPresupuesto voPresupuesto);
 	
 	public List<Presupuesto> selectPresupuestosAprobados();
+
+	Presupuesto selectPresupuesto(String cotizacion);
+
+	ClientePresupuesto selectClientePresupuesto(int idPresupuesto);
 
 }
