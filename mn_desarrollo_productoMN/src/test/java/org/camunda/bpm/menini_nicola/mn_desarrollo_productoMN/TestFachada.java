@@ -60,13 +60,25 @@ public class TestFachada {
 		proveedoresMN.add(proveedorMN);
 		proveedoresMN.add(proveedorMN2);
 		 
-		VOProductoMN voProductoMN= new VOProductoMN(null,"fabricacion",2,"silla BE","USD",(double)500,"IVA INC.",proveedoresMN,null);//,null);
-		System.out.println("Insertar lista de proveedores en BD");
+		//VOProductoMN voProductoMN= new VOProductoMN(null,"fabricacion",2,"silla BE","USD",(double)500,"IVA INC.",proveedoresMN,null);//,null);
+		VOProductoMN voProductoMN= new VOProductoMN(null,"tapizado",3,"silla tapizada","USD",(double)300,"IVA INC.",proveedoresMN,1);
+		//System.out.println("Insertar ProductoMN en BD");
 		
 		//presistir objeto en BD (insertar ProductoMN que tiene una lista de ProveedorMN)
 		rowCountProductoMN= fachada.insertarProductoMN(voProductoMN);
 		if(rowCountProductoMN > 0)
+		{
 			System.out.println("Se inserto productoMN en BD. Canitdad de registros afectados: "+rowCountProductoMN);
+			System.out.println(voProductoMN.getIdProductoMN());
+			System.out.println(voProductoMN.getTrabajoRealizado());
+			System.out.println(voProductoMN.getCantidad());
+			System.out.println(voProductoMN.getNombre());
+			System.out.println(voProductoMN.getMoneda());
+			System.out.println(voProductoMN.getTotal());
+			System.out.println(voProductoMN.getIvaProducto());
+			System.out.println(voProductoMN.getIdClientePresupuesto());
+			
+		}
 		else 
 			System.out.println("Cantidad de registros afectados: "+rowCountProductoMN+". NO se inserto productoMN en BD");
 	

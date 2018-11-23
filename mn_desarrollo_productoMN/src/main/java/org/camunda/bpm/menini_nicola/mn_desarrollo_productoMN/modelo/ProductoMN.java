@@ -109,9 +109,10 @@ public class ProductoMN {
 	}
 	
 	public String toString() {
-	    return "ProductoMN [idProductoMN=" + idProductoMN + ", trabajoRealizado=" + trabajoRealizado + ", cantidad=" + cantidad + ", nombre=" + nombre + 
+	    String texto= "ProductoMN [idProductoMN=" + idProductoMN + ", trabajoRealizado=" + trabajoRealizado + ", cantidad=" + cantidad + ", nombre=" + nombre + 
 	    					 ", moneda=" + moneda + ", total=" + total + ", ivaProducto=" + ivaProducto + ", proveedoresMN=" + proveedoresMN +
 	    					 ", idClientePresupuesto=" + idClientePresupuesto +"]";
+	    return texto;
 	}
 	
 	/*public Integer getIdProductoMNProveedorMN() {

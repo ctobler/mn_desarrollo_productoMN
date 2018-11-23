@@ -24,12 +24,12 @@ public class CargarPresupuestosDelegate implements JavaDelegate{
 		presupuestosAprobados= fachada.selectPresupuestosAprobados();
 		
 		//convertir lista de presupuestos a HashMap 
-	    //(el formulario de SDK trabaja con HashMap)
+	    //(el formulario de SDK trabaja con HashMap) <K,V> equiv. con <idPresupuesto,Presupuesto>
 		Map<Integer, String> presupuestosAprobadosMap= new HashMap<Integer, String>();
 		Integer i=0;
 		while(i < presupuestosAprobados.size())
 		{
-			presupuestosAprobadosMap.put(i, presupuestosAprobados.get(i).getCotizacion());
+			presupuestosAprobadosMap.put(presupuestosAprobados.get(i).getIdPresupuesto(), presupuestosAprobados.get(i).getCotizacion());
 			i++;
 		}
 		
