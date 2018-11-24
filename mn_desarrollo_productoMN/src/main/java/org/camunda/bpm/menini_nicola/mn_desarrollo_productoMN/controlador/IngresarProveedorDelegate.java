@@ -1,12 +1,18 @@
 package org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.controlador;
 
+import java.util.List;
+
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.logica.Fachada;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.logica.IFachada;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ClientePresupuesto;
+import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.Presupuesto;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProductoMN;
+import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProductoMNProveedorMN;
+import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProveedorMN;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.valueObject.VOProductoMN;
+import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.valueObject.VOProductoMNProveedorMN;
 
 public class IngresarProveedorDelegate implements JavaDelegate {
 
@@ -34,15 +40,31 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 		//y usarlo para traer desde la BD un objeto ClientePresupuesto
 		//y de este objeto tomar el idClientePresupuesto y setearlo en el voProductoMN
 		String idPresupuesto= (String) execution.getVariable("cotizacion");
-		ClientePresupuesto clientePresupuesto= fachada.selectClientePresupuesto(Integer.parseInt(idPresupuesto));
-		
+		ClientePresupuesto clientePresupuesto= fachada.selectClientePresupuesto(Integer.parseInt(idPresupuesto));	
 		voProductoMN.setIdClientePresupuesto(clientePresupuesto.getIdClientePresupuesto());
 		
-		//int cantidadRegistrosInsertados=fachada.insertarProductoMN(voProductoMN);	
+		//insertar producto. Esto trae el idProductoMN auto-generado en BD en el voProductoMN.idProductoMN
+		int rowCount= fachada.insertarProductoMN(voProductoMN);
+		//si es insertado el ProductoMN entonces por cada proveedorMN hay que insertar
+		//un registro en la tabla relacion ProductoMNProveedorMN
+		if(rowCount>0)
+		{
+			//insertar pares (idProductoMN,idProveedor) en tabla ProductoMN_ProveedorMN
+			//segun la cantidad de proveedoresMN
+			List<ProveedorMN> proveedoresMN= voProductoMN.getProveedoresMN();
+			for(ProveedorMN p: proveedoresMN)
+			{
+				VOProductoMNProveedorMN voProductoMNproveedorMN= new VOProductoMNProveedorMN();
+				
+				voProductoMNproveedorMN.setIdProductoMN(voProductoMN.getIdProductoMN());
+				voProductoMNproveedorMN.setIdProveedorMN(p.getIdProveedorMN());
+				
+				fachada.insertarProductoMNProveedorMN(voProductoMNproveedorMN);
+			}
+		}
 		
-		int rowCountProductoMN=0;
-		//presistir objeto en BD (insertar ProductoMN que tiene una lista de ProveedorMN)
-		rowCountProductoMN= fachada.insertarProductoMN(voProductoMN);
+		
+		
 	}
 
 }

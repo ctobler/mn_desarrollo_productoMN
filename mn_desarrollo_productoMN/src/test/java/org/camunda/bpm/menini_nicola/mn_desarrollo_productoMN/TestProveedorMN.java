@@ -20,7 +20,10 @@ public class TestProveedorMN {
 		//persistir objeto en BD
 		rowCount= daoProveedorMN.insertarProveedorMN(proveedorMN);
 		if(rowCount > 0)
+		{
 			System.out.println("Se inserto proveedor en BD. Canitdad de registros afectados: "+rowCount);
+			System.out.println("El idProveedorMN auto-generado en la BD es: "+proveedorMN.getIdProveedorMN());
+		}
 		else 
 			System.out.println("Cantidad de registros afectados: "+rowCount+". NO se inserto proveedor en BD");
 

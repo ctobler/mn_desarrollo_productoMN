@@ -46,6 +46,7 @@ public class TestFachada {
 		
 		//PRUEBO insertarProductoMN
 		System.lineSeparator();
+		System.out.println();
 		System.out.println("--insertarProductoMN--");
 		System.out.println();
 		
@@ -69,6 +70,7 @@ public class TestFachada {
 		if(rowCountProductoMN > 0)
 		{
 			System.out.println("Se inserto productoMN en BD. Canitdad de registros afectados: "+rowCountProductoMN);
+			System.out.println("El idProductoMN auto-generado en la BD es: "+voProductoMN.getIdProductoMN());
 			System.out.println(voProductoMN.getIdProductoMN());
 			System.out.println(voProductoMN.getTrabajoRealizado());
 			System.out.println(voProductoMN.getCantidad());
@@ -77,6 +79,11 @@ public class TestFachada {
 			System.out.println(voProductoMN.getTotal());
 			System.out.println(voProductoMN.getIvaProducto());
 			System.out.println(voProductoMN.getIdClientePresupuesto());
+			System.out.println("Mostrar idProveedor de los proveedores del productoMN:");
+			for(ProveedorMN p: voProductoMN.getProveedoresMN())
+			{
+				System.out.println("El idProveedorMN auto-generado en la BD es: "+p.getIdProveedorMN());
+			}
 			
 		}
 		else 
@@ -85,6 +92,7 @@ public class TestFachada {
 		
 		//PRUEBO insertarProductoMNProveedorMN
 		System.lineSeparator();
+		System.out.println();
 		System.out.println("--insertarProductoMNProveedorMN--");
 		System.out.println();
 		
@@ -107,6 +115,7 @@ public class TestFachada {
 		
 		//PRUEBO selectClientePresupuestoAprobado
 		System.lineSeparator();
+		System.out.println();
 		System.out.println("--selectClientePresupuestoAprobado--");
 		System.out.println();
 		

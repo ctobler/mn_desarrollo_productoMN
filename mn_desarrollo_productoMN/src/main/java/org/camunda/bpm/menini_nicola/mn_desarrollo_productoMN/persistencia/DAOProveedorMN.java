@@ -2,7 +2,9 @@ package org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.persistencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProveedorMN;
 import org.jfree.util.Log;
@@ -20,7 +22,7 @@ public class DAOProveedorMN {
 		PreparedStatement pstmt= null;
 		int rowCount=0;
 		try {
-			pstmt= con.prepareStatement(insert);
+			pstmt= con.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 			
 			if(proveedorMN.getTipoProveedor()==null)
 				pstmt.setNull(1, java.sql.Types.CHAR);
@@ -54,6 +56,22 @@ public class DAOProveedorMN {
 				pstmt.setInt(6, proveedorMN.getIdProductoMNProveedorMN());
 			*/
 			rowCount= pstmt.executeUpdate();
+			
+			if(rowCount==0)
+			{
+				throw new SQLException("Falla al crear ProveedorMN. No se inserto ningun proveedorMN.");
+			}
+			
+			//obtener IdProveedorMN auto-generado al hacer el INSERT en la BD
+			try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+	            if (generatedKeys.next()) {
+	                proveedorMN.setIdProveedorMN(generatedKeys.getInt(1));
+	            }
+	            else {
+	                throw new SQLException("Falla al crear productoMN, no se obtiene ID.");
+	            }
+	        }
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			Log.error(e);

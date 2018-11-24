@@ -36,10 +36,8 @@ public class Fachada implements IFachada {
         } 
         return fachada;
     }
-    
-    /* (non-Javadoc)
-	 * @see org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.logica.IFachada#insertarProveedorMN(org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.valueObject.VOProveedorMN)
-	 */
+   
+    //retorna 1 cuando inserta un proveedorMN y setea el idProveedorMN con el valor auto-generado en la BD
     @Override
 	public int insertarProveedorMN(VOProveedorMN voProveedorMN)
     {
@@ -59,12 +57,13 @@ public class Fachada implements IFachada {
     	//persistir a BD
     	rowCount=daoProveedorMN.insertarProveedorMN(proveedorMN);
     	
+    	//obtener valor auto-generado por el insert del idProvedoorMN
+     	voProveedorMN.setIdProveedorMN(proveedorMN.getIdProveedorMN());
+    	    	    	
     	return rowCount;
     }
     
-    /* (non-Javadoc)
-	 * @see org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.logica.IFachada#insertarProductoMN(org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.valueObject.VOProductoMN)
-	 */
+    //retorna 1 cuando inserta un productoMN en BD y setea el idProductoMN con el valor auto-generado en la BD 
     @Override
 	public int insertarProductoMN(VOProductoMN voProductoMN)
     {
@@ -80,12 +79,19 @@ public class Fachada implements IFachada {
      	productoMN.setMoneda(voProductoMN.getMoneda());
      	productoMN.setTotal(voProductoMN.getTotal());
      	productoMN.setIvaProducto(voProductoMN.getIvaProducto());
+     	
      	productoMN.setProveedoresMN(voProductoMN.getProveedoresMN());
+     	
      	productoMN.setIdClientePresupuesto(voProductoMN.getIdClientePresupuesto());
      	//productoMN.setIdProductoMNProveedorMN(voProductoMN.getIdProductoMNProveedorMN());
     	
      	//persistir a BD
      	rowCount= daoProductoMN.insertarProductoMN(productoMN);
+     	
+     	//obtener valor auto-generado por el insert del idProductoMN
+     	voProductoMN.setIdProductoMN(productoMN.getIdProductoMN());
+     	//obtener lista de ProveedorMN con los idProveedor auto-generado por el insert
+     	voProductoMN.setProveedoresMN(productoMN.getProveedoresMN());
     	
      	return rowCount;
     }
