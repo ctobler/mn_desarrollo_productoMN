@@ -25,8 +25,7 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 		
 		//transformar objeto leido de pantalla a VO y persistirlo en BD
 		IFachada fachada= Fachada.getInstanciaSingleton();
-		VOProductoMN voProductoMN= new VOProductoMN();
-		//VOProductoMN voProductoMN= new VOProductoMN(null,"tapizado",3,"silla tapizada","USD",(double)300,"IVA INC.",null,0);
+		VOProductoMN voProductoMN= new VOProductoMN(null,"tapizado",3,"silla tapizada","USD",(double)300,"IVA INC.",null,0);
 				
 		//setear valores traidos del formulario
 		voProductoMN.setIdProductoMN(null);//este valor es auto-generado en la BD
@@ -34,8 +33,8 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 		voProductoMN.setCantidad(dataProductoMN.getCantidad());
 		voProductoMN.setNombre(dataProductoMN.getNombre());
 		//asumimos que la moneda del productoMN siempre es dolares
-		voProductoMN.setMoneda("USD");
-		voProductoMN.setTotal(dataProductoMN.getTotal());
+		//voProductoMN.setMoneda("USD");
+		//voProductoMN.setTotal(dataProductoMN.getTotal());
 		voProductoMN.setProveedoresMN(dataProductoMN.getProveedoresMN());
 		
 		//obtener el idPresupuesto que es el indice de lo seleccionado en el select
