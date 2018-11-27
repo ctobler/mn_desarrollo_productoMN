@@ -25,15 +25,17 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 		
 		//transformar objeto leido de pantalla a VO y persistirlo en BD
 		IFachada fachada= Fachada.getInstanciaSingleton();
-		VOProductoMN voProductoMN= new VOProductoMN(null,"tapizado",3,"silla tapizada","USD",(double)300,"IVA INC.",null,0);
+		VOProductoMN voProductoMN= new VOProductoMN();
+		//VOProductoMN voProductoMN= new VOProductoMN(null,"tapizado",3,"silla tapizada","USD",(double)300,"IVA INC.",null,0);
 				
 		//setear valores traidos del formulario
 		voProductoMN.setIdProductoMN(null);//este valor es auto-generado en la BD
 		voProductoMN.setTrabajoRealizado(dataProductoMN.getTrabajoRealizado());
 		voProductoMN.setCantidad(dataProductoMN.getCantidad());
 		voProductoMN.setNombre(dataProductoMN.getNombre());
-		//voProductoMN.setMoneda(dataProductoMN.getMoneda());
-				
+		//asumimos que la moneda del productoMN siempre es dolares
+		voProductoMN.setMoneda("USD");
+		voProductoMN.setTotal(dataProductoMN.getTotal());
 		voProductoMN.setProveedoresMN(dataProductoMN.getProveedoresMN());
 		
 		//obtener el idPresupuesto que es el indice de lo seleccionado en el select
@@ -44,6 +46,7 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 		voProductoMN.setIdClientePresupuesto(clientePresupuesto.getIdClientePresupuesto());
 		
 		//insertar producto. Esto trae el idProductoMN auto-generado en BD en el voProductoMN.idProductoMN
+		//y tambien trae los idProveedor auto-generado en la BD en la lista de proveedoresMN
 		int rowCount= fachada.insertarProductoMN(voProductoMN);
 		//si es insertado el ProductoMN entonces por cada proveedorMN hay que insertar
 		//un registro en la tabla relacion ProductoMNProveedorMN

@@ -11,6 +11,8 @@
 		proveedoresMN : []
 	};
 
+	var subtotal = $scope.subtotal = {};
+	
 	// funcion scope que agrega proveedores
 	$scope.agregarProveedor= function() {
 		dataProductoMN.proveedoresMN.push({});
@@ -21,7 +23,79 @@
 	$scope.quitarProveedor = function (x) {
         dataProductoMN.proveedoresMN.splice(x, 1);
     } 
-	
+
+	//funcion para calcular sub-total en USD 
+	$scope.getSubTotalDolares = function() {
+		var subTotal= 0;
+		for(var i=0; i < $scope.dataProductoMN.proveedoresMN.length; i++)
+		{
+			var prov= $scope.dataProductoMN.proveedoresMN[i];
+			var moneda= $scope.dataProductoMN.proveedoresMN[i].moneda;
+			if(moneda == "USD")
+			{	
+				if ( isNaN(prov.precio) )
+					prov.precio= 0;
+				else	
+					subTotal += prov.precio;
+			}
+			
+		}
+		return subTotal;
+	}
+
+	//funcion para calcular sub-total en Pesos 
+	$scope.getSubTotalPesos = function() {
+		var subTotal= 0;
+		for(var i=0; i < $scope.dataProductoMN.proveedoresMN.length; i++)
+		{
+			var prov= $scope.dataProductoMN.proveedoresMN[i];
+			var moneda= $scope.dataProductoMN.proveedoresMN[i].moneda;
+			if(moneda == "$U")
+			{	
+				if ( isNaN(prov.precio) )
+					prov.precio=0;
+				else
+					subTotal += prov.precio;
+			}
+			
+		}
+		return subTotal;
+	}
+
+	//bandera para indicar si hay existe algun precio de proveedor en pesos
+	$scope.existePesos = function() {
+		var existePesos= false;
+		for(var i=0; i < $scope.dataProductoMN.proveedoresMN.length; i++)
+		{
+			var prov= $scope.dataProductoMN.proveedoresMN[i];
+			var moneda= $scope.dataProductoMN.proveedoresMN[i].moneda;
+			if(moneda == "$U")
+			{	
+				existePesos = true;
+			}
+			
+		}
+		return existePesos;
+	}
+
+	$scope.convertirUSD= function(subTotal,tasaCambio){
+		var dolares=0;
+		if( isNaN(tasaCambio) )
+		{
+			dolares=0;
+		}
+		else if(tasaCambio <= 0)
+		{
+			dolares=0;
+		}
+		else if(subTotal > 0)
+		{
+			dolares= (subTotal / tasaCambio);
+		}
+		return dolares;
+	}	
+
+
 	//funcion para quitar mensaje de error en cantidad
 	$scope.limpiarMensaje= function(){
 		if(dataProductoMN.cantidad > 0)
@@ -103,7 +177,7 @@
   	  <div class="control-group">
   		<label class="control-label">Seña recibida: {{pago.moneda +" "+ pago.senia}}</label>
 	  </div>
-		
+	  
 	  <label for="categoria" class="control-label">Cotización *</label>
       <select cam-variable-name="cotizacion"
             cam-variable-type="String"
@@ -183,6 +257,8 @@
       	<button ng-click="agregarProveedor()"> Nuevo Proveedor</button>
       </div>
 	  
+	  <!-- agregar proveedor -->
+	  
 	  <div ng-repeat="prov in dataProductoMN.proveedoresMN">
 	 	<hr>
 	 		
@@ -254,7 +330,6 @@
       			</div>
       		</div>
      		
-      		      		
 				<div class="control-group">
       				<label for="DETALLES" class="control-label">Detalles</label>
       				<div class="controls">
@@ -272,7 +347,7 @@
       	</div>
       
       </div>
-      
+            
       <div ng-if="errorProveedoresVacio">
 		<p style="color:red;font-weight:bold">debe ingresar al menos un proveedor</p>
 	  </div>
@@ -280,6 +355,71 @@
       <div ng-if="errorCantidadVaciaONula">
 		<p style="color:red;font-weight:bold">las unidades deben ser mayor a 0</p>
 	  </div>
+	  
+	  <hr>
+	  
+	  <div class="row">
+	  	  
+	  	<div class="col-xs-6">
+      		<div class="control-group">
+      			<div class="controls">
+	  				<label class="control-label">Sub-total(USD): {{getSubTotalDolares()}}</label>
+	  			</div>
+	  		</div>
+	  	</div>
+	  
+	  	<div class="col-xs-6">
+      		<div class="control-group">
+      			<div class="controls">
+	  				<label class="control-label">Sub-total($U): {{getSubTotalPesos()}}</label>
+	  			</div>
+	  		</div>
+	  	</div>
       
-         
+      </div>
+      
+      <hr>
+          	
+      		<div class="control-group" ng-show="existePesos()">
+      			<div class="controls">
+      				<label class="control-label">Taza de cambio *: </label>
+      				<input 	id="idTazaCambio"
+   									class="form-control"
+   									type="number" 
+   									required
+   									ng-model="tazaCambio"
+    	   							name="TAZA_CAMBIO"
+    	   							ng-init= "0">
+    	   				
+    	   					<!--validar ingreso de precio-->
+      						<p>
+      							<span style="color:red" ng-show="form.TAZA_CAMBIO.$dirty && form.TAZA_CAMBIO.$invalid">
+  									<span ng-show="form.TAZA_CAMBIO.$error.required">la taza de cambio es obligatorio</span>
+  								</span>
+  								
+      						</p>
+      			</div>
+      		</div>
+      
+            <hr>
+     	
+      		<div class="control-group">
+      			<div class="controls">
+	      			<label class="control-label">TOTAL (USD)</label>
+      			</div>
+       			
+<!--        			<input ng-value= "getSubTotalDolares() + (getSubTotalPesos() / tazaCambio )"  -->
+<!--        				   readonly>  -->
+      			
+      			<input ng-value= "getSubTotalDolares() + convertirUSD(getSubTotalPesos(),tazaCambio)" 
+       				   readonly> 
+      			
+      			
+      			<select ng-init="dataProductoMN.ivaProducto = impuestos[1]"
+            						ng-model="dataProductoMN.ivaProducto" 
+            						ng-options="x for x in impuestos"
+            						required>
+				</select>
+      		</div>
+       
 </form>
