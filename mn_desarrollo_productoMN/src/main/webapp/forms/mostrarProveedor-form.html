@@ -1,6 +1,6 @@
 <center>
 	<h1><strong>Desarrollo ProductoMN</strong></h1>
-	<h2><p>Mostrar proveedores</p></h2>
+	<h2><p>Resumen</p></h2>
 </center>
 
 <form role="form" name="form" class="form-horizontal" >
@@ -32,15 +32,35 @@
  
 <div class="control-group">
     <div class="controls">
-      
+    	<label for="ORDEN_COMPRA" class="control-label">Orden de Compra:</label>    	
+   		<input type="text" 
+    	   	   cam-variable-name="ORDEN_COMPRA"
+    	   	   class="form-control"
+     	   	   readonly>
+    	
+    	<label for="NOMBRE_CLIENTE" class="control-label">Nombre del Cliente:</label>    	
+   		<input type="text" 
+    	   	   cam-variable-name="NOMBRE_CLIENTE"
+    	   	   class="form-control"
+     	   	   readonly>
+    	
+    	<h1>Producto: {{dataProductoMN.nombre}}</h1>    	
+      	<h1>Total: {{dataProductoMN.ivaProducto}}</h1>
+      	
+      	<label for="TOTAL" class="control-label">Total:</label>    	
+   		<input type="text" 
+    	   	   cam-variable-name="TOTAL"
+    	   	   class="form-control"
+     	   	   readonly>
+      	
       <div ng-repeat="prov in dataProductoMN.proveedoresMN">
 		
 		<h1>Nombre Proveedor:{{ prov.tipoProveedor }}</h1>
    		<h1>Precio Proveedor:{{ prov.precio }}</h1>
    		<h1>Detalles Proveedor: {{prov.detalles}}</h1>
-      
+      	
       </div>
-             
+      <h4>(presione completar para enviar a producción)</h4>     
     </div>
 </div>
 

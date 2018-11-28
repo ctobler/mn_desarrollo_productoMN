@@ -134,6 +134,24 @@ public class TestFachada {
 		System.out.println("celular: "+ cliente.getCelular());
 		
 		
+		//PRUEBO selectCliente
+		System.lineSeparator();
+		System.out.println();
+		System.out.println("--selectCliente--");
+		System.out.println();
+						
+		int idCliente=1;
+		Cliente cliente2= new Cliente();
+		cliente2= fachada.selectCliente(idCliente);
+		System.out.println("");
+		System.out.println("Obtener cliente segun id: "+idCliente);
+		System.out.println("idCliente: "+ cliente2.getIdCliente());
+		System.out.println("nombre: "+ cliente2.getNombre());
+		System.out.println("email: "+ cliente2.getEmail());
+		System.out.println("telefono: "+ cliente2.getTelefono());
+		System.out.println("celular: "+ cliente2.getCelular());
+
+		
 		//PRUEBO selectPresupuestosAprobados()
 		System.lineSeparator();
 		System.out.println("--selectPresupuestosAprobados--");
@@ -174,6 +192,27 @@ public class TestFachada {
 		System.out.println("costo: "+presupuesto.getCosto());
 		System.out.println("condiciones venta: "+presupuesto.getCondicionesVenta());
 		System.out.println("descripcion: "+presupuesto.getDescripcion());
+		
+		//PRUEBO selectPresupuestoPorId
+		System.lineSeparator();
+		System.out.println("--selectPresupuestoPorId--");
+		System.out.println();
+		Presupuesto presupuesto2= new Presupuesto();
+		
+		Integer i=1;
+		presupuesto2= fachada.selectPresupuestoPorId(i);
+		
+		System.lineSeparator();
+		System.out.println();
+		System.out.println("Traer los datos del presupuesto correspondiente al idPresupuesto: "+i);
+		System.out.println("idPresupuesto: "+presupuesto2.getIdPresupuesto());
+		System.out.println("cotizacion: "+presupuesto2.getCotizacion());
+		System.out.println("fecha: "+presupuesto2.getFecha());
+		System.out.println("moneda: "+presupuesto2.getMoneda());
+		System.out.println("costo: "+presupuesto2.getCosto());
+		System.out.println("condiciones venta: "+presupuesto2.getCondicionesVenta());
+		System.out.println("descripcion: "+presupuesto2.getDescripcion());
+
 		
 		//PRUEBO: selectClientePresupuesto
 		ClientePresupuesto clientePresupuesto= new ClientePresupuesto();

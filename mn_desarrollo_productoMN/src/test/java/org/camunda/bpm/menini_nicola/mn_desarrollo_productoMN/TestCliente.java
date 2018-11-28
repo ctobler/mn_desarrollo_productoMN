@@ -19,5 +19,19 @@ public class TestCliente {
 		System.out.println("email: "+ cliente.getEmail());
 		System.out.println("telefono: "+ cliente.getTelefono());
 		System.out.println("celular: "+ cliente.getCelular());
+		
+		
+		int idCliente=1;
+		Cliente cliente2= new Cliente();
+		cliente2= daoCliente.selectCliente(idCliente);
+		System.out.println("");
+		System.out.println("");
+		System.out.println("Obtener cliente segun id: "+idCliente);
+		System.out.println("idCliente: "+ cliente2.getIdCliente());
+		System.out.println("nombre: "+ cliente2.getNombre());
+		System.out.println("email: "+ cliente2.getEmail());
+		System.out.println("telefono: "+ cliente2.getTelefono());
+		System.out.println("celular: "+ cliente2.getCelular());
+
 	}
 }

@@ -108,5 +108,51 @@ public class DAOPresupuesto {
 		
 		return presupuesto;
 	}
+	
+	public Presupuesto selectPresupuestoPorId(Integer idPresupuesto)
+	{
+		Presupuesto presupuesto= new Presupuesto();
+		AccesoBD accesoBD= new AccesoBD();
+		Connection con= accesoBD.conectarBD();
+		Consultas consultas= new Consultas();
+		String select= consultas.selectPresupuestoPorId();
+		PreparedStatement pstmt= null;
+		ResultSet rs= null;
+		
+		try {
+			
+			pstmt= con.prepareStatement(select);
+			pstmt.setInt(1, idPresupuesto);
+			rs= pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+				presupuesto.setIdPresupuesto(rs.getInt("idPresupuesto"));
+				presupuesto.setCotizacion(rs.getString("cotizacion"));
+				presupuesto.setFecha(rs.getDate("fecha"));
+				presupuesto.setMoneda(rs.getString("moneda"));
+				presupuesto.setCosto(rs.getDouble("costo"));
+				presupuesto.setCondicionesVenta(rs.getString("condicionesVenta"));
+				presupuesto.setDescripcion(rs.getString("descripcion"));
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				rs.close();
+				pstmt.close();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				Log.error(e);
+				e.printStackTrace();
+			}
+		}
+		return presupuesto;
+	}
 
 }

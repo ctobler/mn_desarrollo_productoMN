@@ -26,4 +26,8 @@ public interface IFachada {
 
 	ClientePresupuesto selectClientePresupuesto(int idPresupuesto);
 
+	Presupuesto selectPresupuestoPorId(Integer idPresupuesto);
+
+	Cliente selectCliente(Integer idCliente);
+
 }

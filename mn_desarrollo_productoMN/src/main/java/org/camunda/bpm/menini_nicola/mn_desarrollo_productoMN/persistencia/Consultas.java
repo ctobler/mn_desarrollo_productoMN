@@ -49,6 +49,21 @@ public class Consultas {
 		return select;
 	}
 	
+	public String selectPresupuestoPorId()
+	{
+		String select="SELECT \n" + 
+				"presupuesto.idPresupuesto,\n" + 
+				"presupuesto.cotizacion,\n" + 
+				"presupuesto.fecha,\n" + 
+				"presupuesto.moneda,\n" + 
+				"presupuesto.costo,\n" + 
+				"presupuesto.condicionesVenta,\n" + 
+				"presupuesto.descripcion\n" + 
+				"FROM mn_presupuesto presupuesto\n" + 
+				"WHERE presupuesto.idPresupuesto=?";				
+		return select;
+	}
+	
 	//obtiene los datos de los presupestos que fueron aprobados
 	//que se corresponden solamente con los productos del tipo "ProductoMN"
 //	public String selectPresupuestosAprobados()
@@ -82,6 +97,18 @@ public class Consultas {
 				"inner join mn_presupuesto presupuesto on \n" + 
 				"				presupuesto.idPresupuesto= cliePres.idPresupuesto\n" + 
 				"where cliePres.estado = 1 and presupuesto.idPresupuesto= ?;";
+		return select;
+	}
+	
+	public String selectCliente()
+	{
+		String select="SELECT cliente.idCliente,\n" + 
+				"cliente.nombre,\n" + 
+				"cliente.email,\n" + 
+				"cliente.telefono,\n" + 
+				"cliente.celular\n" + 
+				" FROM mn_cliente cliente\n" + 
+				" WHERE cliente.idCliente=?;";
 		return select;
 	}
 	

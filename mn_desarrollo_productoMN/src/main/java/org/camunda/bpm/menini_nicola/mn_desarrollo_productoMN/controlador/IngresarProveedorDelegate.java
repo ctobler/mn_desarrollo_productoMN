@@ -6,11 +6,13 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.logica.Fachada;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.logica.IFachada;
+import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.Cliente;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ClientePresupuesto;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.Presupuesto;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProductoMN;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProductoMNProveedorMN;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProveedorMN;
+import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.valueObject.VOPresupuesto;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.valueObject.VOProductoMN;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.valueObject.VOProductoMNProveedorMN;
 
@@ -64,9 +66,20 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 				fachada.insertarProductoMNProveedorMN(voProductoMNproveedorMN);
 			}
 		}
+		//traer datos presupuesto
+		Presupuesto presupuesto= new Presupuesto();
+		presupuesto= fachada.selectPresupuestoPorId(Integer.parseInt(idPresupuesto));
 		
-		
-		
+		//mostrar nombre del presupuesto obtenido en pantalla
+	    execution.setVariable("ORDEN_COMPRA",presupuesto.getCotizacion());
+	    
+	    //traer datos del cliente
+	    Cliente cliente= new Cliente();
+	    cliente= fachada.selectCliente(clientePresupuesto.getIdCliente());
+	    
+	    //mostrar nombre del cliente obtenido en pantalla
+	    execution.setVariable("NOMBRE_CLIENTE", cliente.getNombre());
+	    
 	}
 
 }

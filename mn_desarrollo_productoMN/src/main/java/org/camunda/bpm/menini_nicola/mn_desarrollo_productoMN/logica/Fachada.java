@@ -130,6 +130,17 @@ public class Fachada implements IFachada {
     }
     
     @Override
+    public Cliente selectCliente(Integer idCliente)
+    {
+    	Cliente cliente= new Cliente();
+    	DAOCliente daoCliente= new DAOCliente();
+    	
+    	cliente= daoCliente.selectCliente(idCliente);
+    	
+    	return cliente;
+    }
+    
+    @Override
     public List<Presupuesto> selectPresupuestosAprobados()
     {
     	List<Presupuesto> presupuestosAprobados= new ArrayList<Presupuesto>();
@@ -149,6 +160,18 @@ public class Fachada implements IFachada {
     	presupuesto= daoPresupuesto.selectPresupuesto(cotizacion);
     	
     	return presupuesto;
+    }
+    
+    @Override
+    public Presupuesto selectPresupuestoPorId(Integer idPresupuesto)
+    {
+    	Presupuesto presupuesto= new Presupuesto();
+    	DAOPresupuesto daoPresupuesto = new DAOPresupuesto();
+    	
+    	presupuesto= daoPresupuesto.selectPresupuestoPorId(idPresupuesto);
+    	
+    	return presupuesto;
+
     }
     
     @Override
