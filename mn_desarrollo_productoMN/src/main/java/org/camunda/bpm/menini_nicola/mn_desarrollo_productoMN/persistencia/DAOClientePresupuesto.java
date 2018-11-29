@@ -60,4 +60,42 @@ public class DAOClientePresupuesto {
 		return clientePresupuesto;
 	}
 	
+	
+	public Integer updateEstadoPresupuesto(Integer idPresupuesto, Integer estado)
+	{
+		AccesoBD accesoBD= new AccesoBD();
+		Connection con= accesoBD.conectarBD();
+		Consultas consultas= new Consultas();
+		String select= consultas.updateEstadoPresupuesto();
+		PreparedStatement pstmt= null;
+		ResultSet rs= null;
+		int registrosAfectados=0;
+		
+		try {
+		
+			pstmt= con.prepareStatement(select);
+			pstmt.setInt(1, estado);
+			pstmt.setInt(2, idPresupuesto);
+			registrosAfectados=pstmt.executeUpdate();	
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				rs.close();
+				pstmt.close();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				Log.error(e);
+				e.printStackTrace();
+			}
+		}
+		
+		return registrosAfectados;
+	}
+
+	
 }

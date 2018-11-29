@@ -118,4 +118,12 @@ public class Consultas {
 		String select="select * from mn_cliente_presupuesto where idPresupuesto=?;";
 		return select;
 	}
+	
+	public String updateEstadoPresupuesto()
+	{
+		String select="update mn_cliente_presupuesto\n" + 
+				"set estado=?\n" + 
+				"where idPresupuesto=?";
+		return select;
+	}
 }

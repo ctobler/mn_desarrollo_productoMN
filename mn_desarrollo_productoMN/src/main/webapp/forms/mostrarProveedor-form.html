@@ -21,46 +21,49 @@
 		
 	});
 
- 	//para que funcione el agregar proveedores dinamicamente
-	camForm.on('submit', function(){
-		angular.forEach(dataProductoMN.proveedoresMN, function(prvdr) {
-			delete prvdr.$$hashKey;
-		});
+	//traer variable 'pago' ingresada en el start-form	
+	camForm.on('form-loaded', function() {
+  	// tell the form SDK to fetch the json variable named 'pago'
+  		camForm.variableManager.fetchVariable('pago');
+	});
+
+	camForm.on('variables-fetched', function() {
+  	// trabajar con valor de variable 'pago' (atar su valor a AngularJS $scope)
+  		$scope.pago = camForm.variableManager.variableValue('pago');
 	});
 
  </script>
  
 <div class="control-group">
     <div class="controls">
-    	<label for="ORDEN_COMPRA" class="control-label">Orden de Compra:</label>    	
+    	<label for="ORDEN_COMPRA" class="control-label"><b>Orden de Compra:</b></label>    	
    		<input type="text" 
     	   	   cam-variable-name="ORDEN_COMPRA"
     	   	   class="form-control"
      	   	   readonly>
     	
-    	<label for="NOMBRE_CLIENTE" class="control-label">Nombre del Cliente:</label>    	
+    	<label for="NOMBRE_CLIENTE" class="control-label"><b>Nombre del Cliente:</b></label>    	
    		<input type="text" 
     	   	   cam-variable-name="NOMBRE_CLIENTE"
     	   	   class="form-control"
      	   	   readonly>
-    	
-    	<h1>Producto: {{dataProductoMN.nombre}}</h1>    	
-      	<h1>Total: {{dataProductoMN.ivaProducto}}</h1>
-      	
-      	<label for="TOTAL" class="control-label">Total:</label>    	
-   		<input type="text" 
-    	   	   cam-variable-name="TOTAL"
-    	   	   class="form-control"
-     	   	   readonly>
-      	
-      <div ng-repeat="prov in dataProductoMN.proveedoresMN">
-		
-		<h1>Nombre Proveedor:{{ prov.tipoProveedor }}</h1>
-   		<h1>Precio Proveedor:{{ prov.precio }}</h1>
-   		<h1>Detalles Proveedor: {{prov.detalles}}</h1>
-      	
-      </div>
-      <h4>(presione completar para enviar a producción)</h4>     
+    	<p><b>Producto:</b></p>
+    	<p>{{dataProductoMN.cantidad+" "+dataProductoMN.nombre+" ("+ dataProductoMN.trabajoRealizado+ ")"}}</p>    	
+		<p><b>Total:</b></p>
+		<p>{{dataProductoMN.moneda+" "+999+" "+dataProductoMN.ivaProveedor}}</p>
+      	<p><b>Seña recibida: </b></p>
+  		<p>{{pago.moneda +" "+ pago.senia}}</p>
+	  	      	
+		<p align="center"><b>Proveedores</b></p>
+		<br>
+      	<div ng-repeat="prov in dataProductoMN.proveedoresMN">
+			<br>
+			<p><b>Nombre Proveedor: </b>{{prov.tipoProveedor}}</p>
+   			<p><b>Precio Proveedor: </b>{{prov.moneda+" "+prov.precio+" "+prov.ivaProveedor}}</p>
+   			<p><b>Detalles Proveedor: </b>{{prov.detalles}}</p>
+      		<hr>
+      	</div>
+      <p align="right"><b>(enviar a producción)</b></p>     
     </div>
 </div>
 

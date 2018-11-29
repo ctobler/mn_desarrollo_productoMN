@@ -30,4 +30,6 @@ public interface IFachada {
 
 	Cliente selectCliente(Integer idCliente);
 
+	Integer updateEstadoPresupuesto(Integer idPresupuesto, Integer estado);
+
 }

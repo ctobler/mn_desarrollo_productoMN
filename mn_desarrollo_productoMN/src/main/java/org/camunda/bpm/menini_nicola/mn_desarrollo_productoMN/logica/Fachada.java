@@ -184,4 +184,16 @@ public class Fachada implements IFachada {
     	
     	return clientePresupuesto;
     }
+    
+    @Override
+    public Integer updateEstadoPresupuesto(Integer idPresupuesto, Integer estado)
+    {
+    	int registrosAfectados= 0;
+    	DAOClientePresupuesto daoClientePresupuesto= new DAOClientePresupuesto();
+    	
+    	registrosAfectados= daoClientePresupuesto.updateEstadoPresupuesto(idPresupuesto, estado);
+    	
+    	return registrosAfectados;
+    	
+    }
 }
