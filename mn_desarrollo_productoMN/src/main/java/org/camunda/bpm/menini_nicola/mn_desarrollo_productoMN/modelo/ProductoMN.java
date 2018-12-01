@@ -1,6 +1,8 @@
 package org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo;
 
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ProductoMN {
@@ -13,6 +15,9 @@ public class ProductoMN {
 	protected Double total;
 	protected String ivaProducto;
 	protected List<ProveedorMN> proveedoresMN= new ArrayList<ProveedorMN>();
+	protected Double senia;
+	protected Date fechaProduccion; 
+	protected Date fechaEntrega;	
 	protected Integer idClientePresupuesto;
 	//private Integer idProductoMNProveedorMN;
 	
@@ -21,7 +26,8 @@ public class ProductoMN {
 	}
 	
 	public ProductoMN(Integer idProductoMN, String trabajoRealizado, Integer cantidad, String nombre, String moneda,
-			Double total, String ivaProducto, List<ProveedorMN> proveedoresMN, Integer idClientePresupuesto) {//,
+			Double total, String ivaProducto, List<ProveedorMN> proveedoresMN, Double senia, Date fechaProduccion,
+			Date fechaEntrega, Integer idClientePresupuesto) {//,
 			//Integer idProductoMNProveedorMN) {
 		super();
 		this.idProductoMN = idProductoMN;
@@ -32,6 +38,9 @@ public class ProductoMN {
 		this.total = total;
 		this.ivaProducto = ivaProducto;
 		this.proveedoresMN = proveedoresMN;
+		this.senia= senia;
+		this.fechaProduccion= fechaProduccion;
+		this.fechaEntrega= fechaEntrega;
 		this.idClientePresupuesto = idClientePresupuesto;
 		//this.idProductoMNProveedorMN = idProductoMNProveedorMN;
 	}
@@ -100,6 +109,30 @@ public class ProductoMN {
 		this.proveedoresMN = proveedoresMN;
 	}
 
+	public Double getSenia() {
+		return senia;
+	}
+
+	public void setSenia(Double senia) {
+		this.senia = senia;
+	}
+
+	public Date getFechaProduccion() {
+		return fechaProduccion;
+	}
+
+	public void setFechaProduccion(Date fechaProduccion) {
+		this.fechaProduccion = fechaProduccion;
+	}
+
+	public Date getFechaEntrega() {
+		return fechaEntrega;
+	}
+
+	public void setFechaEntrega(Date fechaEntrega) {
+		this.fechaEntrega = fechaEntrega;
+	}
+	
 	public Integer getIdClientePresupuesto() {
 		return idClientePresupuesto;
 	}

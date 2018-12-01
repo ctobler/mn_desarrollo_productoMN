@@ -1,6 +1,7 @@
 package org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.persistencia;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -100,10 +101,25 @@ public class DAOProductoMN {
 			else
 				pstmt.setString(6, productoMN.getIvaProducto());
 			
-			if(productoMN.getIdClientePresupuesto()==null)
-				pstmt.setNull(7,java.sql.Types.INTEGER);
+			if(productoMN.getSenia()==null)
+				pstmt.setNull(7, java.sql.Types.DOUBLE);
 			else
-				pstmt.setInt(7, productoMN.getIdClientePresupuesto());
+				pstmt.setDouble(7, productoMN.getSenia());
+			
+			if(productoMN.getFechaProduccion()==null)
+				pstmt.setNull(8, java.sql.Types.DATE);
+			else
+				pstmt.setDate(8, (Date) productoMN.getFechaProduccion());
+			
+			if(productoMN.getFechaEntrega()==null)
+				pstmt.setNull(9, java.sql.Types.DATE);
+			else
+				pstmt.setDate(9, (Date) productoMN.getFechaEntrega());
+			
+			if(productoMN.getIdClientePresupuesto()==null)
+				pstmt.setNull(10,java.sql.Types.INTEGER);
+			else
+				pstmt.setInt(10, productoMN.getIdClientePresupuesto());
 			
 //			if(productoMN.getIdProductoMNProveedorMN()==null)
 //				pstmt.setNull(8,java.sql.Types.INTEGER);

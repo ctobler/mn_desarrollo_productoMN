@@ -24,10 +24,11 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 		//extraer valores desde 'ingresarProveedor-from.html' y mapear a objeto Java 
 		ProductoMN dataProductoMN = new ProductoMN();
 		dataProductoMN= (ProductoMN)execution.getVariable("dataProductoMN");
-		
+						
 		//transformar objeto leido de pantalla a VO y persistirlo en BD
 		IFachada fachada= Fachada.getInstanciaSingleton();
-		VOProductoMN voProductoMN= new VOProductoMN(null,"tapizado",3,"silla tapizada","USD",(double)300,"IVA INC.",null,0);
+		VOProductoMN voProductoMN= new VOProductoMN(null,"tapizado",3,"silla tapizada","USD",(double)300,"IVA INC.",null,
+				(double)500,null,null,null);
 				
 		//setear valores traidos del formulario
 		voProductoMN.setIdProductoMN(null);//este valor es auto-generado en la BD

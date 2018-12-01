@@ -70,7 +70,15 @@ public class Fachada implements IFachada {
     	int rowCount=0;
     	ProductoMN productoMN= new ProductoMN();
     	DAOProductoMN daoProductoMN= new DAOProductoMN();
-     	
+    	
+    	java.util.Date fechaProduccionJava = new java.util.Date();
+    	fechaProduccionJava= voProductoMN.getFechaProduccion();
+		java.sql.Date fechaProduccion = new java.sql.Date(fechaProduccionJava.getTime());
+		
+		java.util.Date fechaEntregaJava = new java.util.Date();
+		fechaEntregaJava= voProductoMN.getFechaEntrega();
+		java.sql.Date fechaEntrega = new java.sql.Date(fechaEntregaJava.getTime());
+		
      	//desenvolver objeto value object
      	productoMN.setIdProductoMN(voProductoMN.getIdProductoMN());
      	productoMN.setTrabajoRealizado(voProductoMN.getTrabajoRealizado());
@@ -79,9 +87,10 @@ public class Fachada implements IFachada {
      	productoMN.setMoneda(voProductoMN.getMoneda());
      	productoMN.setTotal(voProductoMN.getTotal());
      	productoMN.setIvaProducto(voProductoMN.getIvaProducto());
-     	
+     	productoMN.setSenia(voProductoMN.getSenia());
+     	productoMN.setFechaProduccion(fechaProduccion);
+     	productoMN.setFechaEntrega(fechaEntrega);
      	productoMN.setProveedoresMN(voProductoMN.getProveedoresMN());
-     	
      	productoMN.setIdClientePresupuesto(voProductoMN.getIdClientePresupuesto());
      	//productoMN.setIdProductoMNProveedorMN(voProductoMN.getIdProductoMNProveedorMN());
     	

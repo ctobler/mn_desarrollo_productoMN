@@ -1,5 +1,6 @@
 package org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.valueObject;
 
+import java.util.Date;
 import java.util.List;
 
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProveedorMN;
@@ -14,6 +15,9 @@ public class VOProductoMN {
 	private Double total;
 	private String ivaProducto;
 	private List<ProveedorMN> proveedoresMN;
+	protected Double senia;
+	protected Date fechaProduccion; 
+	protected Date fechaEntrega;	
 	private Integer idClientePresupuesto;
 	//private Integer idProductoMNProveedorMN;
 	
@@ -22,7 +26,7 @@ public class VOProductoMN {
 	}
 	
 	public VOProductoMN(Integer idProductoMN, String trabajoRealizado, Integer cantidad, String nombre, String moneda,
-			Double total, String ivaProducto, List<ProveedorMN> proveedoresMN, Integer idClientePresupuesto) {//,
+			Double total, String ivaProducto, List<ProveedorMN> proveedoresMN,Double senia, Date fechaProduccion, Date fechaEntrega, Integer idClientePresupuesto) {//,
 			//Integer idProductoMNProveedorMN) {
 		super();
 		this.idProductoMN = idProductoMN;
@@ -33,6 +37,9 @@ public class VOProductoMN {
 		this.total = total;
 		this.ivaProducto = ivaProducto;
 		this.proveedoresMN = proveedoresMN;
+		this.senia= senia;
+		this.fechaProduccion= fechaProduccion;
+		this.fechaEntrega= fechaEntrega;
 		this.idClientePresupuesto = idClientePresupuesto;
 		//this.idProductoMNProveedorMN = idProductoMNProveedorMN;
 	}
@@ -107,6 +114,30 @@ public class VOProductoMN {
 
 	public void setIdClientePresupuesto(Integer idClientePresupuesto) {
 		this.idClientePresupuesto = idClientePresupuesto;
+	}
+
+	public Double getSenia() {
+		return senia;
+	}
+
+	public void setSenia(Double senia) {
+		this.senia = senia;
+	}
+
+	public Date getFechaProduccion() {
+		return fechaProduccion;
+	}
+
+	public void setFechaProduccion(Date fechaProduccion) {
+		this.fechaProduccion = fechaProduccion;
+	}
+
+	public Date getFechaEntrega() {
+		return fechaEntrega;
+	}
+
+	public void setFechaEntrega(Date fechaEntrega) {
+		this.fechaEntrega = fechaEntrega;
 	}
 
 	/*public Integer getIdProductoMNProveedorMN() {

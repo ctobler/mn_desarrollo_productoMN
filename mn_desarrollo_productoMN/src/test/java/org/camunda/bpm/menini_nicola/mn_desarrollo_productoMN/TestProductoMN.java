@@ -2,7 +2,6 @@ package org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProductoMN;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProveedorMN;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.persistencia.DAOProductoMN;
@@ -15,28 +14,19 @@ public class TestProductoMN {
 		int rowCountProveedoresMN=0;
 		int rowCountProductoMN=0;
 		
+		java.util.Date utilDate = new java.util.Date();
+		java.sql.Date fechaProduccion = new java.sql.Date(utilDate.getTime());
+		java.sql.Date fechaEntrega = new java.sql.Date(utilDate.getTime());
+				
 		//crear una lista de ProveedorMN 
 		List<ProveedorMN> proveedoresMN= new ArrayList<ProveedorMN>(); 
 		ProveedorMN proveedorMN= new ProveedorMN(null,"Tapiceria","USD",(double)120,"IVA INC.","(Miguel)");//,null);
 		ProveedorMN proveedorMN2= new ProveedorMN(null,"Carpinteria","USD",(double)14,"S/IVA","(Valsani)");//,null);
 		proveedoresMN.add(proveedorMN);
 		proveedoresMN.add(proveedorMN2);
-		ProductoMN productoMN= new ProductoMN(null,"fabricacion",2,"silla BE","USD",(double)500,"IVA INC.",proveedoresMN,null);//,null);
-		
-		//pruebo insertar solamente una lista de proveedoresMN
-//		System.out.println("--Pruebo Insertar lista de proveedores en BD--");
-//		rowCountProveedoresMN= daoProductoMN.insertarProveedoresProductoMN(proveedoresMN);
-//		if(rowCountProveedoresMN > 0)
-//		{
-//			System.out.println("Se inserto lista de proveedoresMN en BD. Canitdad de registros afectados: "+rowCountProveedoresMN);
-//			for(ProveedorMN p: proveedoresMN)
-//			{
-//				System.out.println("El idProveedorMN auto-generado en la BD es: "+p.getIdProveedorMN());
-//			}
-//		}
-//		else 
-//			System.out.println("Cantidad de registros afectados: "+rowCountProveedoresMN+". NO se inserto lista de proveedores en BD");
-//	
+		ProductoMN productoMN= new ProductoMN(null,"fabricacion",2,"silla BE","USD",(double)500,"IVA INC.",proveedoresMN,
+				(double)300,(java.sql.Date)fechaProduccion,(java.sql.Date)fechaEntrega,null);
+	
 		System.out.println();
 		
 		//Pruebo insertar un ProductoMN que internamente tiene una lista de ProveedorMN
@@ -58,9 +48,7 @@ public class TestProductoMN {
 		for(ProveedorMN p: productoMN.getProveedoresMN())
 		{
 			System.out.println("El idProveedorMN auto-generado en la BD es: "+p.getIdProveedorMN());
-		}
-		
+		}	
 	}	
 	
-
 }

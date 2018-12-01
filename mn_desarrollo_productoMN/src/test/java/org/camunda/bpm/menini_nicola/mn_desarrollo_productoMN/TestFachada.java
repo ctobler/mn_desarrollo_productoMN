@@ -54,6 +54,11 @@ public class TestFachada {
 		int rowCountProveedoresMN=0;
 		int rowCountProductoMN=0;
 		
+		java.util.Date utilDate = new java.util.Date();
+		java.sql.Date fechaProduccion = new java.sql.Date(utilDate.getTime());
+		java.sql.Date fechaEntrega = new java.sql.Date(utilDate.getTime());
+		
+		
 		//insertar lista de ProveedorMN 
 		List<ProveedorMN> proveedoresMN= new ArrayList<ProveedorMN>(); 
 		ProveedorMN proveedorMN= new ProveedorMN(null,"Tapiceria","USD",(double)120,"IVA INC.","(Miguel)");//,null);
@@ -62,7 +67,10 @@ public class TestFachada {
 		proveedoresMN.add(proveedorMN2);
 		 
 		//VOProductoMN voProductoMN= new VOProductoMN(null,"fabricacion",2,"silla BE","USD",(double)500,"IVA INC.",proveedoresMN,null);//,null);
-		VOProductoMN voProductoMN= new VOProductoMN(null,"tapizado",3,"silla tapizada","USD",(double)300,"IVA INC.",proveedoresMN,1);
+		//VOProductoMN voProductoMN= new VOProductoMN(null,"tapizado",3,"silla tapizada","USD",(double)300,"IVA INC.",proveedoresMN,1);
+		VOProductoMN voProductoMN= new VOProductoMN(null,"fabricacion",2,"silla BE","USD",(double)500,"IVA INC.",proveedoresMN,
+				(double)300,(java.sql.Date)fechaProduccion,(java.sql.Date)fechaEntrega,null);
+		
 		//System.out.println("Insertar ProductoMN en BD");
 		
 		//presistir objeto en BD (insertar ProductoMN que tiene una lista de ProveedorMN)
