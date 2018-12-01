@@ -22,11 +22,15 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 		//extraer valores desde 'ingresarProveedor-from.html' y mapear a objeto Java 
 		ProductoMN dataProductoMN = new ProductoMN();
 		dataProductoMN= (ProductoMN)execution.getVariable("dataProductoMN");
+		
+		//setear fechaProduccion con fecha del dia
+		java.util.Date utilDate = new java.util.Date();
+		java.sql.Date fechaProduccion = new java.sql.Date(utilDate.getTime());
 						
 		//transformar objeto leido de pantalla a VO y persistirlo en BD
 		IFachada fachada= Fachada.getInstanciaSingleton();
-		VOProductoMN voProductoMN= new VOProductoMN(null,"tapizado",3,"silla tapizada","USD",(double)300,"IVA INC.",null,
-				(double)500,null,null,null);
+		VOProductoMN voProductoMN= new VOProductoMN(null,"",0,"","",(double)0,"",null,
+				(double)0,null,null,null);
 				
 		//setear valores traidos del formulario
 		voProductoMN.setIdProductoMN(null);//este valor es auto-generado en la BD
@@ -34,8 +38,11 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 		voProductoMN.setCantidad(dataProductoMN.getCantidad());
 		voProductoMN.setNombre(dataProductoMN.getNombre());
 		//asumimos que la moneda del productoMN siempre es dolares
-		//voProductoMN.setMoneda("USD");
-		//voProductoMN.setTotal(dataProductoMN.getTotal());
+		voProductoMN.setMoneda("USD");
+		voProductoMN.setTotal((double)dataProductoMN.getTotal());
+		voProductoMN.setIvaProducto((String)dataProductoMN.getIvaProducto());
+		voProductoMN.setSenia((double)dataProductoMN.getSenia());
+		voProductoMN.setFechaProduccion((java.sql.Date)fechaProduccion);
 		voProductoMN.setProveedoresMN(dataProductoMN.getProveedoresMN());
 		
 		//obtener el idPresupuesto que es el indice de lo seleccionado en el select
@@ -65,6 +72,7 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 				fachada.insertarProductoMNProveedorMN(voProductoMNproveedorMN);
 			}
 		}
+		
 		//traer datos presupuesto
 		Presupuesto presupuesto= new Presupuesto();
 		presupuesto= fachada.selectPresupuestoPorId(Integer.parseInt(idPresupuesto));

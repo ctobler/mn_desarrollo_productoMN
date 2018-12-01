@@ -8,11 +8,24 @@
   <script cam-script type="text/form-script">
 
 	var dataProductoMN = $scope.dataProductoMN={
-		proveedoresMN : []
+		proveedoresMN : [],
+		total : 0
 	};
 
 	var subtotal = $scope.subtotal = {};
-	
+		
+	//FUNCION DE PRUEBA PARA INICIAR EL TOTAL
+	$scope.calcularTotal = function(tasaCambio) {
+
+		var totalDolares= $scope.getSubTotalDolares();
+		var totalPesos= $scope.getSubTotalPesos();
+
+		var total= $scope.convertirUSD(totalPesos,tasaCambio) + totalDolares;
+
+		$scope.dataProductoMN.total= total;
+	}
+
+
 	// funcion scope que agrega proveedores
 	$scope.agregarProveedor= function() {
 		dataProductoMN.proveedoresMN.push({});
@@ -182,6 +195,7 @@
       <select cam-variable-name="cotizacion"
             cam-variable-type="String"
             cam-choices="PRESUPUESTOS_APROBADOS"
+            ng-model="dataProductoMN.senia"
             required
             class="form-control">
 	  </select>
@@ -384,13 +398,18 @@
       	<div class="controls">
 	    	<label class="control-label">TOTAL (USD)</label>
       	</div>	      			
-      	<input ng-value= "getSubTotalDolares() + convertirUSD(getSubTotalPesos(),tazaCambio)" 
+      	
+      	<input ng-value= "getSubTotalDolares() + convertirUSD(getSubTotalPesos(),tazaCambio)"  	
       		   readonly> 
+			      		      		   	   
       	<select ng-init="dataProductoMN.ivaProducto = impuestos[1]"
         		ng-model="dataProductoMN.ivaProducto" 
         		ng-options="x for x in impuestos"
         		required>
 		</select>
+		
+		<input ng-value="calcularTotal(tazaCambio)" readonly>
+		<p>{{dataProductoMN.total}}</p>
+		
       </div>
-   
 </form>
