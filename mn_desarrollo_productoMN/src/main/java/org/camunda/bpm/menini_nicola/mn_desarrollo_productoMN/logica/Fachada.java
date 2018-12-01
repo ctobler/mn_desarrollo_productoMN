@@ -72,12 +72,20 @@ public class Fachada implements IFachada {
     	DAOProductoMN daoProductoMN= new DAOProductoMN();
     	
     	java.util.Date fechaProduccionJava = new java.util.Date();
+    	//leer fecha traida de VO
     	fechaProduccionJava= voProductoMN.getFechaProduccion();
-		java.sql.Date fechaProduccion = new java.sql.Date(fechaProduccionJava.getTime());
+    	//convertir fecha formato java a formato sql
+    	java.sql.Date fechaProduccion=null;
+    	if(fechaProduccionJava != null)
+    		fechaProduccion = new java.sql.Date(fechaProduccionJava.getTime());
 		
 		java.util.Date fechaEntregaJava = new java.util.Date();
+		//leer fecha traida de VO
 		fechaEntregaJava= voProductoMN.getFechaEntrega();
-		java.sql.Date fechaEntrega = new java.sql.Date(fechaEntregaJava.getTime());
+		//convertir fecha formato java a formato sql
+		java.sql.Date fechaEntrega = null;
+		if(fechaEntregaJava != null)
+			fechaEntrega= new java.sql.Date(fechaEntregaJava.getTime());
 		
      	//desenvolver objeto value object
      	productoMN.setIdProductoMN(voProductoMN.getIdProductoMN());
