@@ -23,6 +23,8 @@
 		var total= $scope.convertirUSD(totalPesos,tasaCambio) + totalDolares;
 
 		$scope.dataProductoMN.total= total;
+
+		return total;
 	}
 
 
@@ -263,7 +265,7 @@
             
 	  <br>
 		
-	  <div class="control-group">
+	  <div class="control-group" align="center">
       	<button ng-click="agregarProveedor()"> Nuevo Proveedor</button>
       </div>
 	  
@@ -399,17 +401,22 @@
 	    	<label class="control-label">TOTAL (USD)</label>
       	</div>	      			
       	
-      	<input ng-value= "getSubTotalDolares() + convertirUSD(getSubTotalPesos(),tazaCambio)"  	
+<!--       	<p>{{calcularTotal(tazaCambio)}}</p> -->
+      	
+<!--       	<input ng-value= "getSubTotalDolares() + convertirUSD(getSubTotalPesos(),tazaCambio)"  	 -->
+<!--       		   readonly>  -->
+		
+		<input ng-value= "calcularTotal(tazaCambio)"  	
       		   readonly> 
-			      		      		   	   
+					      		      		   	   
       	<select ng-init="dataProductoMN.ivaProducto = impuestos[1]"
         		ng-model="dataProductoMN.ivaProducto" 
         		ng-options="x for x in impuestos"
         		required>
 		</select>
 		
-		<input ng-value="calcularTotal(tazaCambio)" readonly>
-		<p>{{dataProductoMN.total}}</p>
+<!-- 		<input ng-value="calcularTotal(tazaCambio)" readonly> -->
+<!-- 		<p>{{dataProductoMN.total}}</p> -->
 		
       </div>
 </form>
