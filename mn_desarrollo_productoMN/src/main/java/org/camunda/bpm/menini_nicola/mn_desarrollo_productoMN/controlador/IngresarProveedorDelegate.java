@@ -73,6 +73,10 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 			}
 		}
 		
+		//actualizar estado del presupuesto aprobado->desarrollo
+		Integer estado=2; //HACER ESTO CON UNA CLASE DE ENUMERADOS !!!
+	  	fachada.updateEstadoPresupuesto(Integer.parseInt(idPresupuesto), estado);
+		
 		//traer datos presupuesto
 		Presupuesto presupuesto= new Presupuesto();
 		presupuesto= fachada.selectPresupuestoPorId(Integer.parseInt(idPresupuesto));

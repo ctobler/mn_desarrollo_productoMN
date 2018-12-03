@@ -1,33 +1,26 @@
 <center>
-	<h2><strong>Desarrollo ProductoMN</strong></h2>
+	<h2><strong>Desarrollo Producto</strong></h2>
 	<h3><p>Ingresar proveedores</p></h3>
 </center>
 
 <form role="form" name="form" class="form-horizontal" >
 
   <script cam-script type="text/form-script">
-
 	var dataProductoMN = $scope.dataProductoMN={
 		proveedoresMN : [],
-		total : 0
+		total : 0,
+		moneda : 'USD'
 	};
-
 	var subtotal = $scope.subtotal = {};
 		
 	//FUNCION DE PRUEBA PARA INICIAR EL TOTAL
 	$scope.calcularTotal = function(tasaCambio) {
-
 		var totalDolares= $scope.getSubTotalDolares();
 		var totalPesos= $scope.getSubTotalPesos();
-
 		var total= $scope.convertirUSD(totalPesos,tasaCambio) + totalDolares;
-
 		$scope.dataProductoMN.total= total;
-
 		return total;
 	}
-
-
 	// funcion scope que agrega proveedores
 	$scope.agregarProveedor= function() {
 		dataProductoMN.proveedoresMN.push({});
@@ -38,7 +31,6 @@
 	$scope.quitarProveedor = function (x) {
         dataProductoMN.proveedoresMN.splice(x, 1);
     } 
-
 	//funcion para calcular sub-total en USD 
 	$scope.getSubTotalDolares = function() {
 		var subTotal= 0;
@@ -57,7 +49,6 @@
 		}
 		return subTotal;
 	}
-
 	//funcion para calcular sub-total en Pesos 
 	$scope.getSubTotalPesos = function() {
 		var subTotal= 0;
@@ -76,7 +67,6 @@
 		}
 		return subTotal;
 	}
-
 	//bandera para indicar si hay existe algun precio de proveedor en pesos
 	$scope.existePesos = function() {
 		var existePesos= false;
@@ -92,7 +82,6 @@
 		}
 		return existePesos;
 	}
-
 	$scope.convertirUSD= function(subTotal,tasaCambio){
 		var dolares=0;
 		if( isNaN(tasaCambio) )
@@ -109,8 +98,6 @@
 		}
 		return dolares;
 	}	
-
-
 	//funcion para quitar mensaje de error en cantidad
 	$scope.limpiarMensaje= function(){
 		if(dataProductoMN.cantidad > 0)
@@ -136,27 +123,22 @@
 			  objectTypeName: 'org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProductoMN'
 			}
 		});
-
 	});
-
 	//para que funcione el agregar proveedores dinamicamente
 	camForm.on('submit', function(){
 		angular.forEach(dataProductoMN.proveedoresMN, function(prvdr) {
 			delete prvdr.$$hashKey;
 		});
 	});
-
 	//traer variable 'pago' ingresada en el start-form	
 	camForm.on('form-loaded', function() {
   	// tell the form SDK to fetch the json variable named 'pago'
   		camForm.variableManager.fetchVariable('pago');
 	});
-
 	camForm.on('variables-fetched', function() {
   	// trabajar con valor de variable 'pago' (atar su valor a AngularJS $scope)
   		$scope.pago = camForm.variableManager.variableValue('pago');
 	});
-
 	//verificar ingreso de datos obligatorios antes de enviar formulario al servidor
 	camForm.on('submit', function(evt) {
       // manejar submit
@@ -173,7 +155,6 @@
 		evt.submitPrevented = false;
 		$scope.errorProveedoresVacio= false;
 	  }
-
 	  //verificar que la cantidad de productos sea mayor a cero
 	  if(dataProductoMN.cantidad < 1)
 	  {
@@ -186,7 +167,6 @@
 		$scope.errorCantidadVaciaONula= false;
 	  }
     });
-
   </script>
   		
   	  <div class="control-group">
@@ -415,8 +395,17 @@
         		required>
 		</select>
 		
+		<div align="left">
+			<label for="descartarPresupuesto">cancelar produccion ?</label>
+	    	<input type="checkbox"
+	        	   cam-variable-name="cancelarProduccion"
+	           	   cam-variable-type="Boolean"
+	           	   name="cancelarProduccion"
+	           	   class="form-control" />
+		</div>
+		
 <!-- 		<input ng-value="calcularTotal(tazaCambio)" readonly> -->
 <!-- 		<p>{{dataProductoMN.total}}</p> -->
-		
+		<p align="right">(a producción)</p>
       </div>
 </form>

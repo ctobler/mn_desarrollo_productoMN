@@ -1,6 +1,6 @@
 <center>
 	<h1><strong>Desarrollo Producto</strong></h1>
-	<h2><p>Producto en producción</p></h2>
+	<h2><p>Realizar entrega</p></h2>
 </center>
 
 <form role="form" name="form" class="form-horizontal" >
@@ -32,10 +32,37 @@
   		$scope.pago = camForm.variableManager.variableValue('pago');
 	});
 
+	//traer variable 'tazaCambio' 
+	camForm.on('form-loaded', function() {
+  	// tell the form SDK to fetch the json variable named 'tazaCambio'
+  		camForm.variableManager.fetchVariable('tazaCambio');
+	});
+
+	camForm.on('variables-fetched', function() {
+  	// trabajar con valor de variable 'tazaCambio' (atar su valor a AngularJS $scope)
+  		$scope.tazaCambio = camForm.variableManager.variableValue('tazaCambio');
+	});
+
+
+	$scope.calcularSaldo(costoTotal,senia, tasa)
+	{
+		saldo=0;
+
+		if (pago.moneda == '$U')
+			saldo= costoTotal - (senia/tasa);
+		else
+			saldo= costoTotal - senia;
+
+		return saldo;
+	}
+
  </script>
  
 <div class="control-group">
     <div class="controls">
+    	<p><b>Saldo a recibir: </b></p>
+  		<p>{{dataProductoMN.moneda+" "+dataProductoMN.total-pago.senia}}</p>
+    	
     	<label for="ORDEN_COMPRA" class="control-label"><b>Orden de Compra:</b></label>    	
    		<input type="text" 
     	   	   cam-variable-name="ORDEN_COMPRA"
@@ -47,23 +74,15 @@
     	   	   cam-variable-name="NOMBRE_CLIENTE"
     	   	   class="form-control"
      	   	   readonly>
+
     	<p><b>Producto:</b></p>
     	<p>{{dataProductoMN.cantidad+" "+dataProductoMN.nombre+" ("+ dataProductoMN.trabajoRealizado+ ")"}}</p>    	
 		<p><b>Total:</b></p>
 		<p>{{dataProductoMN.moneda+" "+dataProductoMN.total+" "+dataProductoMN.ivaProducto}}</p>
       	<p><b>Seña recibida: </b></p>
   		<p>{{pago.moneda +" "+ pago.senia}}</p>
-  		      	
-		<p align="center"><b>Proveedores</b></p>
-		<br>
-      	<div ng-repeat="prov in dataProductoMN.proveedoresMN">
-			<br>
-			<p><b>Nombre Proveedor: </b>{{prov.tipoProveedor}}</p>
-   			<p><b>Precio Proveedor: </b>{{prov.moneda+" "+prov.precio+" "+prov.ivaProveedor}}</p>
-   			<p><b>Detalles Proveedor: </b>{{prov.detalles}}</p>
-      		<hr>
-      	</div>
-      <p align="right"><b>(ingresar entrega)</b></p>     
+  				      	
+      <p align="right"><b>(entregar)</b></p>     
     </div>
 </div>
 
