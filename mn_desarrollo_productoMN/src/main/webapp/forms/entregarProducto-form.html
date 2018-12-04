@@ -43,25 +43,12 @@
   		$scope.tazaCambio = camForm.variableManager.variableValue('tazaCambio');
 	});
 
-
-	$scope.calcularSaldo(costoTotal,senia, tasa)
-	{
-		saldo=0;
-
-		if (pago.moneda == '$U')
-			saldo= costoTotal - (senia/tasa);
-		else
-			saldo= costoTotal - senia;
-
-		return saldo;
-	}
-
  </script>
  
 <div class="control-group">
     <div class="controls">
     	<p><b>Saldo a recibir: </b></p>
-  		<p>{{dataProductoMN.moneda+" "+dataProductoMN.total-pago.senia}}</p>
+  		<p>{{dataProductoMN.moneda + " " + (dataProductoMN.total-pago.senia) }}</p>
     	
     	<label for="ORDEN_COMPRA" class="control-label"><b>Orden de Compra:</b></label>    	
    		<input type="text" 
@@ -82,7 +69,6 @@
       	<p><b>Seña recibida: </b></p>
   		<p>{{pago.moneda +" "+ pago.senia}}</p>
   				      	
-      <p align="right"><b>(entregar)</b></p>     
     </div>
 </div>
 
