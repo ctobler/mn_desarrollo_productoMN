@@ -1,5 +1,6 @@
 package org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.logica;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.Cliente;
@@ -31,5 +32,7 @@ public interface IFachada {
 	Cliente selectCliente(Integer idCliente);
 
 	Integer updateEstadoPresupuesto(Integer idPresupuesto, Integer estado);
+
+	Integer updateFechaEntrega(Integer idProductoMN, Date fechaEntrega);
 
 }

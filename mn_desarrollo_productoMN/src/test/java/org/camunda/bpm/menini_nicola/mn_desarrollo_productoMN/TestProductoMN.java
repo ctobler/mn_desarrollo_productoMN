@@ -48,7 +48,15 @@ public class TestProductoMN {
 		for(ProveedorMN p: productoMN.getProveedoresMN())
 		{
 			System.out.println("El idProveedorMN auto-generado en la BD es: "+p.getIdProveedorMN());
-		}	
+		}
+		
+		//Pruebo actualizar una fechaEntrega en un ProductoMN
+		int idProductoMN= 66;
+		System.out.println("--Pruebo actualizar la fecha de entrega en un ProductoMN--");
+		int rowCountUpdateFechaEntrega= daoProductoMN.updateFechaEntrega(idProductoMN,(java.sql.Date)fechaEntrega);
+		System.out.println("Se actualizaron:"+rowCountUpdateFechaEntrega+"registro/s en el campo fechaEntrega");
+		System.out.println("con la siguiente fecha: "+fechaEntrega);
+		//REVISAR LA BD PARA VERIFICAR SI SE MODIFICA LA FECHA - TABLA mn_productoMN -> fechaEntrega
 	}	
 	
 }

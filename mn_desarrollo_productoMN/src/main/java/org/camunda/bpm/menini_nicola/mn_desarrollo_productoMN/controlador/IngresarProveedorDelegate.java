@@ -91,6 +91,11 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 	    //mostrar nombre del cliente obtenido en pantalla
 	    execution.setVariable("NOMBRE_CLIENTE", cliente.getNombre());
 	    
+	    //crear variable de proceso para idProducto creado
+	    execution.setVariable("ID_PRODUCTO_MN", voProductoMN.getIdProductoMN()); 
+	    
+	    //actualizar variable de proceso 
+	    
 	}
 
 }

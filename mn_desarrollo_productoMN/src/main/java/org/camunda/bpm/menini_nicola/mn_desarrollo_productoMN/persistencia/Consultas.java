@@ -9,6 +9,14 @@ public class Consultas {
 				"VALUES (?,?,?,?,?,?,?,?,?,?);";
 		return insert;
 	}
+	public String updateFechaEntrega()
+	{
+		String update="UPDATE mn_productoMN\n" + 
+					  "SET fechaEntrega = ?\n" + 
+					  "WHERE idProductoMN = ?";
+				
+		return update;
+	}
 	
 	//CONSULTAS TABLA: mn_productoMN_proveedorMN
 	public String insertarProductoMNProveedorMN()
@@ -86,7 +94,6 @@ public class Consultas {
 //	}
 	
 	//CONSULTAS TABLA: mn_cliente
-	
 	//obtiene los datos de un cliente que aprobo un presupuesto determinado 
 	public String selectClientePresupuestoAprobado()
 	{
@@ -99,7 +106,6 @@ public class Consultas {
 				"where cliePres.estado = 1 and presupuesto.idPresupuesto= ?;";
 		return select;
 	}
-	
 	public String selectCliente()
 	{
 		String select="SELECT cliente.idCliente,\n" + 
@@ -118,12 +124,12 @@ public class Consultas {
 		String select="select * from mn_cliente_presupuesto where idPresupuesto=?;";
 		return select;
 	}
-	
 	public String updateEstadoPresupuesto()
 	{
-		String select="update mn_cliente_presupuesto\n" + 
+		String update="update mn_cliente_presupuesto\n" + 
 				"set estado=?\n" + 
 				"where idPresupuesto=?";
-		return select;
+		return update;
 	}
+
 }

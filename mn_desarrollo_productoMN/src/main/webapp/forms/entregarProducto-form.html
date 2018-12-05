@@ -43,13 +43,28 @@
   		$scope.tazaCambio = camForm.variableManager.variableValue('tazaCambio');
 	});
 
+	//$scope.calcularSaldo= function(total,monedaSenia,montoSenia,tazaCambio){
+	//	var saldo= 0; 
+	//	if(monedaSenia == "$U")
+	//		saldo= total - (montoSenia/tazaCambio);
+	//	else if(monedaSenia == "USD")
+	//		saldo= total - montoSenia;
+	//	return saldo;
+	//}	
+
+	var todayDate= $scope.todayDate= new Date();
+
  </script>
  
 <div class="control-group">
     <div class="controls">
-    	<p><b>Saldo a recibir: </b></p>
-  		<p>{{dataProductoMN.moneda + " " + (dataProductoMN.total-pago.senia) }}</p>
-    	
+    	<div align="center">
+    		<p><b>Saldo a recibir: </b></p>
+  			<p>{{dataProductoMN.moneda + " " + (dataProductoMN.total-pago.senia) }}</p>
+<!--     	<p>{{dataProductoMN.moneda + " " + calcularSaldo(dataProductoMN.total,pago.moneda,pago.senia,tazaCambio) }}</p> -->
+    		<p><b>Fecha de envio: </b></p>
+    		<p>{{ todayDate | date:'dd-MM-yyyy' }}</p>
+    	</div>
     	<label for="ORDEN_COMPRA" class="control-label"><b>Orden de Compra:</b></label>    	
    		<input type="text" 
     	   	   cam-variable-name="ORDEN_COMPRA"

@@ -163,5 +163,38 @@ public class DAOProductoMN {
 		}
 		return rowCount;
 	}
+	
+	public Integer updateFechaEntrega(Integer idProductoMN, java.sql.Date fechaEntrega)
+	{
+		AccesoBD accesoBD= new AccesoBD();
+		Connection con= accesoBD.conectarBD();
+		Consultas consultas= new Consultas();
+		String select= consultas.updateFechaEntrega();
+		PreparedStatement pstmt= null;
+		
+		int registrosAfectados=0;
+		
+		try {
+			pstmt= con.prepareStatement(select);
+			pstmt.setDate(1, fechaEntrega);
+			pstmt.setInt(2, idProductoMN);
+			registrosAfectados=pstmt.executeUpdate();	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				pstmt.close();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				Log.error(e);
+				e.printStackTrace();
+			}
+		}
+		
+		return registrosAfectados;
+	}
 		
 }

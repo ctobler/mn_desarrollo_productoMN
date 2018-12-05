@@ -13,7 +13,7 @@
 	};
 	var subtotal = $scope.subtotal = {};
 		
-	//FUNCION DE PRUEBA PARA INICIAR EL TOTAL
+	//FUNCION PARA INICIAR EL TOTAL
 	$scope.calcularTotal = function(tasaCambio) {
 		var totalDolares= $scope.getSubTotalDolares();
 		var totalPesos= $scope.getSubTotalPesos();
@@ -394,9 +394,10 @@
         		ng-options="x for x in impuestos"
         		required>
 		</select>
-		
+		<br>
 		<div align="left">
-			<label for="descartarPresupuesto">cancelar produccion ?</label>
+			<label for="descartarPresupuesto">(cancelar ?)</label>
+			<br>
 	    	<input type="checkbox"
 	        	   cam-variable-name="cancelarProduccion"
 	           	   cam-variable-type="Boolean"

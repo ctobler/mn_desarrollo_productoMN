@@ -213,4 +213,15 @@ public class Fachada implements IFachada {
     	return registrosAfectados;
     	
     }
+    
+    @Override
+    public Integer updateFechaEntrega(Integer idProductoMN, java.sql.Date fechaEntrega)
+    {
+    	int registrosAfectados= 0;
+    	DAOProductoMN daoProductoMN= new DAOProductoMN();
+    	
+    	registrosAfectados= daoProductoMN.updateFechaEntrega(idProductoMN, fechaEntrega);
+    	
+    	return registrosAfectados;
+    }
 }

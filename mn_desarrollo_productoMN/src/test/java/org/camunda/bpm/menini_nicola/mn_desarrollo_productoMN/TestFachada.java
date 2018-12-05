@@ -235,6 +235,15 @@ public class TestFachada {
 		System.out.println("idCliente: "+ clientePresupuesto.getIdCliente());
 		System.out.println("idPresupuesto: "+ clientePresupuesto.getIdPresupuesto());
 		
+		//PRUEBO: updateFechaEntrega
+		int idProductoMN= 73; //ASEGURARSE QUE EXISTE ESTE ID EN BD...
+		System.out.println();
+		System.out.println("--Pruebo actualizar la fecha de entrega en un ProductoMN--");
+		int rowCountUpdateFechaEntrega= fachada.updateFechaEntrega(idProductoMN,(java.sql.Date)fechaEntrega);
+		System.out.println("Se actualizaron:"+rowCountUpdateFechaEntrega+"registro/s en el campo fechaEntrega");
+		System.out.println("con la siguiente fecha: "+fechaEntrega);
+		//REVISAR LA BD PARA VERIFICAR SI SE MODIFICA LA FECHA - TABLA mn_productoMN -> fechaEntrega
+		
 	}	
 		
 }
