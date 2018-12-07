@@ -43,6 +43,15 @@
   		$scope.tazaCambio = camForm.variableManager.variableValue('tazaCambio');
 	});
 
+	//traer variable 'COSTO_PRESUPUESTO' 
+	camForm.on('form-loaded', function() {
+  		camForm.variableManager.fetchVariable('COSTO_PRESUPUESTO');
+	});
+
+	camForm.on('variables-fetched', function() {
+  		$scope.COSTO_PRESUPUESTO = camForm.variableManager.variableValue('COSTO_PRESUPUESTO');
+	});
+
 	var todayDate= $scope.todayDate= new Date();
 
  </script>
