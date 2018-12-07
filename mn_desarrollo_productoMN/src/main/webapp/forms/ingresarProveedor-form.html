@@ -182,23 +182,6 @@
             class="form-control">
 	  </select>
 	  
-	  <label for="TRABAJO_REALIZADO" class="control-label">Trabajo Realizado *</label>
-	  <div class="control-group">
-      	<div class="controls">
-   	  		<input 	id="idTrabajoRealizado"
-   					class="form-control"
-   					type="text"
-   					required 
-   					ng-model="dataProductoMN.trabajoRealizado"
-    				name="TRABAJO_REALIZADO">
-    		<!--validar ingreso de trabajo realizado-->
-      		<p>
-      			<span style="color:red" ng-show="form.TRABAJO_REALIZADO.$dirty && form.TRABAJO_REALIZADO.$invalid">
-  					<span ng-show="form.TRABAJO_REALIZADO.$error.required">trabajo realizado es obligatorio</span>
-  				</span>
-      		</p>   	
-    	</div>
-      </div>
 	  <div class="row">
 	  	<div class="col-xs-2">
  			<div class="control-group">
@@ -242,11 +225,28 @@
       		</div>
        	</div>
       </div>
+      <label for="TRABAJO_REALIZADO" class="control-label">Trabajo Realizado *</label>
+	  <div class="control-group">
+      	<div class="controls">
+   	  		<input 	id="idTrabajoRealizado"
+   					class="form-control"
+   					type="text"
+   					required 
+   					ng-model="dataProductoMN.trabajoRealizado"
+    				name="TRABAJO_REALIZADO">
+    		<!--validar ingreso de trabajo realizado-->
+      		<p>
+      			<span style="color:red" ng-show="form.TRABAJO_REALIZADO.$dirty && form.TRABAJO_REALIZADO.$invalid">
+  					<span ng-show="form.TRABAJO_REALIZADO.$error.required">trabajo realizado es obligatorio</span>
+  				</span>
+      		</p>   	
+    	</div>
+      </div>
             
 	  <br>
 		
 	  <div class="control-group" align="center">
-      	<button ng-click="agregarProveedor()"> Nuevo Proveedor</button>
+      	<button ng-click="agregarProveedor()"> Agregar Proveedor</button>
       </div>
 	  
 	  <!-- agregar proveedor -->
@@ -396,13 +396,14 @@
 		</select>
 		<br>
 		<div align="left">
-			<label for="descartarPresupuesto">(cancelar ?)</label>
 			<br>
 	    	<input type="checkbox"
 	        	   cam-variable-name="cancelarProduccion"
 	           	   cam-variable-type="Boolean"
 	           	   name="cancelarProduccion"
 	           	   class="form-control" />
+	        <br>
+	        <label for="descartarPresupuesto">descartar</label>
 		</div>
 		
 <!-- 		<input ng-value="calcularTotal(tazaCambio)" readonly> -->

@@ -23,16 +23,16 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 		ProductoMN dataProductoMN = new ProductoMN();
 		dataProductoMN= (ProductoMN)execution.getVariable("dataProductoMN");
 		
-		//setear fechaProduccion con fecha del dia
+		//setear fecha de produccion con fecha del dia
 		java.util.Date utilDate = new java.util.Date();
 		java.sql.Date fechaProduccion = new java.sql.Date(utilDate.getTime());
 						
-		//transformar objeto leido de pantalla a VO y persistirlo en BD
+		//leer de pantalla y llevar a VOProductoMN para persistirlo en BD
 		IFachada fachada= Fachada.getInstanciaSingleton();
 		VOProductoMN voProductoMN= new VOProductoMN(null,"",0,"","",(double)0,"",null,
 				(double)0,null,null,null);
 				
-		//setear valores traidos del formulario
+		//setear valores traidos desde el formulario
 		voProductoMN.setIdProductoMN(null);//este valor es auto-generado en la BD
 		voProductoMN.setTrabajoRealizado(dataProductoMN.getTrabajoRealizado());
 		voProductoMN.setCantidad(dataProductoMN.getCantidad());
@@ -45,14 +45,14 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 		voProductoMN.setFechaProduccion((java.sql.Date)fechaProduccion);
 		voProductoMN.setProveedoresMN(dataProductoMN.getProveedoresMN());
 		
-		//obtener el idPresupuesto que es el indice de lo seleccionado en el select
-		//y usarlo para traer desde la BD un objeto ClientePresupuesto
-		//y de este objeto tomar el idClientePresupuesto y setearlo en el voProductoMN
+		//obtener el idPresupuesto que es el indice de lo seleccionado en el combo de presupuestos.
+		//usarlo para traer desde la BD un objeto ClientePresupuesto
+		//y de este objeto tomar el idClientePresupuesto para setearlo en el VOProductoMN
 		String idPresupuesto= (String) execution.getVariable("cotizacion");
 		ClientePresupuesto clientePresupuesto= fachada.selectClientePresupuesto(Integer.parseInt(idPresupuesto));	
 		voProductoMN.setIdClientePresupuesto(clientePresupuesto.getIdClientePresupuesto());
 		
-		//insertar producto. Esto trae el idProductoMN auto-generado en BD en el voProductoMN.idProductoMN
+		//Insertar producto. Esto trae el idProductoMN auto-generado en BD en el voProductoMN.idProductoMN,
 		//y tambien trae los idProveedor auto-generado en la BD en la lista de proveedoresMN
 		int rowCount= fachada.insertarProductoMN(voProductoMN);
 		//si es insertado el ProductoMN entonces por cada proveedorMN hay que insertar
@@ -91,10 +91,15 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 	    //mostrar nombre del cliente obtenido en pantalla
 	    execution.setVariable("NOMBRE_CLIENTE", cliente.getNombre());
 	    
-	    //crear variable de proceso para idProducto creado
+	    //crear variable de proceso para almacenar idProducto auto-generado
 	    execution.setVariable("ID_PRODUCTO_MN", voProductoMN.getIdProductoMN()); 
 	    
-	    //actualizar variable de proceso 
+	    //crear variable de proceso para almacenar el precio del presupuesto
+	    execution.setVariable("COSTO_PRESUPUESTO", presupuesto.getCosto());
+	    
+	    //crear variable de proceso para almacenar la moneda del presupuesto
+	    execution.setVariable("MONEDA_PRESUPUESTO", presupuesto.getMoneda());
+	    
 	    
 	}
 

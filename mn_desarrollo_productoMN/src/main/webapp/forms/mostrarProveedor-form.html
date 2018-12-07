@@ -47,13 +47,27 @@
     	   	   cam-variable-name="NOMBRE_CLIENTE"
     	   	   class="form-control"
      	   	   readonly>
-    	<p><b>Producto:</b></p>
+     	
+    	<label for="NOMBRE_CLIENTE" class="control-label"><b>Precio Final de Venta:</b></label>    	
+     	<input type="number" 
+    	   	   cam-variable-name="COSTO_PRESUPUESTO"
+    	   	   class="form-control"
+     	   	   readonly>
+     	
+     	
+     	<p><b>Producto:</b></p>
     	<p>{{dataProductoMN.cantidad+" "+dataProductoMN.nombre+" ("+ dataProductoMN.trabajoRealizado+ ")"}}</p>    	
-		<p><b>Total:</b></p>
+		<p><b>Precio de Venta: </b></p>
+  		<p>{{MONEDA_PRESUPUESTO +" "+ COSTO_PRESUPUESTO}}</p>
+		<p><b>Costo de Producción:</b></p>
 		<p>{{dataProductoMN.moneda+" "+dataProductoMN.total+" "+dataProductoMN.ivaProducto}}</p>
-      	<p><b>Seña recibida: </b></p>
+		<p><b>Ganancia:</b></p>
+		<p>{{COSTO_PRESUPUESTO - dataProductoMN.total}}</p>
+      	<p><b>Seña Recibida: </b></p>
   		<p>{{pago.moneda +" "+ pago.senia}}</p>
-  		      	
+  		<p><b>Saldo a Recibir: </b></p>
+  		<p>{{pago.moneda +" "+ (COSTO_PRESUPUESTO - pago.senia)}}</p>
+  		
 		<p align="center"><b>Proveedores</b></p>
 		<br>
       	<div ng-repeat="prov in dataProductoMN.proveedoresMN">

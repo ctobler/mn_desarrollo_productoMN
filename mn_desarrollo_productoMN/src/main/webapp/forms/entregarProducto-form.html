@@ -43,15 +43,6 @@
   		$scope.tazaCambio = camForm.variableManager.variableValue('tazaCambio');
 	});
 
-	//$scope.calcularSaldo= function(total,monedaSenia,montoSenia,tazaCambio){
-	//	var saldo= 0; 
-	//	if(monedaSenia == "$U")
-	//		saldo= total - (montoSenia/tazaCambio);
-	//	else if(monedaSenia == "USD")
-	//		saldo= total - montoSenia;
-	//	return saldo;
-	//}	
-
 	var todayDate= $scope.todayDate= new Date();
 
  </script>
@@ -59,9 +50,8 @@
 <div class="control-group">
     <div class="controls">
     	<div align="center">
-    		<p><b>Saldo a recibir: </b></p>
-  			<p>{{dataProductoMN.moneda + " " + (dataProductoMN.total-pago.senia) }}</p>
-<!--     	<p>{{dataProductoMN.moneda + " " + calcularSaldo(dataProductoMN.total,pago.moneda,pago.senia,tazaCambio) }}</p> -->
+  			<p><b>Saldo a Recibir: </b></p>
+  			<p>{{pago.moneda +" "+ (COSTO_PRESUPUESTO - pago.senia)}}</p>
     		<p><b>Fecha de envio: </b></p>
     		<p>{{ todayDate | date:'dd-MM-yyyy' }}</p>
     	</div>
@@ -79,11 +69,7 @@
 
     	<p><b>Producto:</b></p>
     	<p>{{dataProductoMN.cantidad+" "+dataProductoMN.nombre+" ("+ dataProductoMN.trabajoRealizado+ ")"}}</p>    	
-		<p><b>Total:</b></p>
-		<p>{{dataProductoMN.moneda+" "+dataProductoMN.total+" "+dataProductoMN.ivaProducto}}</p>
-      	<p><b>Seña recibida: </b></p>
-  		<p>{{pago.moneda +" "+ pago.senia}}</p>
-  				      	
+				      	
     </div>
 </div>
 
