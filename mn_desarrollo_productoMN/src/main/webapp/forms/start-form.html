@@ -8,11 +8,8 @@
   <script cam-script type="text/form-script">
   
 	var pago = $scope.pago = {};
-
 	$scope.monedas=["USD","$U"]
-
     camForm.on('form-loaded', function() {
-
     // declaro una variable 'json' nombrada 'pago' 
     camForm.variableManager.createVariable({
         name: 'pago',
@@ -20,23 +17,23 @@
         value: pago
       });
     });
-
   </script>
   
      <div class="row">
-      	<div class="col-xs-2">
+      	<div class="col-xs-3">
  			<div class="control-group">
  				<div class="controls">
             		<select ng-init="pago.moneda = monedas[0]"
             				ng-model="pago.moneda" 
             				ng-options="x for x in monedas"
             				required>
+            				<option value="">--ingresar moneda--</option>
 					</select>
 				</div>
 			</div>
 		</div>
 		
-	    <div class="col-xs-10">
+	    <div class="col-xs-9">
 	    	<div class="control-group">
 	    		<div class="controls">
           			<input id="senia" 

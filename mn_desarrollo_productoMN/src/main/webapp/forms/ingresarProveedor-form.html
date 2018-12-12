@@ -178,8 +178,9 @@
             cam-variable-type="String"
             cam-choices="PRESUPUESTOS_APROBADOS"
             ng-model="dataProductoMN.senia"
-            required
+            ng-required="!cancelarProduccion"
             class="form-control">
+            <option value="">--ingresar cotizacion--</option>
 	  </select>
 	  
 	  <div class="row">
@@ -190,7 +191,7 @@
  					<input 	id="idCantidad"
    							class="form-control"
    							type="number" 
-   							required
+   							ng-required="!cancelarProduccion"
    							ng-model="dataProductoMN.cantidad"
     	   					name="CANTIDAD"
     	   					ng-click="limpiarMensaje()">
@@ -211,7 +212,7 @@
 	  				<input 	id="idNombre"
    							class="form-control"
    							type="text" 
-   							required
+   							ng-required="!cancelarProduccion"
    							ng-model="dataProductoMN.nombre"
     						name="NOMBRE_PRODUCTO">
     				
@@ -231,7 +232,7 @@
    	  		<input 	id="idTrabajoRealizado"
    					class="form-control"
    					type="text"
-   					required 
+   					ng-required="!cancelarProduccion" 
    					ng-model="dataProductoMN.trabajoRealizado"
     				name="TRABAJO_REALIZADO">
     		<!--validar ingreso de trabajo realizado-->
@@ -259,7 +260,7 @@
       			<input  id="idTipoProveedor"
       				    class="form-control" 
       		   			type="text"
-      		   			required      		 
+      		   			ng-required="!cancelarProduccion"      		 
       		  			ng-model="prov.tipoProveedor"
       		   			name="PROVEEDOR" 
                			maxlength=100>
@@ -281,7 +282,7 @@
             			<select ng-init="prov.moneda = monedas[0]"
             					ng-model="prov.moneda" 
             					ng-options="x for x in monedas"
-            					required>
+            					ng-required="!cancelarProduccion">
 						</select>
 					</div>
 				</div>
@@ -293,7 +294,7 @@
    						<input 	id="idPrecio"
    								class="form-control"
    								type="number" 
-   								required
+   								ng-required="!cancelarProduccion"
    								ng-model="prov.precio"
     	   						name="PRECIO">
   	
@@ -313,7 +314,7 @@
             			<select ng-init="prov.ivaProveedor = impuestos[0]"
             					ng-model="prov.ivaProveedor" 
             					ng-options="x for x in impuestos"
-            					required>
+            					ng-required="!cancelarProduccion">
 						</select>
 					</div>
 				</div>
@@ -389,10 +390,10 @@
 		<input ng-value= "calcularTotal(tazaCambio)"  	
       		   readonly> 
 					      		      		   	   
-      	<select ng-init="dataProductoMN.ivaProducto = impuestos[1]"
-        		ng-model="dataProductoMN.ivaProducto" 
+      	<select ng-model="dataProductoMN.ivaProducto" 
         		ng-options="x for x in impuestos"
-        		required>
+        		ng-required="!cancelarProduccion">
+        		<option value="">--ingresar iva--</option>
 		</select>
 		<br>
 		<div align="left">
@@ -401,7 +402,8 @@
 	        	   cam-variable-name="cancelarProduccion"
 	           	   cam-variable-type="Boolean"
 	           	   name="cancelarProduccion"
-	           	   class="form-control" />
+	           	   class="form-control" /
+	           	   ng-readonly="cancelarProduccion == true">
 	        <br>
 	        <label for="descartarPresupuesto">descartar</label>
 		</div>
