@@ -1,11 +1,13 @@
 <center>
 	<h1><strong>Desarrollo Producto</strong></h1>
-	<h2><p>Producto en producción</p></h2>
+	<h2><p>Producción Actual de Producto</p></h2>
 </center>
 
 <form role="form" name="form" class="form-horizontal" >
 
  <script cam-script type="text/form-script">
+
+	var monedaGanancia= $scope.monedaGanancia = 'USD'
 
  	camForm.on('form-loaded', function() {
 
@@ -32,6 +34,25 @@
   		$scope.pago = camForm.variableManager.variableValue('pago');
 	});
 
+	//traer variable 'MONEDA_PRESUPUESTO' 
+	camForm.on('form-loaded', function() {
+  		camForm.variableManager.fetchVariable('MONEDA_PRESUPUESTO');
+	});
+
+	camForm.on('variables-fetched', function() {
+  		$scope.MONEDA_PRESUPUESTO = camForm.variableManager.variableValue('MONEDA_PRESUPUESTO');
+	});
+
+	//traer variable 'COSTO_PRESUPUESTO' 
+	camForm.on('form-loaded', function() {
+  		camForm.variableManager.fetchVariable('COSTO_PRESUPUESTO');
+	});
+
+	camForm.on('variables-fetched', function() {
+  		$scope.COSTO_PRESUPUESTO = camForm.variableManager.variableValue('COSTO_PRESUPUESTO');
+	});
+
+
  </script>
  
 <div class="control-group">
@@ -41,13 +62,7 @@
     	   	   cam-variable-name="ORDEN_COMPRA"
     	   	   class="form-control"
      	   	   readonly>
-     	
-    	<label for="NOMBRE_CLIENTE" class="control-label"><b>Precio Final de Venta:</b></label>    	
-     	<input type="number" 
-    	   	   cam-variable-name="COSTO_PRESUPUESTO"
-    	   	   class="form-control"
-     	   	   readonly>
-     	
+     	     	
      	<p><b>Producto:</b></p>
     	<p>{{dataProductoMN.cantidad+" "+dataProductoMN.nombre+" ("+ dataProductoMN.trabajoRealizado+ ")"}}</p>    	
 		<p><b>Precio de Venta: </b></p>
@@ -55,7 +70,7 @@
 		<p><b>Costo de Producción:</b></p>
 		<p>{{dataProductoMN.moneda+" "+dataProductoMN.total+" "+dataProductoMN.ivaProducto}}</p>
 		<p><b>Ganancia:</b></p>
-		<p>{{COSTO_PRESUPUESTO - dataProductoMN.total}}</p>
+		<p>{{monedaGanancia + " " + (COSTO_PRESUPUESTO - dataProductoMN.total) }}</p>
       	<p><b>Seña Recibida: </b></p>
   		<p>{{pago.moneda +" "+ pago.senia}}</p>
   		<p><b>Saldo a Recibir: </b></p>

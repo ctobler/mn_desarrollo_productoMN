@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.14.0">
   <bpmn:process id="mn_desarrollo_productoMN" name="PROCESO: DESARROLLO PRODUCTO " isExecutable="true">
-    <bpmn:startEvent id="StartEventProcessStarted" name="Iniciar proceso desarrollo " camunda:formKey="embedded:app:forms/start-form.html">
+    <bpmn:startEvent id="StartEventProcessStarted" name="Iniciar proceso desarrollo " camunda:formKey="embedded:app:forms/start-form.html" camunda:initiator="desarrolladores">
       <bpmn:outgoing>SequenceFlow1</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:endEvent id="EndEventProcessEnded" name="Fin del proceso">
@@ -9,7 +9,7 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow1" sourceRef="StartEventProcessStarted" targetRef="Task_1ob9jcp" />
     <bpmn:sequenceFlow id="SequenceFlow_1ersve5" sourceRef="Task_09715jb" targetRef="ExclusiveGateway_0y9qp9m" />
-    <bpmn:userTask id="Task_09715jb" name="Ingresar proveedores" camunda:formKey="embedded:app:forms/ingresarProveedor-form.html">
+    <bpmn:userTask id="Task_09715jb" name="Ingresar proveedores" camunda:formKey="embedded:app:forms/ingresarProveedor-form.html" camunda:candidateGroups="desarrolladores">
       <bpmn:incoming>SequenceFlow_0bkgssx</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1ersve5</bpmn:outgoing>
     </bpmn:userTask>
@@ -19,7 +19,7 @@
       <bpmn:outgoing>SequenceFlow_0sffmeg</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_1siq0l8" sourceRef="Task_1m33n28" targetRef="Task_1qqd0qv" />
-    <bpmn:userTask id="Task_1m33n28" name="Mostrar valores" camunda:formKey="embedded:app:forms/mostrarProveedor-form.html">
+    <bpmn:userTask id="Task_1m33n28" name="Mostrar valores" camunda:formKey="embedded:app:forms/mostrarProveedor-form.html" camunda:candidateGroups="desarrolladores">
       <bpmn:incoming>SequenceFlow_0sffmeg</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1siq0l8</bpmn:outgoing>
     </bpmn:userTask>
@@ -29,7 +29,7 @@
       <bpmn:outgoing>SequenceFlow_0bkgssx</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_1bdmwgw" sourceRef="Task_1qqd0qv" targetRef="Task_0mz25fu" />
-    <bpmn:userTask id="Task_1qqd0qv" name="Realizar entrega" camunda:formKey="embedded:app:forms/entregarProducto-form.html">
+    <bpmn:userTask id="Task_1qqd0qv" name="Realizar entrega" camunda:formKey="embedded:app:forms/entregarProducto-form.html" camunda:candidateGroups="desarrolladores">
       <bpmn:incoming>SequenceFlow_1siq0l8</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1bdmwgw</bpmn:outgoing>
     </bpmn:userTask>

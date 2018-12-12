@@ -23,24 +23,42 @@ public class CargarPresupuestosDelegate implements JavaDelegate{
 		List<Presupuesto> presupuestosAprobados= new ArrayList<Presupuesto>();
 		presupuestosAprobados= fachada.selectPresupuestosAprobados();
 		
-		//convertir lista de presupuestos a HashMap 
-	    //(el formulario de SDK trabaja con HashMap) <K,V> equiv. con <idPresupuesto,Presupuesto>
-		Map<Integer, String> presupuestosAprobadosMap= new HashMap<Integer, String>();
-		Integer i=0;
-		while(i < presupuestosAprobados.size())
+		if(presupuestosAprobados.size()>0)
 		{
-			presupuestosAprobadosMap.put(presupuestosAprobados.get(i).getIdPresupuesto(), presupuestosAprobados.get(i).getCotizacion());
-			i++;
+			//convertir lista de presupuestos a HashMap 
+			//(el formulario de SDK trabaja con HashMap) <K,V> equiv. con <idPresupuesto,Presupuesto>
+			Map<Integer, String> presupuestosAprobadosMap= new HashMap<Integer, String>();
+			Integer i=0;
+			while(i < presupuestosAprobados.size())
+			{
+				presupuestosAprobadosMap.put(presupuestosAprobados.get(i).getIdPresupuesto(), presupuestosAprobados.get(i).getCotizacion());
+				i++;
+			}
+
+			//serializar datos de HashMap a json
+			ObjectValue presupuestosDataValue = Variables.objectValue(presupuestosAprobadosMap)
+					.serializationDataFormat(Variables.SerializationDataFormats.JSON)
+					.create();
+
+			//bindear HashMap serializado (a JSON) sobre el control 'select' del formulario ingresarProveedor-form
+			execution.setVariable("PRESUPUESTOS_APROBADOS", presupuestosDataValue);
+		} 
+		else
+		{
+			
+			Map<Integer, String> presupuestoNuloMap= new HashMap<Integer, String>();
+			Integer indiceSelect=0;
+			String textoSelect="--no hay presupuestos aprobados--";
+			presupuestoNuloMap.put(indiceSelect, textoSelect);
+			//serializar datos de HashMap a json
+			ObjectValue presupuestosDataValue = Variables.objectValue(presupuestoNuloMap)
+					.serializationDataFormat(Variables.SerializationDataFormats.JSON)
+					.create();
+			
+			//bindear HashMap serializado (a JSON) sobre el control 'select' del formulario ingresarProveedor-form
+			execution.setVariable("PRESUPUESTOS_APROBADOS", presupuestosDataValue);
+			execution.setVariable("cancelarProduccion",(boolean)true);
 		}
-		
-		//serializar datos de HashMap a json
-	    ObjectValue presupuestosDataValue = Variables.objectValue(presupuestosAprobadosMap)
-                .serializationDataFormat(Variables.SerializationDataFormats.JSON)
-                .create();
-	    
-	    //bindear HashMap serializado (a JSON) sobre el control 'select' del formulario ingresarProveedor-form
-	    execution.setVariable("PRESUPUESTOS_APROBADOS", presupuestosDataValue);
-	  	   
 		
 	}
 
