@@ -37,16 +37,18 @@ public class Consultas {
 	public String selectPresupuestosAprobados()
 	{
 		String select="SELECT \n" + 
-				"presupuesto.idPresupuesto,\n" + 
-				"presupuesto.cotizacion,\n" + 
-				"presupuesto.fecha,\n" + 
-				"presupuesto.moneda,\n" + 
-				"presupuesto.costo,\n" + 
-				"presupuesto.condicionesVenta,\n" + 
+				"presupuesto.idPresupuesto, \n" + 
+				"CONCAT(presupuesto.cotizacion,' : ',cliente.nombre) as cotizacion, \n" + 
+				"presupuesto.fecha, \n" + 
+				"presupuesto.moneda, \n" + 
+				"presupuesto.costo, \n" + 
+				"presupuesto.condicionesVenta, \n" + 
 				"presupuesto.descripcion\n" + 
-				"FROM mn_presupuesto presupuesto INNER JOIN mn_cliente_presupuesto cliePres ON\n" + 
-				"															 presupuesto.idPresupuesto = cliePres.idPresupuesto\n" + 
-				"WHERE cliePres.estado=1";				
+				"FROM mn_presupuesto presupuesto\n" + 
+				"INNER JOIN mn_cliente_presupuesto cliePres ON presupuesto.idPresupuesto= cliePres.idPresupuesto\n" + 
+				"INNER JOIN mn_cliente cliente ON cliePres.idCliente= cliente.idCliente\n" + 
+				"WHERE cliePres.estado= 1 \n" + 
+				"";				
 		return select;
 	}
 	
