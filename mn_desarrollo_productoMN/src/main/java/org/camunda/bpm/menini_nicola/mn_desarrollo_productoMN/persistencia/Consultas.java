@@ -38,17 +38,17 @@ public class Consultas {
 	{
 		String select="SELECT \n" + 
 				"presupuesto.idPresupuesto, \n" + 
-				"CONCAT(presupuesto.cotizacion,' : ',cliente.nombre) as cotizacion, \n" + 
-				"presupuesto.fecha, \n" + 
+				"CONCAT(presupuesto.cotizacion,' : ',cliente.nombre) as cotizacion,  \n" + 
+				"presupuesto.fecha,\n" + 
 				"presupuesto.moneda, \n" + 
-				"presupuesto.costo, \n" + 
+				"presupuesto.costo,  \n" + 
 				"presupuesto.condicionesVenta, \n" + 
 				"presupuesto.descripcion\n" + 
-				"FROM mn_presupuesto presupuesto\n" + 
-				"INNER JOIN mn_cliente_presupuesto cliePres ON presupuesto.idPresupuesto= cliePres.idPresupuesto\n" + 
+				"FROM mn_presupuesto presupuesto \n" + 
+				"INNER JOIN mn_cliente_presupuesto cliePres ON presupuesto.idPresupuesto= cliePres.idPresupuesto \n" + 
 				"INNER JOIN mn_cliente cliente ON cliePres.idCliente= cliente.idCliente\n" + 
-				"WHERE cliePres.estado= 1 \n" + 
-				"";				
+				"INNER JOIN mn_producto producto ON producto.idPresupuesto= presupuesto.idPresupuesto\n" + 
+				"WHERE (cliePres.estado= 1) AND (producto.tipo IN (1,2))";	
 		return select;
 	}
 	
