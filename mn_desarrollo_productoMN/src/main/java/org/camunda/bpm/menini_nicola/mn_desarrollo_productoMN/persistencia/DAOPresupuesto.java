@@ -38,6 +38,7 @@ public class DAOPresupuesto {
 				presupuesto.setCosto(rs.getDouble("costo"));
 				presupuesto.setCondicionesVenta(rs.getString("condicionesVenta"));
 				presupuesto.setDescripcion(rs.getString("descripcion"));
+				presupuesto.setUnidades(rs.getInt("unidades"));
 				
 				presupuestosAprobados.add(presupuesto);
 			}
@@ -86,6 +87,7 @@ public class DAOPresupuesto {
 				presupuesto.setCosto(rs.getDouble("costo"));
 				presupuesto.setCondicionesVenta(rs.getString("condicionesVenta"));
 				presupuesto.setDescripcion(rs.getString("descripcion"));
+				presupuesto.setUnidades(rs.getInt("unidades"));
 				
 			}
 			
@@ -134,7 +136,7 @@ public class DAOPresupuesto {
 				presupuesto.setCosto(rs.getDouble("costo"));
 				presupuesto.setCondicionesVenta(rs.getString("condicionesVenta"));
 				presupuesto.setDescripcion(rs.getString("descripcion"));
-				
+				presupuesto.setUnidades(rs.getInt("unidades"));
 			}
 			
 		} catch (SQLException e) {

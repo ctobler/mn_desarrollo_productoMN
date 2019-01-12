@@ -140,7 +140,10 @@ public class TestFachada {
 		System.out.println("email: "+ cliente.getEmail());
 		System.out.println("telefono: "+ cliente.getTelefono());
 		System.out.println("celular: "+ cliente.getCelular());
-		
+		System.out.println("rut: "+ cliente.getRut());
+		System.out.println("razon social: "+ cliente.getRazonSocial());
+		System.out.println("tipo: "+ cliente.getTipo());
+		System.out.println("direccion: "+ cliente.getDireccion());
 		
 		//PRUEBO selectCliente
 		System.lineSeparator();
@@ -158,7 +161,11 @@ public class TestFachada {
 		System.out.println("email: "+ cliente2.getEmail());
 		System.out.println("telefono: "+ cliente2.getTelefono());
 		System.out.println("celular: "+ cliente2.getCelular());
-
+		System.out.println("rut: "+ cliente2.getRut());
+		System.out.println("razon social: "+ cliente2.getRazonSocial());
+		System.out.println("tipo: "+ cliente2.getTipo());
+		System.out.println("direccion: "+ cliente2.getDireccion());
+		
 		
 		//PRUEBO selectPresupuestosAprobados()
 		System.lineSeparator();
@@ -182,6 +189,7 @@ public class TestFachada {
 			System.out.println("costo: "+presupuestoAprobado.getCosto());
 			System.out.println("condiciones venta: "+presupuestoAprobado.getCondicionesVenta());
 			System.out.println("descripcion: "+presupuestoAprobado.getDescripcion());
+			System.out.println("unidades: "+presupuestoAprobado.getUnidades());
 		}
 		
 		//PRUEBO selectPresupuesto
@@ -200,6 +208,7 @@ public class TestFachada {
 		System.out.println("costo: "+presupuesto.getCosto());
 		System.out.println("condiciones venta: "+presupuesto.getCondicionesVenta());
 		System.out.println("descripcion: "+presupuesto.getDescripcion());
+		System.out.println("unidades: "+presupuesto.getUnidades());
 		
 		//PRUEBO selectPresupuestoPorId
 		System.lineSeparator();
@@ -220,8 +229,8 @@ public class TestFachada {
 		System.out.println("costo: "+presupuesto2.getCosto());
 		System.out.println("condiciones venta: "+presupuesto2.getCondicionesVenta());
 		System.out.println("descripcion: "+presupuesto2.getDescripcion());
+		System.out.println("unidades: "+presupuesto2.getUnidades());
 
-		
 		//PRUEBO: selectClientePresupuesto
 		ClientePresupuesto clientePresupuesto= new ClientePresupuesto();
 		idPresupuesto= 1;

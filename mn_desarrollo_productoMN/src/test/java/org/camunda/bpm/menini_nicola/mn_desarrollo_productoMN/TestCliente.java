@@ -10,7 +10,7 @@ public class TestCliente {
 		DAOCliente daoCliente= new DAOCliente();
 		Cliente cliente= new Cliente();
 		
-		int idPresupuesto=1;
+		int idPresupuesto=3;
 		cliente= daoCliente.selectClientePresupuestoAprobado(idPresupuesto);
 		System.out.println("Datos Cliente con presupuesto aprobado.");
 		System.out.println("idPresupuesto: "+ idPresupuesto);
@@ -19,9 +19,13 @@ public class TestCliente {
 		System.out.println("email: "+ cliente.getEmail());
 		System.out.println("telefono: "+ cliente.getTelefono());
 		System.out.println("celular: "+ cliente.getCelular());
+		System.out.println("rut: "+ cliente.getRut());
+		System.out.println("razonSocial: "+ cliente.getRazonSocial());
+		System.out.println("tipo: "+ cliente.getTipo());
+		System.out.println("direccion: "+ cliente.getDireccion());
 		
 		
-		int idCliente=1;
+		int idCliente=3;
 		Cliente cliente2= new Cliente();
 		cliente2= daoCliente.selectCliente(idCliente);
 		System.out.println("");
@@ -32,6 +36,10 @@ public class TestCliente {
 		System.out.println("email: "+ cliente2.getEmail());
 		System.out.println("telefono: "+ cliente2.getTelefono());
 		System.out.println("celular: "+ cliente2.getCelular());
+		System.out.println("rut: "+ cliente2.getRut());
+		System.out.println("razonSocial: "+ cliente2.getRazonSocial());
+		System.out.println("tipo: "+ cliente2.getTipo());
+		System.out.println("direccion: "+ cliente2.getDireccion());
 
 	}
 }

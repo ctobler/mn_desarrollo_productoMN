@@ -36,6 +36,10 @@ public class DAOCliente {
 				cliente.setEmail(rs.getString("email"));
 				cliente.setTelefono(rs.getString("telefono"));
 				cliente.setCelular(rs.getString("celular"));
+				cliente.setRut(rs.getString("rut"));
+				cliente.setRazonSocial(rs.getString("razonSocial"));
+				cliente.setTipo(rs.getString("tipo"));
+				cliente.setDireccion(rs.getString("direccion"));
 			}
 			
 		} catch (SQLException e) {
@@ -81,6 +85,10 @@ public class DAOCliente {
 				cliente.setEmail(rs.getString("email"));
 				cliente.setTelefono(rs.getString("telefono"));
 				cliente.setCelular(rs.getString("celular"));
+				cliente.setRut(rs.getString("rut"));
+				cliente.setRazonSocial(rs.getString("razonSocial"));
+				cliente.setTipo(rs.getString("tipo"));
+				cliente.setDireccion(rs.getString("direccion"));
 			}
 			
 		} catch (SQLException e) {

@@ -12,13 +12,14 @@ public class VOPresupuesto {
 	Double costo;
 	String condicionesVenta;
 	String descripcion;
+	Integer unidades;
 	
 	public VOPresupuesto() {
 		super();
 	}
 	
 	public VOPresupuesto(Integer idPresupuesto, String cotizacion, Date fecha, String moneda, Double costo,
-			String condicionesVenta, String descripcion) {
+			String condicionesVenta, String descripcion, Integer unidades) {
 		super();
 		this.idPresupuesto = idPresupuesto;
 		this.cotizacion = cotizacion;
@@ -27,6 +28,7 @@ public class VOPresupuesto {
 		this.costo = costo;
 		this.condicionesVenta = condicionesVenta;
 		this.descripcion = descripcion;
+		this.unidades= unidades;
 	}
 	
 	public Integer getIdPresupuesto() {
@@ -70,5 +72,11 @@ public class VOPresupuesto {
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	public Integer getUnidades() {
+		return unidades;
+	}
+	public void setUnidades(Integer unidades) {
+		this.unidades= unidades;
 	}
 }

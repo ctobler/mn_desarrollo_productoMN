@@ -33,6 +33,7 @@ public class Consultas {
 		return insert;
 	}
 	
+	//CORREGIR MAS ARRIBA !!!!
 	//CONSULTAS TABLA: mn_presupuesto
 	public String selectPresupuestosAprobados()
 	{
@@ -43,15 +44,17 @@ public class Consultas {
 				"presupuesto.moneda, \n" + 
 				"presupuesto.costo,  \n" + 
 				"presupuesto.condicionesVenta, \n" + 
-				"presupuesto.descripcion\n" + 
+				"presupuesto.descripcion, \n" +
+				"presupuesto.unidades\n" + 
 				"FROM mn_presupuesto presupuesto \n" + 
 				"INNER JOIN mn_cliente_presupuesto cliePres ON presupuesto.idPresupuesto= cliePres.idPresupuesto \n" + 
 				"INNER JOIN mn_cliente cliente ON cliePres.idCliente= cliente.idCliente\n" + 
 				"INNER JOIN mn_producto producto ON producto.idPresupuesto= presupuesto.idPresupuesto\n" + 
-				"WHERE (cliePres.estado= 1) AND (producto.tipo IN (1,2))";	
+				"WHERE (cliePres.estado= 1) ";	
 		return select;
 	}
 	
+	//CORREGIR MAS ARRIBA !!!!
 	public String selectPresupuesto()
 	{
 		String select="\n" + 
@@ -59,6 +62,7 @@ public class Consultas {
 		return select;
 	}
 	
+	//CORREGIR MAS ARRIBA !!!!
 	public String selectPresupuestoPorId()
 	{
 		String select="SELECT \n" + 
@@ -68,33 +72,14 @@ public class Consultas {
 				"presupuesto.moneda,\n" + 
 				"presupuesto.costo,\n" + 
 				"presupuesto.condicionesVenta,\n" + 
-				"presupuesto.descripcion\n" + 
+				"presupuesto.descripcion,\n" + 
+				"presupuesto.unidades\n" + 
 				"FROM mn_presupuesto presupuesto\n" + 
 				"WHERE presupuesto.idPresupuesto=?";				
 		return select;
 	}
 	
-	//obtiene los datos de los presupestos que fueron aprobados
-	//que se corresponden solamente con los productos del tipo "ProductoMN"
-//	public String selectPresupuestosAprobados()
-//	{
-//		String select="SELECT presupuesto.idPresupuesto,\n" + 
-//				"presupuesto.cotizacion,\n" + 
-//				"presupuesto.fecha,\n" + 
-//				"presupuesto.moneda,\n" + 
-//				"presupuesto.costo,\n" + 
-//				"presupuesto.condicionesVenta,\n" + 
-//				"presupuesto.descripcion\n" +  
-//				"FROM mn_presupuesto presupuesto INNER JOIN mn_cliente_presupuesto cliePres ON\n" +  
-//				"															 presupuesto.idPresupuesto = cliePres.idPresupuesto\n" +  
-//				"WHERE cliePres.estado=1 AND (\n" +  
-//				"		cliePres.idClientePresupuesto= (select idClientePresupuesto\n" + 
-//				"												 from mn_productoMN\n" + 
-//				"												 where idClientePresupuesto != 0) )\n" +
-//				"ORDER BY presupuesto.fecha DESC;";					
-//		return select;
-//	}
-	
+
 	//CONSULTAS TABLA: mn_cliente
 	//obtiene los datos de un cliente que aprobo un presupuesto determinado 
 	public String selectClientePresupuestoAprobado()
@@ -110,13 +95,18 @@ public class Consultas {
 	}
 	public String selectCliente()
 	{
-		String select="SELECT cliente.idCliente,\n" + 
-				"cliente.nombre,\n" + 
-				"cliente.email,\n" + 
-				"cliente.telefono,\n" + 
-				"cliente.celular\n" + 
-				" FROM mn_cliente cliente\n" + 
-				" WHERE cliente.idCliente=?;";
+		String select="SELECT\n" + 
+				" cliente.idCliente, \n" + 
+				" cliente.nombre, \n" + 
+				" cliente.email, \n" + 
+				" cliente.telefono, \n" + 
+				" cliente.celular,\n" + 
+				" cliente.rut,\n" + 
+				" cliente.razonSocial,\n" + 
+				" cliente.tipo,\n" + 
+				" cliente.direccion \n" + 
+				"FROM mn_cliente cliente \n" + 
+				"WHERE cliente.idCliente= ?";
 		return select;
 	}
 	
