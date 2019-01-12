@@ -45,8 +45,8 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 		voProductoMN.setFechaProduccion((java.sql.Date)fechaProduccion);
 		voProductoMN.setProveedoresMN(dataProductoMN.getProveedoresMN());
 		
-		//obtener el idPresupuesto que es el indice de lo seleccionado en el combo de presupuestos.
-		//usarlo para traer desde la BD un objeto ClientePresupuesto
+		//obtener el idPresupuesto ingresado en: seleccionarPresupuesto-form.html
+		//(es el indice de lo seleccionado en el combo de presupuestos)
 		//y de este objeto tomar el idClientePresupuesto para setearlo en el VOProductoMN
 		String idPresupuesto= (String) execution.getVariable("cotizacion");
 		ClientePresupuesto clientePresupuesto= fachada.selectClientePresupuesto(Integer.parseInt(idPresupuesto));	
@@ -73,8 +73,8 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 			}
 		}
 		
-		//actualizar estado del presupuesto aprobado->desarrollo
-		Integer estado=2; //HACER ESTO CON UNA CLASE DE ENUMERADOS !!!
+		//actualizar estado del presupuesto de: en proceso(2) -> en desarrollo(3)
+		Integer estado=3; //HACER ESTO CON UNA CLASE DE ENUMERADOS !!!
 	  	fachada.updateEstadoPresupuesto(Integer.parseInt(idPresupuesto), estado);
 		
 		//traer datos presupuesto
