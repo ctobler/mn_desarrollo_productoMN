@@ -1,6 +1,6 @@
 <center>
-	<h1><strong>Desarrollo Producto</strong></h1>
-	<h2><p>Producción Actual de Producto</p></h2>
+	<h3><strong>Fabricación Producto</strong></h3>
+	<p>Producción Actual de Producto</p>
 </center>
 
 <form role="form" name="form" class="form-horizontal" >
@@ -68,7 +68,7 @@
 		<p><b>Precio de Venta: </b></p>
   		<p>{{MONEDA_PRESUPUESTO +" "+ COSTO_PRESUPUESTO}}</p>
 		<p><b>Costo de Producción:</b></p>
-		<p>{{dataProductoMN.moneda+" "+dataProductoMN.total+" "+dataProductoMN.ivaProducto}}</p>
+		<p>{{dataProductoMN.moneda+" "+dataProductoMN.total+" "}}</p>
 		<p><b>Ganancia:</b></p>
 		<p>{{monedaGanancia + " " + (COSTO_PRESUPUESTO - dataProductoMN.total) }}</p>
       	<p><b>Seña Recibida: </b></p>
@@ -81,7 +81,7 @@
       	<div ng-repeat="prov in dataProductoMN.proveedoresMN">
 			<br>
 			<p><b>Nombre Proveedor: </b>{{prov.tipoProveedor}}</p>
-   			<p><b>Precio Proveedor: </b>{{prov.moneda+" "+prov.precio+" "+prov.ivaProveedor}}</p>
+   			<p><b>Precio Proveedor: </b>{{prov.moneda+" "+prov.precio+" "+"("+prov.ivaProveedor+")"}}</p>
    			<p><b>Detalles Proveedor: </b>{{prov.detalles}}</p>
       		<hr>
       	</div>

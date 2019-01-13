@@ -9,7 +9,7 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow1" sourceRef="StartEventProcessStarted" targetRef="Task_1ob9jcp" />
     <bpmn:sequenceFlow id="SequenceFlow_1ersve5" sourceRef="Task_09715jb" targetRef="ExclusiveGateway_0y9qp9m" />
-    <bpmn:userTask id="Task_09715jb" name="Ingresar proveedores" camunda:formKey="embedded:app:forms/ingresarProveedor-form.html" camunda:candidateGroups="desarrolladores">
+    <bpmn:userTask id="Task_09715jb" name="Ingresar Envío a Producción" camunda:formKey="embedded:app:forms/ingresarProveedor-form.html" camunda:candidateGroups="desarrolladores">
       <bpmn:incoming>SequenceFlow_0lnu4pn</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1ersve5</bpmn:outgoing>
     </bpmn:userTask>
@@ -19,7 +19,7 @@
       <bpmn:outgoing>SequenceFlow_0sffmeg</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_1siq0l8" sourceRef="Task_1m33n28" targetRef="Task_1qqd0qv" />
-    <bpmn:userTask id="Task_1m33n28" name="Mostrar valores" camunda:formKey="embedded:app:forms/mostrarProveedor-form.html" camunda:candidateGroups="desarrolladores">
+    <bpmn:userTask id="Task_1m33n28" name="Producción Actual de Producto" camunda:formKey="embedded:app:forms/mostrarProveedor-form.html" camunda:candidateGroups="desarrolladores">
       <bpmn:incoming>SequenceFlow_0sffmeg</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1siq0l8</bpmn:outgoing>
     </bpmn:userTask>
@@ -50,7 +50,7 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1fbmfug" sourceRef="Task_0mz25fu" targetRef="EndEventProcessEnded" />
     <bpmn:sequenceFlow id="SequenceFlow_18njj8g" sourceRef="Task_0snjarx" targetRef="ExclusiveGateway_0qbccsz" />
-    <bpmn:userTask id="Task_0snjarx" name="Seleccionar presupuesto" camunda:formKey="embedded:app:forms/seleccionarPresupuesto-form.html" camunda:candidateGroups="desarrolladores">
+    <bpmn:userTask id="Task_0snjarx" name="Seleccionar Un Presupuesto" camunda:formKey="embedded:app:forms/seleccionarPresupuesto-form.html" camunda:candidateGroups="desarrolladores">
       <bpmn:incoming>SequenceFlow_0bkgssx</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_18njj8g</bpmn:outgoing>
     </bpmn:userTask>
@@ -110,7 +110,7 @@
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1pq00gw" sourceRef="Task_0mz25fu" targetRef="TextAnnotation_1pf5khk" />
     <bpmn:textAnnotation id="TextAnnotation_1mh461j">
-      <bpmn:text>actualiza estado de 'aprobado' a 'en proceso' y trae datos del cliente y presupuesto seleccionado </bpmn:text>
+      <bpmn:text>actualiza estado de 'aprobado' a 'en proceso' y trae datos del cliente y presupuesto seleccionado</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1f2mud3" sourceRef="Task_0cvgc8r" targetRef="TextAnnotation_1mh461j" />
     <bpmn:textAnnotation id="TextAnnotation_0un53os">

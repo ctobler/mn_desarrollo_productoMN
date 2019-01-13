@@ -1,18 +1,46 @@
 <center>
-	<h2><strong>Desarrollo Producto</strong></h2>
-	<h3><p>Ingresar Envío a Producción</p></h3>
+	<h3><strong>Fabricación Producto</strong></h3>
+	<p>Ingresar Envío a Producción</p>
 </center>
 
 <form role="form" name="form" class="form-horizontal" >
 
   <script cam-script type="text/form-script">
+
+	//traer variable 'MONEDA_PRESUPUESTO' 
+	camForm.on('form-loaded', function() {
+  		camForm.variableManager.fetchVariable('MONEDA_PRESUPUESTO');
+	});
+
+	camForm.on('variables-fetched', function() {
+  		$scope.MONEDA_PRESUPUESTO = camForm.variableManager.variableValue('MONEDA_PRESUPUESTO');
+	});
+
+	//traer variable 'TIPO_CLIENTE'
+	camForm.on('form-loaded', function() {
+  		camForm.variableManager.fetchVariable('TIPO_CLIENTE');
+	});
+
+	camForm.on('variables-fetched', function() {
+  		$scope.TIPO_CLIENTE = camForm.variableManager.variableValue('TIPO_CLIENTE');
+	});
+
+	//traer variable 'UNIDADES_PRESUPUESTO'
+	camForm.on('form-loaded', function() {
+  		camForm.variableManager.fetchVariable('UNIDADES_PRESUPUESTO');
+	});
+
+	camForm.on('variables-fetched', function() {
+  		$scope.UNIDADES_PRESUPUESTO = camForm.variableManager.variableValue('UNIDADES_PRESUPUESTO');
+	});
+	
 	var dataProductoMN = $scope.dataProductoMN={
 		proveedoresMN : [],
 		total : 0,
 		moneda : 'USD'
 	};
 	var subtotal = $scope.subtotal = {};
-		
+	
 	//FUNCION PARA INICIAR EL TOTAL
 	$scope.calcularTotal = function(tasaCambio) {
 		var totalDolares= $scope.getSubTotalDolares();
@@ -106,9 +134,6 @@
 	
 	$scope.monedas=["USD","$U"]
 	
-	$scope.impuestos=["IVA INC.", "SIN IVA"]
-	var impuestoProveedor= $scope.impuestoProveedor="SIN IVA";
-	
 	//enganchar con el ciclo de vida del formulario camunda SDK 
 	camForm.on('form-loaded',function() {
 		
@@ -169,63 +194,67 @@
 	  }
     });
   </script>
-  		
+  	
+  	  <div class="control-group">
+  		<label class="control-label">Moneda del Presupuesto: {{MONEDA_PRESUPUESTO}}</label>
+	  </div>
+	  <div class="control-group">
+  		<label class="control-label">Tipo de cliente: {{TIPO_CLIENTE}}</label>
+	  </div>		
   	  <div class="control-group">
   		<label class="control-label">Seña recibida: {{pago.moneda +" "+ pago.senia}}</label>
 	  </div>
-	  
-	  <label for="categoria" class="control-label">Cotización *</label>
+	  <label for="categoria" class="control-label">Cotización</label>
       <select cam-variable-name="cotizacion"
             cam-variable-type="String"
             cam-choices="PRESUPUESTOS_APROBADOS"
             ng-model="dataProductoMN.senia"
             ng-required="!cancelarProduccion"
-            class="form-control">
+            class="form-control"
+            readonly>
             <option value="">--ingresar cotizacion--</option>
 	  </select>
-	  
 	  <div class="row">
-	  	<div class="col-xs-2">
- 			<div class="control-group">
- 				<div class="controls">
- 					<label for="CANTIDAD" class="control-label">Unidades *</label>
- 					<input 	id="idCantidad"
-   							class="form-control"
-   							type="number" 
-   							ng-required="!cancelarProduccion"
-   							ng-model="dataProductoMN.cantidad"
-    	   					name="CANTIDAD"
-    	   					ng-click="limpiarMensaje()">
+	    <div class="col-xs-2">
+  			<label for="CANTIDAD" class="control-label">Unidades</label>
+  				<input 	id="idCantidad" 
+   						class="form-control"
+   						type="number" 
+   						ng-required="!cancelarProduccion"
+   						ng-model="UNIDADES_PRESUPUESTO"
+    	   				readonly>	
+<!--  					<input 	id="idCantidad" -->
+<!--    							class="form-control" -->
+<!--    							type="number"  -->
+<!--    							ng-required="!cancelarProduccion" -->
+<!--    							ng-model="dataProductoMN.cantidad" -->
+<!--     	   					name="CANTIDAD" -->
+<!--     	   					ng-click="limpiarMensaje()" -->
+<!--     	   					readonly> -->
     	   				
-    	   			<!--validar ingreso de cantidad-->
-      				<p>
-      					<span style="color:red" ng-show="form.CANTIDAD.$dirty && form.CANTIDAD.$invalid">
-  							<span ng-show="form.CANTIDAD.$error.required">cantidad es obligatoria</span>
-  						</span>
-      				</p>
- 				</div>
- 			</div>
- 		</div>
-      	<div class="col-xs-10">
- 			<div class="control-group">
- 				<div class="controls">
-	  				<label for="NOMBRE_PRODUCTO" class="control-label">Nombre del Producto *</label>
-	  				<input 	id="idNombre"
-   							class="form-control"
-   							type="text" 
-   							ng-required="!cancelarProduccion"
-   							ng-model="dataProductoMN.nombre"
-    						name="NOMBRE_PRODUCTO">
-    				
-    				<!--validar ingreso de nombre de producto-->
-      				<p>
-      					<span style="color:red" ng-show="form.NOMBRE_PRODUCTO.$dirty && form.NOMBRE_PRODUCTO.$invalid">
-  							<span ng-show="form.NOMBRE_PRODUCTO.$error.required">nombre de producto es obligatorio</span>
-  						</span>
-      				</p>	
-    			</div>
-      		</div>
-       	</div>
+<!--     	   			validar ingreso de cantidad -->
+<!--       				<p> -->
+<!--       					<span style="color:red" ng-show="form.CANTIDAD.$dirty && form.CANTIDAD.$invalid"> -->
+<!--   							<span ng-show="form.CANTIDAD.$error.required">cantidad es obligatoria</span> -->
+<!--   						</span> -->
+<!--       				</p> -->
+ 		 </div>
+         <div class="col-xs-10">
+	  	 	<label for="NOMBRE_PRODUCTO" class="control-label">Nombre del Producto</label>
+	  			<input 	id="idNombre"
+   						class="form-control"
+   						type="text" 
+   						ng-required="!cancelarProduccion"
+   						ng-model="dataProductoMN.nombre"
+    					name="NOMBRE_PRODUCTO"
+    					required>	
+    			<!--validar ingreso de nombre de producto-->
+      			<p>
+      				<span style="color:red" ng-show="form.NOMBRE_PRODUCTO.$dirty && form.NOMBRE_PRODUCTO.$invalid">
+  						<span ng-show="form.NOMBRE_PRODUCTO.$error.required">nombre de producto es obligatorio</span>
+  					</span>
+      			</p>	
+       	 </div>
       </div>
       <label for="TRABAJO_REALIZADO" class="control-label">Observaciones</label>
 	  <div class="control-group">
@@ -266,7 +295,7 @@
       		   			name="PROVEEDOR" 
                			maxlength=100>
          		   	   		
-            <!--validar ingreso de proveedor-->
+            	<!--validar ingreso de proveedor-->
       			<p>
       				<span style="color:red" ng-show="form.PROVEEDOR.$dirty && form.PROVEEDOR.$invalid">
   						<span ng-show="form.PROVEEDOR.$error.required">tipo proveedor es obligatorio</span>
@@ -274,64 +303,76 @@
       			</p>   	   		
             </div>
         </div>
-            
-		<label  class="control-label">Precio *</label> 
+		<!-- <label  class="control-label">Precio *</label>  -->
        	<div class="row">
         	<div class="col-xs-2">
- 				<div class="control-group">
- 					<div class="controls">
-            			<select ng-init="prov.moneda = monedas[0]"
-            					ng-model="prov.moneda" 
-            					ng-options="x for x in monedas"
-            					ng-required="!cancelarProduccion">
-						</select>
-					</div>
-				</div>
+        		<label  class="control-label">Moneda *</label>
+        		<div ng-if=" MONEDA_PRESUPUESTO == 'USD'">
+      				<select ng-model="prov.moneda"
+							ng-required="!cancelarProduccion"
+							readonly>
+						<option>USD</option>
+					</select>
+	  			</div>
+	  			<div ng-if=" MONEDA_PRESUPUESTO == '$U'">
+      				<select ng-model="prov.moneda"
+							ng-required="!cancelarProduccion"
+							readonly>
+						<option>$U</option>
+					</select>
+	  			</div>
+<!--  				<select ng-init="prov.moneda = monedas[0]" -->
+<!--             			ng-model="prov.moneda"  -->
+<!--             			ng-options="x for x in monedas" -->
+<!--             			ng-required="!cancelarProduccion"> -->
+<!-- 				</select>	 -->
 			</div>
             <div class="col-xs-8">
-        		<div class="control-group">
-<!--       		<label  for="PRECIO" class="control-label">Precio *</label> -->
-   					<div class="controls">
-   						<input 	id="idPrecio"
-   								class="form-control"
-   								type="number" 
-   								ng-required="!cancelarProduccion"
-   								ng-model="prov.precio"
-    	   						name="PRECIO">
-  	
-    	   					<!--validar ingreso de precio-->
+            	<label  class="control-label">Precio *</label>
+   				<input 	id="idPrecio"
+   						class="form-control"
+   						type="number" 
+   						ng-required="!cancelarProduccion"
+   						ng-model="prov.precio"
+    	   				name="PRECIO">
+    	   				<!--validar ingreso de precio-->
       					<p>
       						<span style="color:red" ng-show="form.PRECIO.$dirty && form.PRECIO.$invalid">
   								<span ng-show="form.PRECIO.$error.required">precio proveedor es obligatorio</span>
   							</span>
       					</p>
-      				</div>
-      			</div>
       		</div>
-      			
       		<div class="col-xs-2">
-      			<div class="control-group">
-      				<div class="controls">
-            			<select ng-init="prov.ivaProveedor = impuestos[0]"
-            					ng-model="prov.ivaProveedor" 
-            					ng-options="x for x in impuestos"
-            					ng-required="!cancelarProduccion">
-						</select>
-					</div>
-				</div>
+      			<label  class="control-label">Iva *</label>
+      			<div ng-if=" TIPO_CLIENTE == 'CONSUMIDOR FINAL'">
+      				<select ng-model="prov.ivaProveedor"
+							ng-required="!cancelarProduccion"
+							readonly>
+						<option>IVA INC.</option>
+					</select>
+	  			</div>
+	  			<div ng-if=" TIPO_CLIENTE == 'CORPORATIVO'">
+	  				<select ng-model="prov.ivaProveedor"
+							ng-required="!cancelarProduccion"
+							readonly>
+						<option>S/IVA</option>
+					</select>
+	  			</div>
+<!--             	<select ng-init="prov.ivaProveedor = impuestos[0]" -->
+<!--             			ng-model="prov.ivaProveedor"  -->
+<!--             			ng-options="x for x in impuestos" -->
+<!--             			ng-required="!cancelarProduccion"> -->
+<!-- 				</select> -->
       		</div>
-      	</div>
-     		
-		<div class="control-group">
-      		<label for="DETALLES" class="control-label">Detalles</label>
-      			<div class="controls">
-   					<input 	id="idDetalles"
-   							class="form-control"
-   							type="text" 
-   							ng-model="prov.detalles"
-    						name="DETALLES">
-    			</div>
-      	</div>
+      	</div>	
+		<label for="DETALLES" class="control-label">Detalles</label>
+      		<div class="controls">
+   				<input 	id="idDetalles"
+   						class="form-control"
+   						type="text" 
+   						ng-model="prov.detalles"
+    					name="DETALLES">
+    		</div>
       	<br>
       	<div class="control-group" style="float:left;">
       		<button ng-click="quitarProveedor($index)">&times; Quitar Proveedor</button>
@@ -348,26 +389,24 @@
 	  <hr>
 	         	
       <div class="control-group" ng-show="existePesos()">
-      	<div class="controls">
-      		<label class="control-label">Taza de cambio *: </label>
-      		<input 	id="idTazaCambio"
-   					class="form-control"
-   					type="number" 
-   					ng-model="tazaCambio"
-    	   			name="TAZA_CAMBIO"
-    	   			ng-init= "0">
+      	<label class="control-label">Taza de cambio *: </label>
+      	<input 	id="idTazaCambio"
+   				class="form-control"
+   				type="number" 
+   				ng-model="tazaCambio"
+    			name="TAZA_CAMBIO"
+    	   		ng-init= "0">
     					
-    	   			<!--validar ingreso de precio-->
-      				<p>
-      					<span style="color:red" ng-show="form.TAZA_CAMBIO.$dirty && form.TAZA_CAMBIO.$invalid">
-  							<span ng-show="form.TAZA_CAMBIO.$error.required">la taza de cambio es obligatorio</span>
-  						</span>					
-      				</p>
-      	</div>
-      </div>
+    	   		<!--validar ingreso de precio-->
+      			<p>
+      				<span style="color:red" ng-show="form.TAZA_CAMBIO.$dirty && form.TAZA_CAMBIO.$invalid">
+  						<span ng-show="form.TAZA_CAMBIO.$error.required">la taza de cambio es obligatorio</span>
+  					</span>					
+      			</p>
+     </div>
       
-      <hr>
-     	
+     <hr>
+  
      <div class="control-group">
       	<div class="control-group">
       		<div class="controls">
@@ -380,22 +419,24 @@
 	  		</div>
 	  	</div>
       	<div class="controls">
-	    	<label class="control-label">TOTAL (USD)</label>
-      	</div>	      			
+	    	<label class="control-label">TOTAL ({{MONEDA_PRESUPUESTO}})</label>
+      	</div>
       	
-<!--       	<p>{{calcularTotal(tazaCambio)}}</p> -->
-      	
-<!--       	<input ng-value= "getSubTotalDolares() + convertirUSD(getSubTotalPesos(),tazaCambio)"  	 -->
-<!--       		   readonly>  -->
-		
-		<input ng-value= "calcularTotal(tazaCambio)"  	
-      		   readonly> 
-					      		      		   	   
-      	<select ng-model="dataProductoMN.ivaProducto" 
-        		ng-options="x for x in impuestos"
-        		ng-required="!cancelarProduccion">
-        		<option value="">--ingresar iva--</option>
-		</select>
+      	<div class="row">	      			
+      		<div class="col-xs-4">
+				<input ng-value= "calcularTotal(tazaCambio)"  	
+      				   readonly>
+      		</div>	   
+      		<div class="col-xs-8" align="left">
+      			<div ng-if=" TIPO_CLIENTE == 'CONSUMIDOR FINAL'">
+  					<label class="control-label">IVA INC.</label>
+	  			</div>
+	  			<div ng-if=" TIPO_CLIENTE == 'CORPORATIVO'">
+	  				<label class="control-label">S/IVA</label>
+	  			</div>
+			</div>
+		</div>
+		     		     
 		<br>
 		<div align="left">
 			<br>
@@ -403,14 +444,10 @@
 	        	   cam-variable-name="cancelarProduccion"
 	           	   cam-variable-type="Boolean"
 	           	   name="cancelarProduccion"
-	           	   class="form-control" /
+	           	   class="form-control" 
 	           	   ng-readonly="cancelarProduccion == true">
 	        <br>
 	        <label for="descartarPresupuesto">cancelar</label>
 		</div>
-		
-<!-- 		<input ng-value="calcularTotal(tazaCambio)" readonly> -->
-<!-- 		<p>{{dataProductoMN.total}}</p> -->
-	
       </div>
 </form>
