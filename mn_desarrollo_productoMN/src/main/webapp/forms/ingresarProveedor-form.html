@@ -34,6 +34,16 @@
   		$scope.UNIDADES_PRESUPUESTO = camForm.variableManager.variableValue('UNIDADES_PRESUPUESTO');
 	});
 	
+	//traer variable 'NOMBRE_PRODUCTO'
+	camForm.on('form-loaded', function() {
+  		camForm.variableManager.fetchVariable('NOMBRE_PRODUCTO');
+	});
+
+	camForm.on('variables-fetched', function() {
+  		$scope.NOMBRE_PRODUCTO = camForm.variableManager.variableValue('NOMBRE_PRODUCTO');
+	});
+
+	
 	var dataProductoMN = $scope.dataProductoMN={
 		proveedoresMN : [],
 		total : 0,
@@ -241,19 +251,25 @@
  		 </div>
          <div class="col-xs-10">
 	  	 	<label for="NOMBRE_PRODUCTO" class="control-label">Nombre del Producto</label>
-	  			<input 	id="idNombre"
+	  	 		<input 	id="idNombreProducto" 
    						class="form-control"
-   						type="text" 
+   						type="string" 
    						ng-required="!cancelarProduccion"
-   						ng-model="dataProductoMN.nombre"
-    					name="NOMBRE_PRODUCTO"
-    					required>	
-    			<!--validar ingreso de nombre de producto-->
-      			<p>
-      				<span style="color:red" ng-show="form.NOMBRE_PRODUCTO.$dirty && form.NOMBRE_PRODUCTO.$invalid">
-  						<span ng-show="form.NOMBRE_PRODUCTO.$error.required">nombre de producto es obligatorio</span>
-  					</span>
-      			</p>	
+   						ng-model="NOMBRE_PRODUCTO"
+    	   				readonly>
+<!-- 	  			<input 	id="idNombre" -->
+<!--    						class="form-control" -->
+<!--    						type="text"  -->
+<!--    						ng-required="!cancelarProduccion" -->
+<!--    						ng-model="dataProductoMN.nombre" -->
+<!--     					name="NOMBRE_PRODUCTO" -->
+<!--     					required>	 -->
+<!--     			validar ingreso de nombre de producto -->
+<!--       			<p> -->
+<!--       				<span style="color:red" ng-show="form.NOMBRE_PRODUCTO.$dirty && form.NOMBRE_PRODUCTO.$invalid"> -->
+<!--   						<span ng-show="form.NOMBRE_PRODUCTO.$error.required">nombre de producto es obligatorio</span> -->
+<!--   					</span> -->
+<!--       			</p>	 -->
        	 </div>
       </div>
       <label for="TRABAJO_REALIZADO" class="control-label">Observaciones</label>
@@ -262,15 +278,9 @@
    	  		<input 	id="idTrabajoRealizado"
    					class="form-control"
    					type="text"
-   					ng-required="!cancelarProduccion" 
    					ng-model="dataProductoMN.trabajoRealizado"
-    				name="TRABAJO_REALIZADO">
-    		<!--validar ingreso de trabajo realizado-->
-      		<p>
-      			<span style="color:red" ng-show="form.TRABAJO_REALIZADO.$dirty && form.TRABAJO_REALIZADO.$invalid">
-  					<span ng-show="form.TRABAJO_REALIZADO.$error.required">trabajo realizado es obligatorio</span>
-  				</span>
-      		</p>   	
+    				name="TRABAJO_REALIZADO"
+    				placeholder="ej. 'retapizado' ">
     	</div>
       </div>
             
@@ -403,25 +413,22 @@
   						<span ng-show="form.TAZA_CAMBIO.$error.required">la taza de cambio es obligatorio</span>
   					</span>					
       			</p>
-     </div>
-      
-     <hr>
-  
-     <div class="control-group">
-      	<div class="control-group">
-      		<div class="controls">
-	  			<label class="control-label">Sub-total($U): {{getSubTotalPesos()}}</label>
-	  		</div>
-	  	</div>
-      	<div class="control-group">
-      		<div class="controls">
-	  			<label class="control-label">Sub-total(USD): {{getSubTotalDolares()}}</label>
-	  		</div>
-	  	</div>
+     </div>   
+
+<!--      <div class="control-group"> -->
+<!--       	<div class="control-group"> -->
+<!--       		<div class="controls"> -->
+<!-- 	  			<label class="control-label">Sub-total($U): {{getSubTotalPesos()}}</label> -->
+<!-- 	  		</div> -->
+<!-- 	  	</div> -->
+<!--       	<div class="control-group"> -->
+<!--       		<div class="controls"> -->
+<!-- 	  			<label class="control-label">Sub-total(USD): {{getSubTotalDolares()}}</label> -->
+<!-- 	  		</div> -->
+<!-- 	  	</div> -->
       	<div class="controls">
 	    	<label class="control-label">TOTAL ({{MONEDA_PRESUPUESTO}})</label>
       	</div>
-      	
       	<div class="row">	      			
       		<div class="col-xs-4">
 				<input ng-value= "calcularTotal(tazaCambio)"  	
@@ -435,9 +442,9 @@
 	  				<label class="control-label">S/IVA</label>
 	  			</div>
 			</div>
-		</div>
-		     		     
+		</div>		     
 		<br>
+	
 		<div align="left">
 			<br>
 	    	<input type="checkbox"
@@ -446,7 +453,6 @@
 	           	   name="cancelarProduccion"
 	           	   class="form-control" 
 	           	   ng-readonly="cancelarProduccion == true">
-	        <br>
 	        <label for="descartarPresupuesto">cancelar</label>
 		</div>
       </div>

@@ -35,4 +35,6 @@ public interface IFachada {
 
 	Integer updateFechaEntrega(Integer idProductoMN, Date fechaEntrega);
 
+	String selectNombreProducto(Integer idPresupuesto);
+
 }

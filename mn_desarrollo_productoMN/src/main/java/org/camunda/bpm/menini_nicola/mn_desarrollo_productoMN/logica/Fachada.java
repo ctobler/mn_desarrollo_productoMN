@@ -12,6 +12,7 @@ import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProveedorMN
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.persistencia.DAOCliente;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.persistencia.DAOClientePresupuesto;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.persistencia.DAOPresupuesto;
+import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.persistencia.DAOProducto;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.persistencia.DAOProductoMN;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.persistencia.DAOProductoMNProveedorMN;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.persistencia.DAOProveedorMN;
@@ -223,5 +224,16 @@ public class Fachada implements IFachada {
     	registrosAfectados= daoProductoMN.updateFechaEntrega(idProductoMN, fechaEntrega);
     	
     	return registrosAfectados;
+    }
+    
+    @Override
+    public String selectNombreProducto(Integer idPresupuesto)
+    {
+    	String nombreProducto="";
+    	DAOProducto daoProducto= new DAOProducto();
+    	
+    	nombreProducto= daoProducto.selectNombreProducto(idPresupuesto);
+    	
+    	return nombreProducto;
     }
 }

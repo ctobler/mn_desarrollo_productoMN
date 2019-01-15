@@ -18,19 +18,23 @@ public class CargarInfoPresupuestoClienteDelegate implements JavaDelegate {
 		//obtener el idPresupuesto ingresado en: seleccionarPresupuesto-form.html
 		//(es el indice de lo seleccionado en el combo de presupuestos)
 		String idPresupuesto= (String) execution.getVariable("cotizacion");
+		
 		//traer datos del presupuesto desde la BD
 		Presupuesto presupuesto= new Presupuesto();
 		presupuesto= fachada.selectPresupuestoPorId(Integer.parseInt(idPresupuesto));	
-		
+	
 		//actualizar estado del presupuesto de: aprobado(1) -> en proceso(2)
 		Integer estado=2; //HACER ESTO CON UNA CLASE DE ENUMERADOS !!!
 	  	fachada.updateEstadoPresupuesto(Integer.parseInt(idPresupuesto), estado);
-		
+	  	
+	  	//traer nombre del producto correspondiente al idPresupuesto
+	  	String nombreProducto= fachada.selectNombreProducto(Integer.parseInt(idPresupuesto));
+	  	
 	    //traer datos del cliente desde la BD
 	    ClientePresupuesto clientePresupuesto= fachada.selectClientePresupuesto(Integer.parseInt(idPresupuesto));	
 	    Cliente cliente= new Cliente();
 	    cliente= fachada.selectCliente(clientePresupuesto.getIdCliente());
-	
+	 
 	    String tipoCliente= "";
 	    tipoCliente= cliente.getTipo();
 	    
@@ -44,7 +48,7 @@ public class CargarInfoPresupuestoClienteDelegate implements JavaDelegate {
 	    execution.setVariable("TIPO_CLIENTE", tipoCliente);
 	    execution.setVariable("DIRECCION_ENTREGA", direccionCliente);
 	    execution.setVariable("UNIDADES_PRESUPUESTO", unidadesPresupuesto);
-	    
+	    execution.setVariable("NOMBRE_PRODUCTO", nombreProducto);
 	}
 
 }

@@ -253,6 +253,13 @@ public class TestFachada {
 		System.out.println("con la siguiente fecha: "+fechaEntrega);
 		//REVISAR LA BD PARA VERIFICAR SI SE MODIFICA LA FECHA - TABLA mn_productoMN -> fechaEntrega
 		
+		//PRUEBO: selectNombreProducto
+		int idPresupuestoProducto=2;
+		String nombreProducto= "vacio";
+		nombreProducto=fachada.selectNombreProducto(idPresupuestoProducto);
+		System.out.println();
+		System.out.println("--Pruebo selectNombreProducto--");
+		System.out.println("nombre producto: "+nombreProducto);
 	}	
 		
 }

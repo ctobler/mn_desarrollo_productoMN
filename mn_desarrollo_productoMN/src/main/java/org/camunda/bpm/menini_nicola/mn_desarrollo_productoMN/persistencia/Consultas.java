@@ -123,5 +123,12 @@ public class Consultas {
 				"where idPresupuesto=?";
 		return update;
 	}
+	//CONSULTAS TABLA: mn_producto
+	public String selectNombreProducto()
+	{
+		String select="SELECT nombre FROM mn_producto WHERE idProducto=?;";
+		return select;
+	}
+
 
 }
