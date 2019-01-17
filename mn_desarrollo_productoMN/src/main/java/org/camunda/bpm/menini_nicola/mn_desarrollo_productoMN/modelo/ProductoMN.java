@@ -12,9 +12,9 @@ public class ProductoMN {
 	protected Integer cantidad; 
 	protected String nombre; //ej. 'silla BE' 
 	protected String moneda;
-	protected Double total;
+	protected Double total; 
 	protected String ivaProducto;
-	protected List<ProveedorMN> proveedoresMN= new ArrayList<ProveedorMN>();
+	protected List<ProveedorMN> proveedoresMN= new ArrayList<ProveedorMN>(); 
 	protected Double senia;
 	protected Date fechaProduccion; 
 	protected Date fechaEntrega;	

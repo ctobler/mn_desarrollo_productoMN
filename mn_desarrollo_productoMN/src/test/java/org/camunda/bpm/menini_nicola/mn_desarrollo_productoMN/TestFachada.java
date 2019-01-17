@@ -260,6 +260,12 @@ public class TestFachada {
 		System.out.println();
 		System.out.println("--Pruebo selectNombreProducto--");
 		System.out.println("nombre producto: "+nombreProducto);
+	
+		//PRUEBO: cotizacionDolar
+		String cotizacionDolar= fachada.cotizacionDolar();
+		System.out.println("--Pruebo corizacionDolar--");
+		System.out.println("cotizacion brou: "+cotizacionDolar);
+	
 	}	
 		
 }

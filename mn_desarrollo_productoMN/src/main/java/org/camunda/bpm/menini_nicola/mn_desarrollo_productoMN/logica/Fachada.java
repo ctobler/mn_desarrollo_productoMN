@@ -1,5 +1,6 @@
 package org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.logica;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,10 @@ import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.valueObject.VOPres
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.valueObject.VOProductoMN;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.valueObject.VOProductoMNProveedorMN;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.valueObject.VOProveedorMN;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class Fachada implements IFachada {
 
@@ -235,5 +240,32 @@ public class Fachada implements IFachada {
     	nombreProducto= daoProducto.selectNombreProducto(idPresupuesto);
     	
     	return nombreProducto;
+    }
+    
+    @Override
+    public String cotizacionDolar()
+    {
+    	String cotizacion="1";
+    	
+    	String url = "https://www.portal.brou.com.uy/";
+    	try {
+			// Traigo el documento a traves de http
+			Document doc =Jsoup.connect(url).get();
+			
+			// Obtengo todos los valores de venta del dolar
+			Elements links = doc.select("p.valor");
+			int cont=0;
+			for (Element link: links) {
+				cont++;
+				if (cont==2) // aprovecho a que es el segundo valor de la tabla ;)
+					cotizacion= link.text();					
+			}			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	return cotizacion;
     }
 }

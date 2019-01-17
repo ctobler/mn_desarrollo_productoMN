@@ -43,14 +43,21 @@
   		$scope.NOMBRE_PRODUCTO = camForm.variableManager.variableValue('NOMBRE_PRODUCTO');
 	});
 
-	
+	//traer variable 'COTIZACION_DOLAR'
+	camForm.on('form-loaded', function() {
+  		camForm.variableManager.fetchVariable('COTIZACION_DOLAR');
+	});
+
+	camForm.on('variables-fetched', function() {
+  		$scope.COTIZACION_DOLAR = camForm.variableManager.variableValue('COTIZACION_DOLAR');
+	});
+
 	var dataProductoMN = $scope.dataProductoMN={
 		proveedoresMN : [],
-		total : 0,
-		moneda : 'USD'
+		total : 0
 	};
 	var subtotal = $scope.subtotal = {};
-	
+
 	//FUNCION PARA INICIAR EL TOTAL
 	$scope.calcularTotal = function(tasaCambio) {
 		var totalDolares= $scope.getSubTotalDolares();
@@ -213,6 +220,22 @@
 	  </div>		
   	  <div class="control-group">
   		<label class="control-label">Seña recibida: {{pago.moneda +" "+ pago.senia}}</label>
+	  </div>
+	  <br>
+	  <div ng-if=" pago.moneda == '$U' && MONEDA_PRESUPUESTO == 'USD' ">
+	  	<label>Cotización del dolar: $U {{COTIZACION_DOLAR}} </label>
+	 	 <br>
+	 	 <label>Re-ingresar valor de seña en USD: </label>			
+	  	 <input id="idSenia"
+	  			ng-model="pago.senia"
+	  		   	type="number"
+	  		   	name= "SENIA"
+	  		   	ng-required="!cancelarProduccion">		
+      		<p>
+      			<span style="color:red" ng-show="form.SENIA.$dirty && form.SENIA.$invalid">
+  					<span ng-show="form.SENIA.$error.required">senia es obligatorio</span>
+  				</span>
+      		</p>
 	  </div>
 	  <label for="categoria" class="control-label">Cotización</label>
       <select cam-variable-name="cotizacion"
@@ -431,7 +454,7 @@
       	</div>
       	<div class="row">	      			
       		<div class="col-xs-4">
-				<input ng-value= "calcularTotal(tazaCambio)"  	
+				<input ng-value= "calcularTotal(tazaCambio) | number : 2" 	
       				   readonly>
       		</div>	   
       		<div class="col-xs-8" align="left">

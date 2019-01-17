@@ -37,4 +37,6 @@ public interface IFachada {
 
 	String selectNombreProducto(Integer idPresupuesto);
 
+	String cotizacionDolar();
+
 }
