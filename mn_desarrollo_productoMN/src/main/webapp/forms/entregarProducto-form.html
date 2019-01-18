@@ -51,6 +51,33 @@
 	camForm.on('variables-fetched', function() {
   		$scope.COSTO_PRESUPUESTO = camForm.variableManager.variableValue('COSTO_PRESUPUESTO');
 	});
+	
+	//traer variable 'DIRECCION_ENTREGA' 
+	camForm.on('form-loaded', function() {
+  		camForm.variableManager.fetchVariable('DIRECCION_ENTREGA');
+	});
+
+	camForm.on('variables-fetched', function() {
+  		$scope.DIRECCION_ENTREGA = camForm.variableManager.variableValue('DIRECCION_ENTREGA');
+	});
+
+	//traer variable 'UNIDADES_PRESUPUESTO' 
+	camForm.on('form-loaded', function() {
+  		camForm.variableManager.fetchVariable('UNIDADES_PRESUPUESTO');
+	});
+
+	camForm.on('variables-fetched', function() {
+  		$scope.UNIDADES_PRESUPUESTO = camForm.variableManager.variableValue('UNIDADES_PRESUPUESTO');
+	});
+
+	//traer variable 'NOMBRE_PRODUCTO' 
+	camForm.on('form-loaded', function() {
+  		camForm.variableManager.fetchVariable('NOMBRE_PRODUCTO');
+	});
+
+	camForm.on('variables-fetched', function() {
+  		$scope.NOMBRE_PRODUCTO = camForm.variableManager.variableValue('NOMBRE_PRODUCTO');
+	});
 
 	var todayDate= $scope.todayDate= new Date();
 
@@ -59,10 +86,12 @@
 <div class="control-group">
     <div class="controls">
     	<div align="center">
-  			<p><b>Saldo a Recibir: </b></p>
-  			<p>{{pago.moneda +" "+ (COSTO_PRESUPUESTO - pago.senia)}}</p>
+<!--   			<p><b>Saldo a Recibir: </b></p> -->
+<!--   			<p>{{pago.moneda +" "+ (COSTO_PRESUPUESTO - pago.senia)}}</p> -->
     		<p><b>Fecha de envio: </b></p>
     		<p>{{ todayDate | date:'dd-MM-yyyy' }}</p>
+    		<p><b>Dirección de Entrega: </b></p>
+    		<p>{{DIRECCION_ENTREGA}}</p>
     	</div>
     	<label for="ORDEN_COMPRA" class="control-label"><b>Orden de Compra:</b></label>    	
    		<input type="text" 
@@ -77,7 +106,7 @@
      	   	   readonly>
 
     	<p><b>Producto:</b></p>
-    	<p>{{dataProductoMN.cantidad+" "+dataProductoMN.nombre+" ("+ dataProductoMN.trabajoRealizado+ ")"}}</p>    	
+    	<p>{{UNIDADES_PRESUPUESTO+" "+NOMBRE_PRODUCTO+" ("+ dataProductoMN.trabajoRealizado+ ")"}}</p>    	
 				      	
     </div>
 </div>

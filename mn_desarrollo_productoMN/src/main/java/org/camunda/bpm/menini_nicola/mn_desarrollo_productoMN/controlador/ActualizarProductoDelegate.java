@@ -16,7 +16,7 @@ public class ActualizarProductoDelegate implements JavaDelegate{
 		//traer variable de proceso: 'cotizacion' que es el indice de lo 
 		//seleccionado en 'ingresarProveedor-form.html' y corresponde
 		//al idPresupuesto
-		Integer estado=3; //HACER ESTO CON UNA CLASE DE ENUMERADOS !!!		
+		Integer estado=4; //HACER ESTO CON UNA CLASE DE ENUMERADOS !!!		
 		//traer variable de proceso cotizacion
 		String idPresupuesto= (String) execution.getVariable("cotizacion");
 		fachada.updateEstadoPresupuesto(Integer.parseInt(idPresupuesto), estado);
@@ -27,7 +27,6 @@ public class ActualizarProductoDelegate implements JavaDelegate{
 		
 		//traer variable de proceso idProductoMN
 		Integer idProductoMN= (Integer)execution.getVariable("ID_PRODUCTO_MN");
-		
 		fachada.updateFechaEntrega(idProductoMN, fechaEntrega);
 	}
 
