@@ -73,15 +73,6 @@
   		$scope.NOMBRE_PRODUCTO = camForm.variableManager.variableValue('NOMBRE_PRODUCTO');
 	});
 
-	//traer variable 'TRABAJO_REALIZADO'
-	camForm.on('form-loaded', function() {
-  		camForm.variableManager.fetchVariable('TRABAJO_REALIZADO');
-	});
-
-	camForm.on('variables-fetched', function() {
-  		$scope.TRABAJO_REALIZADO = camForm.variableManager.variableValue('TRABAJO_REALIZADO');
-	});
-
 	//traer variable 'COSTO_PRESUPUESTO'
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('COSTO_PRESUPUESTO');
@@ -91,6 +82,14 @@
   		$scope.COSTO_PRESUPUESTO = camForm.variableManager.variableValue('COSTO_PRESUPUESTO');
 	});
 
+	//traer variable 'COTIZACION_DOLAR'
+	camForm.on('form-loaded', function() {
+  		camForm.variableManager.fetchVariable('COTIZACION_DOLAR');
+	});
+
+	camForm.on('variables-fetched', function() {
+  		$scope.COTIZACION_DOLAR = camForm.variableManager.variableValue('COTIZACION_DOLAR');
+	});
 
  </script>
  
@@ -104,17 +103,17 @@
      	<p><b>Cliente:</b></p>
      	<p>{{NOMBRE_CLIENTE}}</p>
      	<p><b>Producto:</b></p>
-    	<p>{{UNIDADES_PRESUPUESTO+" "+NOMBRE_PRODUCTO+" ("+ TRABAJO_REALIZADO +")"}}</p>    	
+    	<p>{{UNIDADES_PRESUPUESTO+" "+NOMBRE_PRODUCTO+" ("+dataProductoMN.trabajoRealizado+")"}}</p>    	
 		<p><b>Precio de Venta: </b></p>
   		<p>{{MONEDA_PRESUPUESTO +" "+ COSTO_PRESUPUESTO}}</p>
 		<p><b>Costo de Producción:</b></p>
 		<p>{{MONEDA_PRESUPUESTO+" "+dataProductoMN.total+" "}}</p>
 		<p><b>Ganancia:</b></p>
-		<p>{{MONEDA_PRESUPUESTO + " " + (COSTO_PRESUPUESTO - dataProductoMN.total) | number : 2}}</p>
+<!-- 		<p>{{MONEDA_PRESUPUESTO + " " + (COSTO_PRESUPUESTO - dataProductoMN.total) }}</p> -->
+      	<p>{{MONEDA_PRESUPUESTO}} {{(COSTO_PRESUPUESTO - dataProductoMN.total) | number : 2}}</p>
       	<p><b>Seña Recibida: </b></p>
   		<p>{{pago.moneda +" "+ pago.senia}}</p>
-  		<p><b>Saldo a Recibir: </b></p>
-  		<p>{{pago.moneda +" "+ (COSTO_PRESUPUESTO - pago.senia)}}</p>
+  		</div>
   		
 		<p align="center"><b>Proveedores</b></p>
 		<br>

@@ -227,13 +227,14 @@
 	 	 <br>
 	 	 <label>Re-ingresar valor de seña en USD: </label>			
 	  	 <input id="idSenia"
-	  			ng-model="pago.senia"
-	  		   	type="number"
-	  		   	name= "SENIA"
+	  	 		placeholder="seña en dólares"
+	  			ng-model="pago.nuevaSenia"
+	  			type="text"
+	  		   	name= "NUEVA_SENIA"
 	  		   	ng-required="!cancelarProduccion">		
       		<p>
-      			<span style="color:red" ng-show="form.SENIA.$dirty && form.SENIA.$invalid">
-  					<span ng-show="form.SENIA.$error.required">senia es obligatorio</span>
+      			<span style="color:red" ng-show="form.NUEVA_SENIA.$dirty && form.NUEVA_SENIA.$invalid">
+  					<span ng-show="form.NUEVA_SENIA.$error.required">senia es obligatorio</span>
   				</span>
       		</p>
 	  </div>
@@ -295,14 +296,13 @@
 <!--       			</p>	 -->
        	 </div>
       </div>
-      <label for="TRABAJO_REALIZADO" class="control-label">Observaciones</label>
+      <label class="control-label">Observaciones</label>
 	  <div class="control-group">
       	<div class="controls">
    	  		<input 	id="idTrabajoRealizado"
    					class="form-control"
    					type="text"
    					ng-model="dataProductoMN.trabajoRealizado"
-    				name="TRABAJO_REALIZADO"
     				placeholder="ej. 'retapizado' ">
     	</div>
       </div>

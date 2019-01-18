@@ -19,11 +19,29 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
 		
-		//extraer valores desde 'ingresarProveedor-from.html' y mapear a objeto Java 
+		//extraer valores desde 'ingresarProveedor-from.html' y mapear a objeto Java
+		//valores extaridos de dataProductoMN: total, proveedoresMN y trabajoRealizado 
 		ProductoMN dataProductoMN = new ProductoMN();
 		dataProductoMN= (ProductoMN)execution.getVariable("dataProductoMN");
 		
-		//setear fecha de produccion con fecha del dia
+		//extraer el resto de los valores del formulario
+		String monedaPresupuesto= (String)execution.getVariable("MONEDA_PRESUPUESTO");
+		String tipoCliente= (String)execution.getVariable("TIPO_CLIENTE");
+		String tipoIva= "";
+		if(tipoCliente.equals("CONSUMIDOR FINAL"))
+			tipoIva="IVA INC.";
+		else if (tipoCliente.equals("CORPORATIVO"))
+			tipoIva="S/IVA";
+		String nombreProducto=(String)execution.getVariable("NOMBRE_PRODUCTO");
+		Integer cantidad=(Integer)execution.getVariable("UNIDADES_PRESUPUESTO"); 
+//		String pago_moneda=(String)execution.getVariable("pago.moneda"); 
+		//Double senia=(double) 0;
+//		if( pago_moneda=="$U" && monedaPresupuesto=="USD"  )
+//			senia=(double)execution.getVariable("pago.nuevaSenia");
+//		else
+//			senia=(double)execution.getVariable("pago.senia");
+		
+		//setear fecha de envío a produccion con fecha del dia
 		java.util.Date utilDate = new java.util.Date();
 		java.sql.Date fechaProduccion = new java.sql.Date(utilDate.getTime());
 						
@@ -35,13 +53,12 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 		//setear valores traidos desde el formulario
 		voProductoMN.setIdProductoMN(null);//este valor es auto-generado en la BD
 		voProductoMN.setTrabajoRealizado(dataProductoMN.getTrabajoRealizado());
-		voProductoMN.setCantidad(dataProductoMN.getCantidad());
-		voProductoMN.setNombre(dataProductoMN.getNombre());
-		//asumimos que la moneda del productoMN siempre es dolares
-		voProductoMN.setMoneda("USD");
+		voProductoMN.setCantidad(cantidad);
+		voProductoMN.setNombre(nombreProducto);
+		voProductoMN.setMoneda(monedaPresupuesto);
 		voProductoMN.setTotal((double)dataProductoMN.getTotal());
-		voProductoMN.setIvaProducto((String)dataProductoMN.getIvaProducto());
-		voProductoMN.setSenia((double)dataProductoMN.getSenia());
+		voProductoMN.setIvaProducto(tipoIva);
+//		voProductoMN.setSenia(Double.parseDouble(pago_moneda));
 		voProductoMN.setFechaProduccion((java.sql.Date)fechaProduccion);
 		voProductoMN.setProveedoresMN(dataProductoMN.getProveedoresMN());
 		
@@ -52,7 +69,7 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 		ClientePresupuesto clientePresupuesto= fachada.selectClientePresupuesto(Integer.parseInt(idPresupuesto));	
 		voProductoMN.setIdClientePresupuesto(clientePresupuesto.getIdClientePresupuesto());
 		
-		//Insertar producto. Esto trae el idProductoMN auto-generado en BD en el voProductoMN.idProductoMN,
+		//Insertar productoMN. Esto trae el idProductoMN auto-generado en BD en el voProductoMN.idProductoMN,
 		//y tambien trae los idProveedor auto-generado en la BD en la lista de proveedoresMN
 		int rowCount= fachada.insertarProductoMN(voProductoMN);
 		//si es insertado el ProductoMN entonces por cada proveedorMN hay que insertar
@@ -89,16 +106,16 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 	    cliente= fachada.selectCliente(clientePresupuesto.getIdCliente());
 	    
 	    //mostrar nombre del cliente obtenido en pantalla
-	    execution.setVariable("NOMBRE_CLIENTE", cliente.getNombre());
+	    //execution.setVariable("NOMBRE_CLIENTE", cliente.getNombre());
 	    
 	    //crear variable de proceso para almacenar idProducto auto-generado
 	    execution.setVariable("ID_PRODUCTO_MN", voProductoMN.getIdProductoMN()); 
 	    
 	    //crear variable de proceso para almacenar el precio del presupuesto
-	    execution.setVariable("COSTO_PRESUPUESTO", presupuesto.getCosto());
+	    //execution.setVariable("COSTO_PRESUPUESTO", presupuesto.getCosto());
 	    
 	    //crear variable de proceso para almacenar la moneda del presupuesto
-	    execution.setVariable("MONEDA_PRESUPUESTO", presupuesto.getMoneda());
+	    //execution.setVariable("MONEDA_PRESUPUESTO", presupuesto.getMoneda());
 	    
 	    
 	}
