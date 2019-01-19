@@ -18,7 +18,7 @@ public class CargarPresupuestosDelegate implements JavaDelegate{
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
 		
-		//levantar lista de presupuestos aprobados para productosMN desde BD
+		//levantar lista de todos los presupuestos aprobados para productosMN desde BD
 		IFachada fachada= Fachada.getInstanciaSingleton();
 		List<Presupuesto> presupuestosAprobados= new ArrayList<Presupuesto>();
 		presupuestosAprobados= fachada.selectPresupuestosAprobados();
@@ -39,17 +39,17 @@ public class CargarPresupuestosDelegate implements JavaDelegate{
 			ObjectValue presupuestosDataValue = Variables.objectValue(presupuestosAprobadosMap)
 					.serializationDataFormat(Variables.SerializationDataFormats.JSON)
 					.create();
-
+			
 			//bindear HashMap serializado (a JSON) sobre el control 'select' del formulario ingresarProveedor-form
 			execution.setVariable("PRESUPUESTOS_APROBADOS", presupuestosDataValue);
 		} 
 		else
 		{
-			
 			Map<Integer, String> presupuestoNuloMap= new HashMap<Integer, String>();
 			Integer indiceSelect=0;
 			String textoSelect="--no hay presupuestos aprobados--";
 			presupuestoNuloMap.put(indiceSelect, textoSelect);
+			
 			//serializar datos de HashMap a json
 			ObjectValue presupuestosDataValue = Variables.objectValue(presupuestoNuloMap)
 					.serializationDataFormat(Variables.SerializationDataFormats.JSON)

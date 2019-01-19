@@ -6,6 +6,7 @@
 <form role="form" name="form" class="form-horizontal" >
   
   <script cam-script type="text/form-script">
+
     //traer variable 'pago' ingresada en el start-form	
 	camForm.on('form-loaded', function() {
   	// tell the form SDK to fetch the json variable named 'pago'
@@ -16,41 +17,26 @@
   		$scope.pago = camForm.variableManager.variableValue('pago');
 	});
 
-	var presupuesto = $scope.presupuesto = {};
-    camForm.on('form-loaded', function() {
-    // declaro una variable 'json' nombrada 'presupuesto' 
-    camForm.variableManager.createVariable({
-        name: 'presupuesto',
-        type: 'json',
-        value: presupuesto
-      });
-    });	
-
   </script>
-  
   	<div class="control-group">
   		<label class="control-label">Seña recibida: {{pago.moneda +" "+ pago.senia}}</label>
   	</div>
-  
   	<label for="categoria" class="control-label">Cotización *</label>
   	<select cam-variable-name="cotizacion"
             cam-variable-type="String"
             cam-choices="PRESUPUESTOS_APROBADOS"
-            ng-model="presupuesto"
             ng-required="!cancelarProduccion"
             class="form-control">
             <option value="">--ingresar cotizacion--</option>
 	</select>
-
-	  <div align="left">
-			<br>
-	    	<input type="checkbox"
-	        	   cam-variable-name="cancelarProduccion"
-	           	   cam-variable-type="Boolean"
-	           	   name="cancelarProduccion"
-	           	   class="form-control" 
-	           	   ng-readonly="cancelarProduccion == true">
-	        <label for="descartarPresupuesto">descartar</label>
-	  </div>
-  
+	<div align="left">
+		<br>
+	    <input type="checkbox"
+	       	   cam-variable-name="cancelarProduccion"
+	       	   cam-variable-type="Boolean"
+	       	   name="cancelarProduccion"
+	       	   class="form-control" 
+	       	   ng-readonly="cancelarProduccion == true">
+	    <label for="descartarPresupuesto">descartar</label>
+	 </div>
 </form>

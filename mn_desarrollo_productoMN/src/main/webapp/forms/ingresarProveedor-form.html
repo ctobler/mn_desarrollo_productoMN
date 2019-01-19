@@ -239,10 +239,9 @@
       		</p>
 	  </div>
 	  <label for="categoria" class="control-label">Cotización</label>
-      <select cam-variable-name="cotizacion"
+	  <select cam-variable-name="cotizacion"
             cam-variable-type="String"
-            cam-choices="PRESUPUESTOS_APROBADOS"
-            ng-model="dataProductoMN.senia"
+            cam-choices="PRESUPUESTOS_APROBADOS"            
             ng-required="!cancelarProduccion"
             class="form-control"
             readonly>
@@ -257,21 +256,6 @@
    						ng-required="!cancelarProduccion"
    						ng-model="UNIDADES_PRESUPUESTO"
     	   				readonly>	
-<!--  					<input 	id="idCantidad" -->
-<!--    							class="form-control" -->
-<!--    							type="number"  -->
-<!--    							ng-required="!cancelarProduccion" -->
-<!--    							ng-model="dataProductoMN.cantidad" -->
-<!--     	   					name="CANTIDAD" -->
-<!--     	   					ng-click="limpiarMensaje()" -->
-<!--     	   					readonly> -->
-    	   				
-<!--     	   			validar ingreso de cantidad -->
-<!--       				<p> -->
-<!--       					<span style="color:red" ng-show="form.CANTIDAD.$dirty && form.CANTIDAD.$invalid"> -->
-<!--   							<span ng-show="form.CANTIDAD.$error.required">cantidad es obligatoria</span> -->
-<!--   						</span> -->
-<!--       				</p> -->
  		 </div>
          <div class="col-xs-10">
 	  	 	<label for="NOMBRE_PRODUCTO" class="control-label">Nombre del Producto</label>
