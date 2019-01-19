@@ -65,7 +65,7 @@
 
 	//DEFINIR FUNCIONES DE USO EN EL FORMULARIO
 
-	//CALCULAR NUEVO TOTAL Y SETEAR VALOR EN dataProductoMN.total
+	//CALCULAR TOTAL Y SETEAR VALOR EN dataProductoMN.total
 	$scope.total= function(){
 		var total=0;
 		for(var i=0; i < $scope.dataProductoMN.proveedoresMN.length; i++)
@@ -83,13 +83,14 @@
 	}
 
 	//funcion para calcular el total
-	$scope.calcularTotal = function(tasaCambio) {
-		var totalDolares= $scope.getSubTotalDolares();
-		var totalPesos= $scope.getSubTotalPesos();
-		var total= $scope.convertirUSD(totalPesos,tasaCambio) + totalDolares;
-		$scope.dataProductoMN.total= total;
-		return total;
-	}
+	//$scope.calcularTotal = function(tasaCambio) {
+	//	var totalDolares= $scope.getSubTotalDolares();
+	//	var totalPesos= $scope.getSubTotalPesos();
+	//	var total= $scope.convertirUSD(totalPesos,tasaCambio) + totalDolares;
+	//	$scope.dataProductoMN.total= total;
+	//	return total;
+	//}
+	
 	//funcion scope que agrega proveedores
 	$scope.agregarProveedor= function() {
 		dataProductoMN.proveedoresMN.push({});
@@ -100,74 +101,72 @@
         dataProductoMN.proveedoresMN.splice(x, 1);
     } 
 	//funcion para calcular sub-total en USD 
-	$scope.getSubTotalDolares = function() {
-		var subTotal= 0;
-		for(var i=0; i < $scope.dataProductoMN.proveedoresMN.length; i++)
-		{
-			var prov= $scope.dataProductoMN.proveedoresMN[i];
-			var moneda= $scope.dataProductoMN.proveedoresMN[i].moneda;
-			if(moneda == "USD")
-			{	
-				if ( isNaN(prov.precio) )
-					prov.precio= 0;
-				else	
-					subTotal += prov.precio;
-			}
-			
-		}
-		return subTotal;
-	}
+	//$scope.getSubTotalDolares = function() {
+	//	var subTotal= 0;
+	//	for(var i=0; i < $scope.dataProductoMN.proveedoresMN.length; i++)
+	//	{
+	//		var prov= $scope.dataProductoMN.proveedoresMN[i];
+	//		var moneda= $scope.dataProductoMN.proveedoresMN[i].moneda;
+	//		if(moneda == "USD")
+	//		{	
+	//			if ( isNaN(prov.precio) )
+	//				prov.precio= 0;
+	//			else	
+	//				subTotal += prov.precio;
+	//		}		
+	//	}
+	//	return subTotal;
+	//}
 
 	//funcion para calcular sub-total en Pesos 
-	$scope.getSubTotalPesos = function() {
-		var subTotal= 0;
-		for(var i=0; i < $scope.dataProductoMN.proveedoresMN.length; i++)
-		{
-			var prov= $scope.dataProductoMN.proveedoresMN[i];
-			var moneda= $scope.dataProductoMN.proveedoresMN[i].moneda;
-			if(moneda == "$U")
-			{	
-				if ( isNaN(prov.precio) )
-					prov.precio=0;
-				else
-					subTotal += prov.precio;
-			}
-			
-		}
-		return subTotal;
-	}
+	//$scope.getSubTotalPesos = function() {
+	//	var subTotal= 0;
+	//	for(var i=0; i < $scope.dataProductoMN.proveedoresMN.length; i++)
+	//	{
+	//		var prov= $scope.dataProductoMN.proveedoresMN[i];
+	//		var moneda= $scope.dataProductoMN.proveedoresMN[i].moneda;
+	//		if(moneda == "$U")
+	//		{	
+	//			if ( isNaN(prov.precio) )
+	//				prov.precio=0;
+	//			else
+	//				subTotal += prov.precio;
+	//		}	
+	//	}
+	//	return subTotal;
+	//}
 
 	//bandera para indicar si hay existe algun precio de proveedor en pesos
-	$scope.existePesos = function() {
-		var existePesos= false;
-		for(var i=0; i < $scope.dataProductoMN.proveedoresMN.length; i++)
-		{
-			var prov= $scope.dataProductoMN.proveedoresMN[i];
-			var moneda= $scope.dataProductoMN.proveedoresMN[i].moneda;
-			if(moneda == "$U")
-			{	
-				existePesos = true;
-			}
-			
-		}
-		return existePesos;
-	}
-	$scope.convertirUSD= function(subTotal,tasaCambio){
-		var dolares=0;
-		if( isNaN(tasaCambio) )
-		{
-			dolares=0;
-		}
-		else if(tasaCambio <= 0)
-		{
-			dolares=0;
-		}
-		else if(subTotal > 0)
-		{
-			dolares= (subTotal / tasaCambio);
-		}
-		return dolares;
-	}	
+	//$scope.existePesos = function() {
+	//	var existePesos= false;
+	//	for(var i=0; i < $scope.dataProductoMN.proveedoresMN.length; i++)
+	//	{
+	//		var prov= $scope.dataProductoMN.proveedoresMN[i];
+	//		var moneda= $scope.dataProductoMN.proveedoresMN[i].moneda;
+	//		if(moneda == "$U")
+	//		{	
+	//			existePesos = true;
+	//		}		
+	//	}
+	//	return existePesos;
+	//}
+
+	//$scope.convertirUSD= function(subTotal,tasaCambio){
+	//	var dolares=0;
+	//	if( isNaN(tasaCambio) )
+	//	{
+	//		dolares=0;
+	//	}
+	//	else if(tasaCambio <= 0)
+	//	{
+	//		dolares=0;
+	//	}
+	//	else if(subTotal > 0)
+	//	{
+	//		dolares= (subTotal / tasaCambio);
+	//	}
+	//	return dolares;
+	//}	
 
 	//funcion para quitar mensaje de error en cantidad
 	$scope.limpiarMensaje= function(){
@@ -175,7 +174,7 @@
 			$scope.errorCantidadVaciaONula= false;
 	};
 	
-	$scope.monedas=["USD","$U"]
+	//$scope.monedas=["USD","$U"]
 
 	//DECLARACION  DE VARIABLES SERIALIZABLES
 	
