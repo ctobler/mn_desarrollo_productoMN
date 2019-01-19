@@ -7,11 +7,12 @@
 
   <script cam-script type="text/form-script">
 
+	//CARGAR VARIABLES DE PROCESO DEFINIDAS EN FORMULARIOS/DELEGATES PREVIOS
+
 	//traer variable 'MONEDA_PRESUPUESTO' 
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('MONEDA_PRESUPUESTO');
 	});
-
 	camForm.on('variables-fetched', function() {
   		$scope.MONEDA_PRESUPUESTO = camForm.variableManager.variableValue('MONEDA_PRESUPUESTO');
 	});
@@ -20,7 +21,6 @@
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('TIPO_CLIENTE');
 	});
-
 	camForm.on('variables-fetched', function() {
   		$scope.TIPO_CLIENTE = camForm.variableManager.variableValue('TIPO_CLIENTE');
 	});
@@ -29,7 +29,6 @@
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('UNIDADES_PRESUPUESTO');
 	});
-
 	camForm.on('variables-fetched', function() {
   		$scope.UNIDADES_PRESUPUESTO = camForm.variableManager.variableValue('UNIDADES_PRESUPUESTO');
 	});
@@ -38,7 +37,6 @@
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('NOMBRE_PRODUCTO');
 	});
-
 	camForm.on('variables-fetched', function() {
   		$scope.NOMBRE_PRODUCTO = camForm.variableManager.variableValue('NOMBRE_PRODUCTO');
 	});
@@ -47,9 +45,16 @@
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('COTIZACION_DOLAR');
 	});
-
 	camForm.on('variables-fetched', function() {
   		$scope.COTIZACION_DOLAR = camForm.variableManager.variableValue('COTIZACION_DOLAR');
+	});
+
+	//traer variable 'pago' ingresada en el start-form	
+	camForm.on('form-loaded', function() {
+  		camForm.variableManager.fetchVariable('pago');
+	});
+	camForm.on('variables-fetched', function() {
+  		$scope.pago = camForm.variableManager.variableValue('pago');
 	});
 
 	var dataProductoMN = $scope.dataProductoMN={
@@ -58,7 +63,26 @@
 	};
 	var subtotal = $scope.subtotal = {};
 
-	//FUNCION PARA INICIAR EL TOTAL
+	//DEFINIR FUNCIONES DE USO EN EL FORMULARIO
+
+	//CALCULAR NUEVO TOTAL Y SETEAR VALOR EN dataProductoMN.total
+	$scope.total= function(){
+		var total=0;
+		for(var i=0; i < $scope.dataProductoMN.proveedoresMN.length; i++)
+		{
+			var prov= $scope.dataProductoMN.proveedoresMN[i];
+				
+				if ( isNaN(prov.precio) )
+					prov.precio= 0;
+				else	
+					total += prov.precio;
+			
+		}
+		$scope.dataProductoMN.total= total;
+		return total;
+	}
+
+	//funcion para calcular el total
 	$scope.calcularTotal = function(tasaCambio) {
 		var totalDolares= $scope.getSubTotalDolares();
 		var totalPesos= $scope.getSubTotalPesos();
@@ -66,12 +90,11 @@
 		$scope.dataProductoMN.total= total;
 		return total;
 	}
-	// funcion scope que agrega proveedores
+	//funcion scope que agrega proveedores
 	$scope.agregarProveedor= function() {
 		dataProductoMN.proveedoresMN.push({});
 		$scope.errorProveedoresVacio= false;
-	};
-	
+	};	
 	//funcion para quitar proveedores
 	$scope.quitarProveedor = function (x) {
         dataProductoMN.proveedoresMN.splice(x, 1);
@@ -94,6 +117,7 @@
 		}
 		return subTotal;
 	}
+
 	//funcion para calcular sub-total en Pesos 
 	$scope.getSubTotalPesos = function() {
 		var subTotal= 0;
@@ -112,6 +136,7 @@
 		}
 		return subTotal;
 	}
+
 	//bandera para indicar si hay existe algun precio de proveedor en pesos
 	$scope.existePesos = function() {
 		var existePesos= false;
@@ -143,6 +168,7 @@
 		}
 		return dolares;
 	}	
+
 	//funcion para quitar mensaje de error en cantidad
 	$scope.limpiarMensaje= function(){
 		if(dataProductoMN.cantidad > 0)
@@ -150,6 +176,8 @@
 	};
 	
 	$scope.monedas=["USD","$U"]
+
+	//DECLARACION  DE VARIABLES SERIALIZABLES
 	
 	//enganchar con el ciclo de vida del formulario camunda SDK 
 	camForm.on('form-loaded',function() {
@@ -167,21 +195,16 @@
 			}
 		});
 	});
+
+	//CONTROL DEL CICLO DEL FORMULARIO CAMUNDA SDK
+ 
 	//para que funcione el agregar proveedores dinamicamente
 	camForm.on('submit', function(){
 		angular.forEach(dataProductoMN.proveedoresMN, function(prvdr) {
 			delete prvdr.$$hashKey;
 		});
 	});
-	//traer variable 'pago' ingresada en el start-form	
-	camForm.on('form-loaded', function() {
-  	// tell the form SDK to fetch the json variable named 'pago'
-  		camForm.variableManager.fetchVariable('pago');
-	});
-	camForm.on('variables-fetched', function() {
-  	// trabajar con valor de variable 'pago' (atar su valor a AngularJS $scope)
-  		$scope.pago = camForm.variableManager.variableValue('pago');
-	});
+
 	//verificar ingreso de datos obligatorios antes de enviar formulario al servidor
 	camForm.on('submit', function(evt) {
       // manejar submit
@@ -210,6 +233,7 @@
 		$scope.errorCantidadVaciaONula= false;
 	  }
     });
+
   </script>
   	
   	  <div class="control-group">
@@ -307,7 +331,6 @@
       			</p>   	   		
             </div>
         </div>
-		<!-- <label  class="control-label">Precio *</label>  -->
        	<div class="row">
         	<div class="col-xs-2">
         		<label  class="control-label">Moneda *</label>
@@ -382,29 +405,31 @@
 	  
 	  <hr>
 	         	
-      <div class="control-group" ng-show="existePesos()">
-      	<label class="control-label">Taza de cambio *: </label>
-      	<input 	id="idTazaCambio"
-   				class="form-control"
-   				type="number" 
-   				ng-model="tazaCambio"
-    			name="TAZA_CAMBIO"
-    	   		ng-init= "0">
+<!--       <div class="control-group" ng-show="existePesos()"> -->
+<!--       	<label class="control-label">Taza de cambio *: </label> -->
+<!--       	<input 	id="idTazaCambio" -->
+<!--    				class="form-control" -->
+<!--    				type="number"  -->
+<!--    				ng-model="tazaCambio" -->
+<!--     			name="TAZA_CAMBIO" -->
+<!--     	   		ng-init= "0"> -->
     					
-    	   		<!--validar ingreso de precio-->
-      			<p>
-      				<span style="color:red" ng-show="form.TAZA_CAMBIO.$dirty && form.TAZA_CAMBIO.$invalid">
-  						<span ng-show="form.TAZA_CAMBIO.$error.required">la taza de cambio es obligatorio</span>
-  					</span>					
-      			</p>
-     </div>   
+<!--     	   		validar ingreso de precio -->
+<!--       			<p> -->
+<!--       				<span style="color:red" ng-show="form.TAZA_CAMBIO.$dirty && form.TAZA_CAMBIO.$invalid"> -->
+<!--   						<span ng-show="form.TAZA_CAMBIO.$error.required">la taza de cambio es obligatorio</span> -->
+<!--   					</span>					 -->
+<!--       			</p> -->
+<!--      </div>    -->
       	<div class="controls">
 	    	<label class="control-label">TOTAL ({{MONEDA_PRESUPUESTO}})</label>
       	</div>
       	<div class="row">	      			
       		<div class="col-xs-4">
-				<input ng-value= "calcularTotal(tazaCambio) | number : 2" 	
+      			<input ng-value= "total() | number : 2" 	
       				   readonly>
+				<!-- <input ng-value= "calcularTotal(tazaCambio) | number : 2" 	
+      				   readonly> -->
       		</div>	   
       		<div class="col-xs-8" align="left">
       			<div ng-if=" TIPO_CLIENTE == 'CONSUMIDOR FINAL'">
