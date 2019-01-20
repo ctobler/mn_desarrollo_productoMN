@@ -69,9 +69,16 @@
 	camForm.on('variables-fetched', function() {
   		$scope.NOMBRE_PRODUCTO = camForm.variableManager.variableValue('NOMBRE_PRODUCTO');
 	});
+	
+	//traer variable 'COTIZACION_DOLAR' 
+	camForm.on('form-loaded', function() {
+  		camForm.variableManager.fetchVariable('COTIZACION_DOLAR');
+	});
+	camForm.on('variables-fetched', function() {
+  		$scope.COTIZACION_DOLAR = camForm.variableManager.variableValue('COTIZACION_DOLAR');
+	});
 
 	var todayDate= $scope.todayDate= new Date();
-
  </script>
  
 <div class="control-group">
@@ -91,8 +98,8 @@
   			<p>{{MONEDA_PRESUPUESTO}} {{COSTO_PRESUPUESTO | number : 2}}</p>
   			<p><b>Seña Recibida: </b></p>
   			<p>{{pago.moneda+" "}} {{pago.senia | number : 2}}</p>
-<!--   			<p><b>Saldo a Recibir: </b></p> -->
-<!--   			<p>{{pago.moneda +" "+ (COSTO_PRESUPUESTO - pago.senia)}}</p> -->
+  			<p><b>Cotización del dolar:</b></p>
+  			<p>$U {{COTIZACION_DOLAR}}</p>
     		<p><b>Fecha de envio: </b></p>
     		<p>{{ todayDate | date:'dd-MM-yyyy' }}</p>
     		<p><b>Dirección de Entrega: </b></p>

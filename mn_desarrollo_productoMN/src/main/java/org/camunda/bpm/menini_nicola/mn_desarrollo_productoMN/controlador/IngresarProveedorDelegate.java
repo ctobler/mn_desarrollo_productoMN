@@ -8,6 +8,7 @@ import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.logica.Fachada;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.logica.IFachada;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.Cliente;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ClientePresupuesto;
+import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.Pago;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.Presupuesto;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProductoMN;
 import org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.ProveedorMN;
@@ -23,6 +24,8 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 		//valores extaridos de dataProductoMN: total, proveedoresMN y trabajoRealizado 
 		ProductoMN dataProductoMN = new ProductoMN();
 		dataProductoMN= (ProductoMN)execution.getVariable("dataProductoMN");
+		Pago pago= new Pago();
+		pago= (Pago)execution.getVariable("pago");
 		
 		//extraer el resto de los valores del formulario
 		String monedaPresupuesto= (String)execution.getVariable("MONEDA_PRESUPUESTO");
@@ -37,8 +40,17 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 		
 		//traer cotizacion del dolar
 		IFachada fachada= Fachada.getInstanciaSingleton();
-		String cotizacionDolar= fachada.cotizacionDolar();
-	  	
+		
+/*		String cotizacionDolar= fachada.cotizacionDolar();
+		Double senia= (double) 0;
+		
+		if( (pago.getMoneda().equals("$U")) && (monedaPresupuesto.equals("USD")) )
+			senia= ((double)pago.getSenia()) / (Double.parseDouble(cotizacionDolar));
+		else if( (pago.getMoneda().equals("USD")) && (monedaPresupuesto.equals("$U")) )
+			senia= ((double)pago.getSenia()) * (Double.parseDouble(cotizacionDolar));
+		else
+			senia= (double)pago.getSenia();
+*/		
 		//setear fecha de envío a produccion con fecha del dia
 		java.util.Date utilDate = new java.util.Date();
 		java.sql.Date fechaProduccion = new java.sql.Date(utilDate.getTime());
@@ -55,7 +67,8 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 		voProductoMN.setMoneda(monedaPresupuesto);
 		voProductoMN.setTotal((double)dataProductoMN.getTotal());
 		voProductoMN.setIvaProducto(tipoIva);
-//		voProductoMN.setSenia(Double.parseDouble(pago_moneda));
+//		voProductoMN.setSenia(senia);
+		voProductoMN.setSenia((double)pago.getSenia());
 		voProductoMN.setFechaProduccion((java.sql.Date)fechaProduccion);
 		voProductoMN.setProveedoresMN(dataProductoMN.getProveedoresMN());
 		

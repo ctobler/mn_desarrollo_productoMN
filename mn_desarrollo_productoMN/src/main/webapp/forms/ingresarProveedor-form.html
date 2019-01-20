@@ -9,6 +9,14 @@
 
 	//CARGAR VARIABLES DE PROCESO DEFINIDAS EN FORMULARIOS/DELEGATES PREVIOS
 
+	//traer variable 'pago' 
+	camForm.on('form-loaded', function() {
+  		camForm.variableManager.fetchVariable('pago');
+	});
+	camForm.on('variables-fetched', function() {
+  		$scope.pago = camForm.variableManager.variableValue('pago');
+	});
+	
 	//traer variable 'MONEDA_PRESUPUESTO' 
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('MONEDA_PRESUPUESTO');
@@ -49,14 +57,6 @@
   		$scope.COTIZACION_DOLAR = camForm.variableManager.variableValue('COTIZACION_DOLAR');
 	});
 
-	//traer variable 'pago' ingresada en el start-form	
-	camForm.on('form-loaded', function() {
-  		camForm.variableManager.fetchVariable('pago');
-	});
-	camForm.on('variables-fetched', function() {
-  		$scope.pago = camForm.variableManager.variableValue('pago');
-	});
-
 	var dataProductoMN = $scope.dataProductoMN={
 		proveedoresMN : [],
 		total : 0
@@ -82,15 +82,6 @@
 		return total;
 	}
 
-	//funcion para calcular el total
-	//$scope.calcularTotal = function(tasaCambio) {
-	//	var totalDolares= $scope.getSubTotalDolares();
-	//	var totalPesos= $scope.getSubTotalPesos();
-	//	var total= $scope.convertirUSD(totalPesos,tasaCambio) + totalDolares;
-	//	$scope.dataProductoMN.total= total;
-	//	return total;
-	//}
-	
 	//funcion scope que agrega proveedores
 	$scope.agregarProveedor= function() {
 		dataProductoMN.proveedoresMN.push({});
@@ -100,57 +91,7 @@
 	$scope.quitarProveedor = function (x) {
         dataProductoMN.proveedoresMN.splice(x, 1);
     } 
-	//funcion para calcular sub-total en USD 
-	//$scope.getSubTotalDolares = function() {
-	//	var subTotal= 0;
-	//	for(var i=0; i < $scope.dataProductoMN.proveedoresMN.length; i++)
-	//	{
-	//		var prov= $scope.dataProductoMN.proveedoresMN[i];
-	//		var moneda= $scope.dataProductoMN.proveedoresMN[i].moneda;
-	//		if(moneda == "USD")
-	//		{	
-	//			if ( isNaN(prov.precio) )
-	//				prov.precio= 0;
-	//			else	
-	//				subTotal += prov.precio;
-	//		}		
-	//	}
-	//	return subTotal;
-	//}
-
-	//funcion para calcular sub-total en Pesos 
-	//$scope.getSubTotalPesos = function() {
-	//	var subTotal= 0;
-	//	for(var i=0; i < $scope.dataProductoMN.proveedoresMN.length; i++)
-	//	{
-	//		var prov= $scope.dataProductoMN.proveedoresMN[i];
-	//		var moneda= $scope.dataProductoMN.proveedoresMN[i].moneda;
-	//		if(moneda == "$U")
-	//		{	
-	//			if ( isNaN(prov.precio) )
-	//				prov.precio=0;
-	//			else
-	//				subTotal += prov.precio;
-	//		}	
-	//	}
-	//	return subTotal;
-	//}
-
-	//bandera para indicar si hay existe algun precio de proveedor en pesos
-	//$scope.existePesos = function() {
-	//	var existePesos= false;
-	//	for(var i=0; i < $scope.dataProductoMN.proveedoresMN.length; i++)
-	//	{
-	//		var prov= $scope.dataProductoMN.proveedoresMN[i];
-	//		var moneda= $scope.dataProductoMN.proveedoresMN[i].moneda;
-	//		if(moneda == "$U")
-	//		{	
-	//			existePesos = true;
-	//		}		
-	//	}
-	//	return existePesos;
-	//}
-
+	
 	$scope.convertirUSD= function(monto,tasaCambio){
 		var dolares=0;
 		if( isNaN(tasaCambio) )
@@ -174,8 +115,6 @@
 			$scope.errorCantidadVaciaONula= false;
 	};
 	
-	//$scope.monedas=["USD","$U"]
-
 	//DECLARACION  DE VARIABLES SERIALIZABLES
 	
 	//enganchar con el ciclo de vida del formulario camunda SDK 
@@ -389,32 +328,14 @@
 	  
 	  <hr>
 	         	
-<!--       <div class="control-group" ng-show="existePesos()"> -->
-<!--       	<label class="control-label">Taza de cambio *: </label> -->
-<!--       	<input 	id="idTazaCambio" -->
-<!--    				class="form-control" -->
-<!--    				type="number"  -->
-<!--    				ng-model="tazaCambio" -->
-<!--     			name="TAZA_CAMBIO" -->
-<!--     	   		ng-init= "0"> -->
-    					
-<!--     	   		validar ingreso de precio -->
-<!--       			<p> -->
-<!--       				<span style="color:red" ng-show="form.TAZA_CAMBIO.$dirty && form.TAZA_CAMBIO.$invalid"> -->
-<!--   						<span ng-show="form.TAZA_CAMBIO.$error.required">la taza de cambio es obligatorio</span> -->
-<!--   					</span>					 -->
-<!--       			</p> -->
-<!--      </div>    -->
-      	<div class="controls">
+      <div class="controls">
 	    	<label class="control-label">TOTAL ({{MONEDA_PRESUPUESTO}})</label>
-      	</div>
-      	<div class="row">	      			
-      		<div class="col-xs-4">
-      			<input ng-value= "total() | number : 2" 	
-      				   readonly>
-				<!-- <input ng-value= "calcularTotal(tazaCambio) | number : 2" 	
-      				   readonly> -->
-      		</div>	   
+      </div>
+      <div class="row">	      			
+      	<div class="col-xs-4">
+      		<input ng-value= "total() | number : 2" 	
+      			   readonly>
+			</div>	   
       		<div class="col-xs-8" align="left">
       			<div ng-if=" TIPO_CLIENTE == 'CONSUMIDOR FINAL'">
   					<label class="control-label">IVA INC.</label>
@@ -425,7 +346,6 @@
 			</div>
 		</div>		     
 		<br>
-	
 		<div align="left">
 			<br>
 	    	<input type="checkbox"
@@ -436,5 +356,4 @@
 	           	   ng-readonly="cancelarProduccion == true">
 	        <label for="descartarPresupuesto">cancelar</label>
 		</div>
-      </div>
 </form>

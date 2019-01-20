@@ -9,14 +9,30 @@
   
 	var pago = $scope.pago = {};
 	$scope.monedas=["USD","$U"]
-    camForm.on('form-loaded', function() {
+	camForm.on('form-loaded',function() {
+		
+		camForm.variableManager.createVariable({
+			name: 'pago',
+			type: 'Object',
+			value: pago,
+			valueInfo: {
+			  //indicar que el objeto es serializado como json
+			  serializationDataFormat: 'application/json',
+			  //proveer nombre de la clase java a mapear
+			  objectTypeName: 'org.camunda.bpm.menini_nicola.mn_desarrollo_productoMN.modelo.Pago'
+			}
+		});
+	});
+	
+	//camForm.on('form-loaded', function() {
     // declaro una variable 'json' nombrada 'pago' 
-    camForm.variableManager.createVariable({
-        name: 'pago',
-        type: 'json',
-        value: pago
-      });
-    });
+    //camForm.variableManager.createVariable({
+    //    name: 'pago',
+    //    type: 'json',
+    //    value: pago
+    //  });
+    //});
+
   </script>
   
      <div class="row">

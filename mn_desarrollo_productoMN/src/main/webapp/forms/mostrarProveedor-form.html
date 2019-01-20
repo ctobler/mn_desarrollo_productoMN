@@ -40,12 +40,12 @@
 	});
 
 	//traer variable 'NOMBRE_CLIENTE'
-	camForm.on('form-loaded', function() {
-  		camForm.variableManager.fetchVariable('NOMBRE_CLIENTE');
-	});
-	camForm.on('variables-fetched', function() {
-  		$scope.NOMBRE_CLIENTE = camForm.variableManager.variableValue('NOMBRE_CLIENTE');
-	});
+	//camForm.on('form-loaded', function() {
+  	//	camForm.variableManager.fetchVariable('NOMBRE_CLIENTE');
+	//});
+	//camForm.on('variables-fetched', function() {
+  	//	$scope.NOMBRE_CLIENTE = camForm.variableManager.variableValue('NOMBRE_CLIENTE');
+	//});
 
 	//traer variable 'UNIDADES_PRESUPUESTO'
 	camForm.on('form-loaded', function() {
@@ -90,8 +90,8 @@
             readonly
             class="form-control">
 	</select>
-	<p><b>Cliente:</b></p>
-    <p>{{NOMBRE_CLIENTE}}</p>
+<!-- 	<p><b>Cliente:</b></p> -->
+<!--     <p>{{NOMBRE_CLIENTE}}</p> -->
     <p><b>Producto:</b></p>
     <p>{{UNIDADES_PRESUPUESTO+" "+NOMBRE_PRODUCTO+" ("+dataProductoMN.trabajoRealizado+")"}}</p>    	
 	<p><b>Precio de Venta: </b></p>
