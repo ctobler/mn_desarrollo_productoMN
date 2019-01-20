@@ -34,19 +34,16 @@ public class IngresarProveedorDelegate implements JavaDelegate {
 			tipoIva="S/IVA";
 		String nombreProducto=(String)execution.getVariable("NOMBRE_PRODUCTO");
 		Integer cantidad=(Integer)execution.getVariable("UNIDADES_PRESUPUESTO"); 
-//		String pago_moneda=(String)execution.getVariable("pago.moneda"); 
-		//Double senia=(double) 0;
-//		if( pago_moneda=="$U" && monedaPresupuesto=="USD"  )
-//			senia=(double)execution.getVariable("pago.nuevaSenia");
-//		else
-//			senia=(double)execution.getVariable("pago.senia");
 		
+		//traer cotizacion del dolar
+		IFachada fachada= Fachada.getInstanciaSingleton();
+		String cotizacionDolar= fachada.cotizacionDolar();
+	  	
 		//setear fecha de envío a produccion con fecha del dia
 		java.util.Date utilDate = new java.util.Date();
 		java.sql.Date fechaProduccion = new java.sql.Date(utilDate.getTime());
 						
 		//leer de pantalla y llevar a VOProductoMN para persistirlo en BD
-		IFachada fachada= Fachada.getInstanciaSingleton();
 		VOProductoMN voProductoMN= new VOProductoMN(null,"",0,"","",(double)0,"",null,
 				(double)0,null,null,null);
 				

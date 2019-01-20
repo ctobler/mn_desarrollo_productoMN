@@ -151,22 +151,22 @@
 	//	return existePesos;
 	//}
 
-	//$scope.convertirUSD= function(subTotal,tasaCambio){
-	//	var dolares=0;
-	//	if( isNaN(tasaCambio) )
-	//	{
-	//		dolares=0;
-	//	}
-	//	else if(tasaCambio <= 0)
-	//	{
-	//		dolares=0;
-	//	}
-	//	else if(subTotal > 0)
-	//	{
-	//		dolares= (subTotal / tasaCambio);
-	//	}
-	//	return dolares;
-	//}	
+	$scope.convertirUSD= function(monto,tasaCambio){
+		var dolares=0;
+		if( isNaN(tasaCambio) )
+		{
+			dolares=0;
+		}
+		else if(tasaCambio <= 0)
+		{
+			dolares=0;
+		}
+		else if(subTotal > 0)
+		{
+			dolares= (monto / tasaCambio);
+		}
+		return dolares;
+	}	
 
 	//funcion para quitar mensaje de error en cantidad
 	$scope.limpiarMensaje= function(){
@@ -239,36 +239,21 @@
   		<label class="control-label">Moneda del Presupuesto: {{MONEDA_PRESUPUESTO}}</label>
 	  </div>
 	  <div class="control-group">
+  		<label>Cotización del dolar: $U {{COTIZACION_DOLAR}} </label>
+	  </div>
+	  <div class="control-group">
   		<label class="control-label">Tipo de cliente: {{TIPO_CLIENTE}}</label>
 	  </div>		
   	  <div class="control-group">
-  		<label class="control-label">Seña recibida: {{pago.moneda +" "+ pago.senia}}</label>
-	  </div>
-	  <br>
-	  <div ng-if=" pago.moneda == '$U' && MONEDA_PRESUPUESTO == 'USD' ">
-	  	<label>Cotización del dolar: $U {{COTIZACION_DOLAR}} </label>
-	 	 <br>
-	 	 <label>Re-ingresar valor de seña en USD: </label>			
-	  	 <input id="idSenia"
-	  	 		placeholder="seña en dólares"
-	  			ng-model="pago.nuevaSenia"
-	  			type="text"
-	  		   	name= "NUEVA_SENIA"
-	  		   	ng-required="!cancelarProduccion">		
-      		<p>
-      			<span style="color:red" ng-show="form.NUEVA_SENIA.$dirty && form.NUEVA_SENIA.$invalid">
-  					<span ng-show="form.NUEVA_SENIA.$error.required">senia es obligatorio</span>
-  				</span>
-      		</p>
+  		<label class="control-label">Seña recibida: {{pago.moneda+" "}}{{pago.senia | number : 2}}</label>
 	  </div>
 	  <label for="categoria" class="control-label">Cotización</label>
 	  <select cam-variable-name="cotizacion"
-            cam-variable-type="String"
-            cam-choices="PRESUPUESTOS_APROBADOS"            
-            ng-required="!cancelarProduccion"
-            class="form-control"
-            readonly>
-            <option value="">--ingresar cotizacion--</option>
+      		  cam-variable-type="String"
+              cam-choices="PRESUPUESTOS_APROBADOS"
+              ng-required="!cancelarProduccion"
+              readonly
+              class="form-control">
 	  </select>
 	  <div class="row">
 	    <div class="col-xs-2">

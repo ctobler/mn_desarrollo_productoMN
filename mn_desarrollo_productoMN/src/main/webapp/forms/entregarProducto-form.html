@@ -8,46 +8,40 @@
  <script cam-script type="text/form-script">
 
  	camForm.on('form-loaded', function() {
-
-		//traer la variable de java llamada 'dataProductoMN'
 		camForm.variableManager.fetchVariable('dataProductoMN');
-		
 	});
-
 	camForm.on('variables-fetched', function() {
-
-		//trabajar con la variable (atarla al objeto $scope de AngularJS)
 		$scope.dataProductoMN= camForm.variableManager.variable('dataProductoMN').value;
-		
 	});
 
 	//traer variable 'pago' ingresada en el start-form	
 	camForm.on('form-loaded', function() {
-  	// tell the form SDK to fetch the json variable named 'pago'
   		camForm.variableManager.fetchVariable('pago');
 	});
-
 	camForm.on('variables-fetched', function() {
-  	// trabajar con valor de variable 'pago' (atar su valor a AngularJS $scope)
   		$scope.pago = camForm.variableManager.variableValue('pago');
 	});
 
 	//traer variable 'tazaCambio' 
 	camForm.on('form-loaded', function() {
-  	// tell the form SDK to fetch the json variable named 'tazaCambio'
   		camForm.variableManager.fetchVariable('tazaCambio');
 	});
-
 	camForm.on('variables-fetched', function() {
-  	// trabajar con valor de variable 'tazaCambio' (atar su valor a AngularJS $scope)
   		$scope.tazaCambio = camForm.variableManager.variableValue('tazaCambio');
+	});
+
+	//traer variable 'MONEDA_PRESUPUESTO' 
+	camForm.on('form-loaded', function() {
+  		camForm.variableManager.fetchVariable('MONEDA_PRESUPUESTO');
+	});
+	camForm.on('variables-fetched', function() {
+  		$scope.MONEDA_PRESUPUESTO = camForm.variableManager.variableValue('MONEDA_PRESUPUESTO');
 	});
 
 	//traer variable 'COSTO_PRESUPUESTO' 
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('COSTO_PRESUPUESTO');
 	});
-
 	camForm.on('variables-fetched', function() {
   		$scope.COSTO_PRESUPUESTO = camForm.variableManager.variableValue('COSTO_PRESUPUESTO');
 	});
@@ -56,7 +50,6 @@
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('DIRECCION_ENTREGA');
 	});
-
 	camForm.on('variables-fetched', function() {
   		$scope.DIRECCION_ENTREGA = camForm.variableManager.variableValue('DIRECCION_ENTREGA');
 	});
@@ -65,7 +58,6 @@
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('UNIDADES_PRESUPUESTO');
 	});
-
 	camForm.on('variables-fetched', function() {
   		$scope.UNIDADES_PRESUPUESTO = camForm.variableManager.variableValue('UNIDADES_PRESUPUESTO');
 	});
@@ -74,7 +66,6 @@
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('NOMBRE_PRODUCTO');
 	});
-
 	camForm.on('variables-fetched', function() {
   		$scope.NOMBRE_PRODUCTO = camForm.variableManager.variableValue('NOMBRE_PRODUCTO');
 	});
@@ -85,29 +76,28 @@
  
 <div class="control-group">
     <div class="controls">
-    	<div align="center">
+    	<div>
+    		<p><b>Producto:</b></p>
+    		<p>{{UNIDADES_PRESUPUESTO+" "+NOMBRE_PRODUCTO+" ("+ dataProductoMN.trabajoRealizado+ ")"}}</p>    	
+    		<label for="ORDEN_COMPRA" class="control-label"><b>Orden de Compra:</b></label>    	
+    		<select cam-variable-name="cotizacion"
+            		cam-variable-type="String"
+            		cam-choices="PRESUPUESTOS_APROBADOS"
+            		ng-required="!cancelarProduccion"
+            		readonly
+            		class="form-control">
+			</select>
+			<p><b>Precio de Venta: </b></p>
+  			<p>{{MONEDA_PRESUPUESTO}} {{COSTO_PRESUPUESTO | number : 2}}</p>
+  			<p><b>Seña Recibida: </b></p>
+  			<p>{{pago.moneda+" "}} {{pago.senia | number : 2}}</p>
 <!--   			<p><b>Saldo a Recibir: </b></p> -->
 <!--   			<p>{{pago.moneda +" "+ (COSTO_PRESUPUESTO - pago.senia)}}</p> -->
     		<p><b>Fecha de envio: </b></p>
     		<p>{{ todayDate | date:'dd-MM-yyyy' }}</p>
     		<p><b>Dirección de Entrega: </b></p>
     		<p>{{DIRECCION_ENTREGA}}</p>
-    	</div>
-    	<label for="ORDEN_COMPRA" class="control-label"><b>Orden de Compra:</b></label>    	
-   		<input type="text" 
-    	   	   cam-variable-name="ORDEN_COMPRA"
-    	   	   class="form-control"
-     	   	   readonly>
-    	
-    	<label for="NOMBRE_CLIENTE" class="control-label"><b>Nombre del Cliente:</b></label>    	
-   		<input type="text" 
-    	   	   cam-variable-name="NOMBRE_CLIENTE"
-    	   	   class="form-control"
-     	   	   readonly>
-
-    	<p><b>Producto:</b></p>
-    	<p>{{UNIDADES_PRESUPUESTO+" "+NOMBRE_PRODUCTO+" ("+ dataProductoMN.trabajoRealizado+ ")"}}</p>    	
-				      	
+    	</div>		      	
     </div>
 </div>
 

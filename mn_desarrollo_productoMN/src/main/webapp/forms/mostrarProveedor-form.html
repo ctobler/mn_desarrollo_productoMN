@@ -7,24 +7,19 @@
 
  <script cam-script type="text/form-script">
 
-	
 	//traer la variable de java llamada 'dataProductoMN'
  	camForm.on('form-loaded', function() {
 		camForm.variableManager.fetchVariable('dataProductoMN');		
 	});
-
 	camForm.on('variables-fetched', function() {
 		$scope.dataProductoMN= camForm.variableManager.variable('dataProductoMN').value;
 	});
 
 	//traer variable 'pago' ingresada en el start-form	
 	camForm.on('form-loaded', function() {
-  	// tell the form SDK to fetch the json variable named 'pago'
   		camForm.variableManager.fetchVariable('pago');
 	});
-
 	camForm.on('variables-fetched', function() {
-  	// trabajar con valor de variable 'pago' (atar su valor a AngularJS $scope)
   		$scope.pago = camForm.variableManager.variableValue('pago');
 	});
 
@@ -32,7 +27,6 @@
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('MONEDA_PRESUPUESTO');
 	});
-
 	camForm.on('variables-fetched', function() {
   		$scope.MONEDA_PRESUPUESTO = camForm.variableManager.variableValue('MONEDA_PRESUPUESTO');
 	});
@@ -41,7 +35,6 @@
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('TIPO_CLIENTE');
 	});
-
 	camForm.on('variables-fetched', function() {
   		$scope.TIPO_CLIENTE = camForm.variableManager.variableValue('TIPO_CLIENTE');
 	});
@@ -50,7 +43,6 @@
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('NOMBRE_CLIENTE');
 	});
-
 	camForm.on('variables-fetched', function() {
   		$scope.NOMBRE_CLIENTE = camForm.variableManager.variableValue('NOMBRE_CLIENTE');
 	});
@@ -59,7 +51,6 @@
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('UNIDADES_PRESUPUESTO');
 	});
-
 	camForm.on('variables-fetched', function() {
   		$scope.UNIDADES_PRESUPUESTO = camForm.variableManager.variableValue('UNIDADES_PRESUPUESTO');
 	});
@@ -68,7 +59,6 @@
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('NOMBRE_PRODUCTO');
 	});
-
 	camForm.on('variables-fetched', function() {
   		$scope.NOMBRE_PRODUCTO = camForm.variableManager.variableValue('NOMBRE_PRODUCTO');
 	});
@@ -77,7 +67,6 @@
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('COSTO_PRESUPUESTO');
 	});
-
 	camForm.on('variables-fetched', function() {
   		$scope.COSTO_PRESUPUESTO = camForm.variableManager.variableValue('COSTO_PRESUPUESTO');
 	});
@@ -86,7 +75,6 @@
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('COTIZACION_DOLAR');
 	});
-
 	camForm.on('variables-fetched', function() {
   		$scope.COTIZACION_DOLAR = camForm.variableManager.variableValue('COTIZACION_DOLAR');
 	});
@@ -94,37 +82,35 @@
  </script>
  
 <div class="control-group">
-    <div class="controls">
 	<label for="ORDEN_COMPRA" class="control-label"><b>Orden de Compra:</b></label>    	
-   		<input type="text" 
-    	   	   cam-variable-name="ORDEN_COMPRA"
-    	   	   class="form-control"
-		readonly>
-     	<p><b>Cliente:</b></p>
-     	<p>{{NOMBRE_CLIENTE}}</p>
-     	<p><b>Producto:</b></p>
-    	<p>{{UNIDADES_PRESUPUESTO+" "+NOMBRE_PRODUCTO+" ("+dataProductoMN.trabajoRealizado+")"}}</p>    	
-		<p><b>Precio de Venta: </b></p>
-  		<p>{{MONEDA_PRESUPUESTO +" "+ COSTO_PRESUPUESTO}}</p>
-		<p><b>Costo de Producción:</b></p>
-		<p>{{MONEDA_PRESUPUESTO+" "+dataProductoMN.total+" "}}</p>
-		<p><b>Ganancia:</b></p>
-<!-- 		<p>{{MONEDA_PRESUPUESTO + " " + (COSTO_PRESUPUESTO - dataProductoMN.total) }}</p> -->
-      	<p>{{MONEDA_PRESUPUESTO}} {{(COSTO_PRESUPUESTO - dataProductoMN.total) | number : 2}}</p>
-      	<p><b>Seña Recibida: </b></p>
-  		<p>{{pago.moneda +" "+ pago.senia}}</p>
-  		</div>
+	<select cam-variable-name="cotizacion"
+     		cam-variable-type="String"
+            cam-choices="PRESUPUESTOS_APROBADOS"
+            ng-required="!cancelarProduccion"
+            readonly
+            class="form-control">
+	</select>
+	<p><b>Cliente:</b></p>
+    <p>{{NOMBRE_CLIENTE}}</p>
+    <p><b>Producto:</b></p>
+    <p>{{UNIDADES_PRESUPUESTO+" "+NOMBRE_PRODUCTO+" ("+dataProductoMN.trabajoRealizado+")"}}</p>    	
+	<p><b>Precio de Venta: </b></p>
+  	<p>{{MONEDA_PRESUPUESTO}} {{COSTO_PRESUPUESTO | number : 2}}</p>
+	<p><b>Costo de Producción:</b></p>
+	<p>{{MONEDA_PRESUPUESTO}} {{dataProductoMN.total| number : 2}}</p>
+	<p><b>Ganancia:</b></p>
+    <p>{{MONEDA_PRESUPUESTO}} {{(COSTO_PRESUPUESTO - dataProductoMN.total) | number : 2}}</p>
+    <p><b>Seña Recibida: </b></p>
+  	<p>{{pago.moneda+" "}} {{pago.senia | number : 2}}</p>
   		
-		<p align="center"><b>Proveedores</b></p>
+	<p align="center"><b>Proveedores</b></p>
+	<br>
+    <div ng-repeat="prov in dataProductoMN.proveedoresMN">
 		<br>
-      	<div ng-repeat="prov in dataProductoMN.proveedoresMN">
-			<br>
-			<p><b>Nombre Proveedor: </b>{{prov.tipoProveedor}}</p>
-   			<p><b>Precio Proveedor: </b>{{prov.moneda+" "+prov.precio+" "+"("+prov.ivaProveedor+")"}}</p>
-   			<p><b>Detalles Proveedor: </b>{{prov.detalles}}</p>
-      		<hr>
-      	</div>
-  
+		<p><b>Nombre Proveedor: </b>{{prov.tipoProveedor}}</p>
+   		<p><b>Precio Proveedor: </b>{{prov.moneda}} {{prov.precio | number : 2}} {{"("+prov.ivaProveedor+")"}}</p>
+   		<p><b>Detalles Proveedor: </b>{{prov.detalles}}</p>
+    	<hr>
     </div>
 </div>
 

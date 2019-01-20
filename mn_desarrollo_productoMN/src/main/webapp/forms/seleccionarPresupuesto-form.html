@@ -19,7 +19,7 @@
 
   </script>
   	<div class="control-group">
-  		<label class="control-label">Seña recibida: {{pago.moneda +" "+ pago.senia}}</label>
+  		<label class="control-label">Seña recibida: {{pago.moneda+" "}}{{pago.senia| number : 2}}</label>
   	</div>
   	<label for="categoria" class="control-label">Cotización *</label>
   	<select cam-variable-name="cotizacion"
