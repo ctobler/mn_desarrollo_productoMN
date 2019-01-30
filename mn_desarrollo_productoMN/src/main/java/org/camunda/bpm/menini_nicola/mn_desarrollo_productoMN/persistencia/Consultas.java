@@ -126,7 +126,7 @@ public class Consultas {
 	//CONSULTAS TABLA: mn_producto
 	public String selectNombreProducto()
 	{
-		String select="SELECT nombre FROM mn_producto WHERE idProducto=?;";
+		String select="SELECT nombre FROM mn_producto WHERE idPresupuesto=?;";
 		return select;
 	}
 
