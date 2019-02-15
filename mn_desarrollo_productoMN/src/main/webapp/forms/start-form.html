@@ -52,12 +52,15 @@
 	    <div class="col-xs-9">
 	    	<div class="control-group">
 	    		<div class="controls">
-          			<input id="senia" 
-          				   class="form-control"
-          				   type="text"
+          			<input type="text"
+          				   id="senia" 
           				   ng-model="pago.senia"
           				   required
-          				   name="SENIA" />
+          				   name="SENIA"
+          				   class="form-control"
+          				   min="0"
+    				       ng-pattern="/^(?:[1-9]\d*|0)?(?:\.\d+)?$/"
+          				    />
           			
           			<p>
       					<span style="color:red" ng-show="form.SENIA.$dirty && form.SENIA.$invalid">

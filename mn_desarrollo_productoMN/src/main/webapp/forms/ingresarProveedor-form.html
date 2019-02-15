@@ -25,6 +25,14 @@
   		$scope.MONEDA_PRESUPUESTO = camForm.variableManager.variableValue('MONEDA_PRESUPUESTO');
 	});
 
+	//traer variable 'COSTO_PRESUPUESTO'
+	camForm.on('form-loaded', function() {
+  		camForm.variableManager.fetchVariable('COSTO_PRESUPUESTO');
+	});
+	camForm.on('variables-fetched', function() {
+  		$scope.COSTO_PRESUPUESTO = camForm.variableManager.variableValue('COSTO_PRESUPUESTO');
+	});
+
 	//traer variable 'TIPO_CLIENTE'
 	camForm.on('form-loaded', function() {
   		camForm.variableManager.fetchVariable('TIPO_CLIENTE');
@@ -59,7 +67,6 @@
 
 	var dataProductoMN = $scope.dataProductoMN={
 		proveedoresMN : [],
-		total : 0,
 		trabajoRealizado: ""
 	};
 	var subtotal = $scope.subtotal = {};
@@ -72,12 +79,8 @@
 		for(var i=0; i < $scope.dataProductoMN.proveedoresMN.length; i++)
 		{
 			var prov= $scope.dataProductoMN.proveedoresMN[i];
-				
-				if ( isNaN(prov.precio) )
-					prov.precio= 0;
-				else	
-					total += prov.precio;
-			
+			total += prov.precio;
+
 		}
 		$scope.dataProductoMN.total= total;
 		return total;
@@ -176,7 +179,7 @@
   </script>
   	
   	  <div class="control-group">
-  		<label class="control-label">Moneda del Presupuesto: {{MONEDA_PRESUPUESTO}}</label>
+  		<label class="control-label">Precio de Venta: {{MONEDA_PRESUPUESTO}} {{COSTO_PRESUPUESTO | number : 2}}</label>
 	  </div>
 	  <div class="control-group">
   		<label>Cotización del dolar: $U {{COTIZACION_DOLAR}} </label>
@@ -200,9 +203,11 @@
   			<label for="CANTIDAD" class="control-label">Unidades</label>
   				<input 	id="idCantidad" 
    						class="form-control"
-   						type="number" 
+   						type="text" 
    						ng-required="!cancelarProduccion"
    						ng-model="UNIDADES_PRESUPUESTO"
+   						ng-pattern="/^-?[0-9][^\.]*$/"
+    	   				min="1"
     	   				readonly>	
  		 </div>
          <div class="col-xs-10">
@@ -277,10 +282,13 @@
             	<label  class="control-label">Precio *</label>
    				<input 	id="idPrecio"
    						class="form-control"
-   						type="number" 
+   						type="text" 
    						ng-required="!cancelarProduccion"
    						ng-model="prov.precio"
-    	   				name="PRECIO">
+    	   				name="PRECIO"
+    	   				min="0"
+    	     			ng-pattern="/^(?:[1-9]\d*|0)?(?:\.\d+)?$/"
+    	     			onfocus="this.value=''"	>
     	   				<!--validar ingreso de precio-->
       					<p>
       						<span style="color:red" ng-show="form.PRECIO.$dirty && form.PRECIO.$invalid">
