@@ -282,12 +282,11 @@
             	<label  class="control-label">Precio *</label>
    				<input 	id="idPrecio"
    						class="form-control"
-   						type="text" 
+   						type="number" 
    						ng-required="!cancelarProduccion"
    						ng-model="prov.precio"
     	   				name="PRECIO"
     	   				min="0"
-    	     			ng-pattern="/^(?:[1-9]\d*|0)?(?:\.\d+)?$/"
     	     			onfocus="this.value=''"	>
     	   				<!--validar ingreso de precio-->
       					<p>
